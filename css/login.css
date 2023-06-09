@@ -1,0 +1,103 @@
+.con-main-gest .contenedor{
+    width: 90%;
+    max-width: 450px;
+    min-width: 290px;
+    border-radius:10px;
+    position: relative;
+    height: 470px;
+}
+.glass{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 10%);
+    border: 1px solid rgba(255, 255, 255, 7%);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+    border-radius: 10px;
+}
+.con-info-ge{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.con-login{
+    display: grid;
+    grid-template-columns: 80%;
+    justify-content: center;
+    grid-template-rows: 110px 210px 130px;
+    justify-items: center;
+    text-align: center;
+}
+.con-login div{
+    width: 100%;
+}
+.head-login{
+    display: grid;
+    align-items: center;
+}
+.head-login h2{
+    color: white;
+    font-family: 'Poppins';
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0px;
+}
+.body-login{
+    display: grid;
+}
+.body-login form{
+    display: grid;
+    row-gap: 10px;
+}
+.body-login form .form-floating input{
+    background-color: rgba(255, 255, 255, 10%);
+    border: 1px solid rgba(255, 255, 255, 7%) ;
+    color: white;
+    font-family: 'Nunito';
+}
+.body-login form .form-floating label{
+    color: white;
+    font-family: 'Nunito';
+}
+.body-login .con-btn-lo{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 160px;
+    justify-content: center;
+    align-content: center;
+    border-radius: 15px;
+    color: white;
+}
+.con-btn-lo input{
+    font-family: 'Poppins';
+    background: #2F3046;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border-style: none;
+}
+ 
+.foo-login{
+    display: grid;
+    grid-template-rows: 1fr 46.2px;
+    justify-items: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+.foo-login p{
+    margin: 0px;
+    color: white;
+    font-family: 'Nunito';
+    font-size: 17px;
+}
+.foo-login p a{
+    color: white;
+}
+.foo-login img{
+    width: 70px;
+    margin-top: 10px;
+}
