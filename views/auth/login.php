@@ -1,3 +1,6 @@
+<?php
+    include('./security/verAuth.php');
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,14 +29,20 @@
                     <h2>Iniciar sesión</h2>
                 </div>
                 <div class="body-login">
-                    <form action="../../controller/auth.php?action=login" method="post">
+                    <form action="../../controller/auth.php?action=login" method="post"  autocomplete="nope">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input type="text" class="form-control" id="nickname_input" placeholder="name@example.com" name="nickname">
                             <label for="floatingInput">Nombre de usuario</label>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                El usuario que ingresaste no esta conectado a una cuenta
+                            </div>
                         </div>
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="password_input" placeholder="Password" name="password" >
                             <label for="floatingPassword">Contraseña</label>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                La contraseña que ingresaste es incorrecta.
+                            </div>
                         </div>
                         <div class="con-btn-lo">
                             <input type="submit" value="Ingresar">
@@ -51,6 +60,14 @@
     <!-- scripts main -->
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
+    
     <!-- scripts main -->
+    
+    <?php
+        if(isset($_SESSION['errorLogin'])){
+            echo $_SESSION['errorLogin'] == 'nickname' ? "<script> $('#nickname_input').addClass('is-invalid') </script>" : "<script> $('#password_input').addClass('is-invalid') </script>";
+            unset( $_SESSION['errorLogin']);
+        }
+    ?>
 </body>
 </html>
