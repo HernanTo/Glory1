@@ -5,7 +5,8 @@
     class userControlller{
         public function index(){
             $User = new User;
-            $User->index();
+            $data = $User->index();
+
         }
         public function store(){
             $ft_name = $_POST['ft_name'];

@@ -4,10 +4,10 @@
 
     class billControlller{
         public function index(){
-
             $Bill = new Bill;
             $Bill->index();
         }
+        
         public function store(){
 
             $Bill = new Bill;
@@ -31,7 +31,9 @@
         }
 
         public function delete(){
-            echo 'a';
+            $id = $_POST['id_bill_delete'];
+            $Bill = new Bill;
+            $Bill->delete($id);
         }
     }
 

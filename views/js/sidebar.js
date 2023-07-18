@@ -1,6 +1,7 @@
 let stateMenu = false;
 let minMenu = false;
 let outmouse = false;
+let estadoConLogs = false;
 
 let sidebar = document.querySelector('.con-sidebar');
 
@@ -33,3 +34,36 @@ sidebar.addEventListener('mouseout', event=>{
         // alert('sale')
     }
 })
+
+let estadoDrow = false;
+
+// navbar
+document.getElementById('info-us-na').addEventListener('mouseover', event =>{
+     $('.dronwdonw-nav-user').addClass('dronwdonw-nav-user-show');
+})
+document.getElementById('info-us-na').addEventListener('mouseout', event =>{
+    $('.dronwdonw-nav-user').removeClass('dronwdonw-nav-user-show');
+})
+
+document.getElementById('drown-navbar').addEventListener('mouseover', event =>{
+    $('.dronwdonw-nav-user').addClass('dronwdonw-nav-user-show');
+})
+document.getElementById('drown-navbar').addEventListener('mouseout', event =>{
+   $('.dronwdonw-nav-user').removeClass('dronwdonw-nav-user-show');
+})
+
+
+document.getElementById('btn-logs-s').addEventListener('click', event=>{
+    if(estadoConLogs){
+        $('.dronwdonw-logs').removeClass('dronwdonw-nav-log-show');
+        estadoConLogs = false;
+    }else{
+        $('.dronwdonw-logs').addClass('dronwdonw-nav-log-show');
+        estadoConLogs = true;
+    }
+});
+document.getElementById('cross-logs').addEventListener('click', event=>{
+    $('.dronwdonw-logs').removeClass('dronwdonw-nav-log-show');
+    estadoConLogs = false;
+})
+// navbar

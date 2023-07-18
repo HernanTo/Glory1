@@ -2,7 +2,7 @@
     include('../auth/security/securityGeneral.php');
     require ('../../model/product.php');
     $Product = new Product;
-    $data = $Product->index();
+    $data = $Product->index($_SESSION['role_id']);
 ?>
 <!DOCTYPE html>
 <html lang="es">

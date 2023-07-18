@@ -5,7 +5,7 @@
     $User = new User;
     $Product = new Product;
     $customers = $User->searchRol(5);
-    $seller = $User->searchRol(1);
+    $seller = $User->searchRol(6);
     $products = $Product->index();
 ?>
 <!DOCTYPE html>

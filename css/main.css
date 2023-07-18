@@ -42,3 +42,12 @@
     border-radius: 0px 0px 10px 10px;
     height: 100%;
 }
+.header-page-g h2{
+    font-family: 'Poppins';
+    font-weight: 650;
+    text-align: center;
+    margin-top: 20px;
+}
+.header-page-g h2 img {
+    height: 30px;
+}

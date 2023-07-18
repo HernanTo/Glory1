@@ -122,3 +122,46 @@
   </div>
 </div>
 <!-- Notificacion usuario nuevo -->
+
+
+ <!-- Notificación usuario eliminado -->
+ <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="notibilldelete" class="toast toast-lotus" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/img/icons/lotus.svg" class="rounded me-2 img-lotus-toas" alt="...">
+      <strong class="me-auto">Lotus</strong>
+      <small>Ahora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">    
+      !Factura eliminada con éxito!
+    </div>
+  </div>
+</div>
+ <!-- Notificación usuario eliminado -->
+
+ <!-- Modal eliminar usuario -->
+ <div class="modal modal-general modal-delete" tabindex="-1" id="modal-delete-bill">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">
+            <img src="../../assets/img/icons/circle-trash.svg" alt="">
+            Eliminar usuario
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que quiere eliminar la siguiente factura? <br> <b id="name-bill-delete"></b>?</p>
+      </div>
+      <form action="../../controller/bill.php?action=delete" method="post" id="form-delete-user">
+        <input type="text" name="id_bill_delete" id="id_bill_delete" style="display: none;">
+      </form>
+      <div class="modal-footer modal-foo-c">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btn-eliminar-user">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Modal eliminar usuario -->

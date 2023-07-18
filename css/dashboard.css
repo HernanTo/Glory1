@@ -38,8 +38,8 @@
 }
 .item-repo{
     display: grid;
-    grid-template-columns: 60px 1fr;
-    grid-template-rows: 20px 40px;
+    grid-template-columns: 55px 1fr;
+    grid-template-rows: 20px 35px;
     column-gap: 20px;
 }
 .item-repo p{
@@ -146,7 +146,7 @@
 }
 .body-emp-r a{
     display: grid;
-    grid-template-columns: 50px 150px;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: 30px 20px;
     text-decoration: none;
     align-items: center;
@@ -170,7 +170,7 @@
     transform: scale(1.04);
 }
 .body-emp-r a h3{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     font-family: 'Poppins';
     margin: 0px;
@@ -266,7 +266,10 @@
         padding: 20px 20px;
     }
     .add-user-r{
-        display: none !important;
+        display: grid   ;
+    }
+    .add-user-r h3{
+        grid-row: 1/3;
     }
 
     

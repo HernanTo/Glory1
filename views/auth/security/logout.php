@@ -12,6 +12,7 @@
     $_SESSION['adminLimit'] = null;
     $_SESSION['cliente'] = null;
     $_SESSION['empleado'] = null;
+    $_SESSION['user_id'] = null;
 
     header('Location: ../../../views/auth/login.php');
 ?>

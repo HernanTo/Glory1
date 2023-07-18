@@ -7,7 +7,6 @@
             $password = password_hash($cedula, PASSWORD_DEFAULT);
             
             $input = "INSERT INTO user(cedula, ft_name, sd_name, fi_lastname, sc_lastname, nickname, password, phone, address, email, photo) VALUES ($cedula,'$ft_name','$sd_name','$ft_lastname','$st_lastname','$nickname','$password',$phone,'$address','$email','../../assets/img/profilePictures/default.png')";
-            echo $input;
             
             mysqli_query($db, $input);
             $user = mysqli_insert_id($db);
@@ -16,6 +15,13 @@
             mysqli_query($db, $input);
             
             $_SESSION['user-add'] = true;
+
+            include('../model/log.php');
+            date_default_timezone_set('America/Bogota');
+            $date =  date("Y-m-d H:i:s");
+            $Log = new Log;
+
+            $Log->store($_SESSION['user_id'], '2', 'Se creó un nuevo usuario', $date, 2);
             
             header('Location: ../views/user/');
         }
@@ -29,13 +35,20 @@
             $input = "INSERT INTO user(cedula, ft_name, sd_name, fi_lastname, sc_lastname, nickname, password, phone, address, email, photo) VALUES ($cedula,'$ft_name','$sd_name','$ft_lastname','$st_lastname','$nickname','$password',$phone,'$address','$email','../../assets/img/profilePictures/default.png')";
             echo $input;
             
-            mysqli_query($db, $input);
+            // mysqli_query($db, $input);
             $user = mysqli_insert_id($db);
             
             $input = "INSERT INTO user_has_role(user_id, role_id, state) VALUES ('$user','$role',1)";
-            mysqli_query($db, $input);
+            // mysqli_query($db, $input);
             
             $_SESSION['user-add'] = true;
+
+            include('../model/log.php');
+            date_default_timezone_set('America/Bogota');
+            $date =  date("Y-m-d H:i:s");
+            $Log = new Log;
+
+            $Log->store($_SESSION['user_id'], '2', 'Se creó un nuevo usuario', $date, 2);
             
             header('Location: ../views/bill/add-bill.php');
         }
@@ -56,7 +69,7 @@
         public function searchRol($rol){
             require ('../../config/connection.php');
 
-            $input = "SELECT id, cedula, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) AS nombres, nickname, phone, address, email, photo, role_id FROM user
+            $input = "SELECT id, cedula, CONCAT(ft_name, ' ', fi_lastname) AS nombres, nickname, phone, address, email, photo, role_id FROM user
             INNER JOIN user_has_role
             ON user_id = id
             WHERE state = 1 AND role_id = $rol";

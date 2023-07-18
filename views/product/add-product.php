@@ -1,5 +1,9 @@
 <?php
     include('../auth/security/securityGeneral.php');
+    include('../../model/category.php');
+
+    $Category = new Category;
+    $data = $Category->index();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,9 +58,11 @@
                             <div class="form-floating form-lotus">
                                 <select class="form-select" id="category" aria-label="Floating label select example" name="category" required>
                                     <option selected disabled>Elegir una opción</option>
-                                    <option value="1">Categoria 1</option>
-                                    <option value="2">Categoria 2</option>
-                                    <option value="3">Categoria 3</option>
+                                    <?php
+                                        while($row = $data->fetch_assoc()){
+                                            ?><option value="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></option><?php
+                                        }
+                                    ?>
                                 </select>
                                 <label for="category">Categoria</label>
                                 <img src="../../assets/img/icons/border-all.svg" alt="" class="ico-in">

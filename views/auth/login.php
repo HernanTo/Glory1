@@ -31,7 +31,7 @@
                 <div class="body-login">
                     <form action="../../controller/auth.php?action=login" method="post"  autocomplete="nope">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="nickname_input" placeholder="name@example.com" name="nickname">
+                            <input type="number" class="form-control" id="nickname_input" placeholder="name@example.com" name="nickname" onkeydown="return event.keyCode !== 69">
                             <label for="floatingInput">Nombre de usuario</label>
                             <div id="validationServer03Feedback" class="invalid-feedback">
                                 El usuario que ingresaste no esta conectado a una cuenta
@@ -42,7 +42,7 @@
                             <label for="floatingPassword">Contraseña</label>
                             <div id="validationServer03Feedback" class="invalid-feedback">
                                 La contraseña que ingresaste es incorrecta.
-                            </div>
+                        </div>
                         </div>
                         <div class="con-btn-lo">
                             <input type="submit" value="Ingresar">

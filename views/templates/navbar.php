@@ -10,6 +10,10 @@
         $role = 'Trabajador';
 
     }
+
+    include('../../model/log.php');
+    $Log = new Log;
+    $dataLogs = $Log->index($_SESSION['role_id']);
 ?>
 
 <div class="navbar">
@@ -17,7 +21,7 @@
                 <div class="btn-menu">
                     <img src="../../assets/img/icons/menuham.svg" alt="Menu" id="btn-menu">
                 </div>
-                <a href="" class="icon-hre">
+                <a href="../dashboard/" class="icon-hre">
                     <img src="../../assets/img/icons/lotus.svg" alt="Logo">
                 </a>
 
@@ -43,11 +47,11 @@
                 <div class="btn-config">
                     <img src="../../assets/img/icons/settings.svg" alt="searching">
                 </div>
-                <div class="btn-logs-s">
+                <div class="btn-logs-s" id="btn-logs-s">
                     <img src="../../assets/img/icons/logs.svg" alt="logs">
                 </div>
                 <div class="con-profile-s">
-                    <div class="info-u-s">
+                    <div class="info-u-s" id="info-us-na">
                         <div class="con-name-s"><h3><?php echo $_SESSION['ft_name'] .' '. $_SESSION['fi_lastname'] ?></h3></div>
                         <div class="con-rol-s"><p><?php echo $role ?></p></div>
                         <div class="con-img-s">
@@ -56,4 +60,44 @@
                     </div>
                 </div>
             </section>
+        </div>
+        <div class="dronwdonw-nav-user " id="drown-navbar">
+            <a href="../cuenta/">Mi perfil</a>
+            <div class="divider-dron"></div>
+            <a href="../cuenta/settings.php">Configuraciones</a>
+            <a href="../auth/security/logout.php">Cerrar sesión</a>
+        </div>
+        <div class="dronwdonw-logs">
+            <div class="header-logs-d">
+                <h3>Logs</h3>
+                <img src="../../assets/img/icons/cross-small.svg" alt="" class="cross" id="cross-logs">
+            </div>
+            <div class="body-logs-d">
+                <?php
+                    if(mysqli_num_rows($dataLogs) > 0){
+                        while($row = $dataLogs->fetch_assoc()){
+                            if($row['type'] == '1'){
+                                $iconLogs = 'pen-circleg.svg';
+                            }else if($row['type'] == '2'){
+                                $iconLogs = 'addg.svg';
+                            }else if($row['type'] == '3'){
+                                $iconLogs = 'comment-xmarkg.svg';
+                            }else if($row['type'] == '4'){
+                                $iconLogs = 'bug-slash.svg';
+
+                            }
+                            ?>
+                                <div class="log-d">
+                                    <div class="info-ico"><img src="../../assets/img/icons/<?php echo $iconLogs ?>" alt=""></div>
+                                    <div class="info-l"><?php echo $row['descr'] ?></div>
+                                    <div class="info-date-l"><?php echo $row['date'] ?></div>
+                                    <div class="info-au" title="<?php echo $row['name_user']?>">Por <img src="../../assets/img/profilePictures/<?php echo $row['photo'] ?>" alt="imagen-usuario" class="autor-log-img"></div>
+                                    <div class="con-red"><a href="../log/">IR</a></div>
+                                </div>
+                            <?php
+                        }
+                    }
+                ?>
+            </div>
+            <div class="con-footer-logs-m"><a href="../log/">Ver todos -></a></div>
         </div>

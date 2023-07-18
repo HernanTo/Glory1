@@ -1,5 +1,8 @@
 <?php 
     include('../auth/security/securityGeneral.php');
+    require ('../../model/user.php');
+    $User = new User;
+    $seller = $User->searchRol(6);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,7 +32,7 @@
         <div class="container-general">
             <div class="container-dash">
                 <div class="func-dash">
-                    <a href="#">Nueva Factura</a>
+                    <a href="../bill/add-bill.php">Nueva Factura</a>
                     <a href="../user/" class="user-btn-d">Usuarios</a>
                 </div>
                 <div class="con-report con-report-main">
@@ -100,16 +103,25 @@
                 <div class="con-usu-r">
                     <div class="con-report">
                         <div class="header-report">
-                            <h4 class="name-report">Empleados</h4>
+                            <h4 class="name-report">Trabajadores</h4>
                         </div>
                         <div class="body-report body-emp-r">
-                            <a href="" class="con-empl"><img src="../../assets/img/profilePictures/profile.jpg" alt=""><h3>Hernán Torres</h3><p>@HernanTo</p></a>
-                            <a href=""class="con-empl"><img src="../../assets/img/profilePictures/profile.jpg" alt=""><h3>Hernán Torres</h3><p>@HernanTo</p></a>
-                            <a href="" class="con-empl"><img src="../../assets/img/profilePictures/profile.jpg" alt=""><h3>Hernán Torres</h3><p>@HernanTo</p></a>
-                            <a href="" class="add-user-r"><img src="../../assets/img/icons/plus_cuad.svg" alt=""><h3>Agregar usuario</h3><p></p></a>
+                            <?php
+                                $con = 0;
+                                while($row = $seller->fetch_assoc()){
+                                    if($con < 2){
+
+                                        ?>
+                                        <a href="#" class="con-empl"><img src="../../assets/img/profilePictures/<?php echo $row['photo'] ?>" alt=""><h3><?php echo $row['nombres'] ?></h3><p>@<?php echo $row['nickname'] ?></p></a>
+                                        <?php
+                                        $con = $con + 1;
+                                    }
+                                }
+                            ?>
+                            <a href="../user/" class="add-user-r"><img src="../../assets/img/icons/plus_cuad.svg" alt=""><h3>Agregar usuario</h3></a>
                         </div>
                         <div class="more-info-r" style="padding-top: 10px;">
-                            <a href="#">Ver Empleados</a>
+                            <a href="../user/">Ver usuarios</a>
                         </div>
                     </div>
                 </div>
@@ -121,8 +133,8 @@
                         <div class="body-report body-enl-r">
                             <div class="con-items-info">
                                 <a href="#" class="enl-f-r"><p>Registrar usuario</p><img src="../../assets/img/icons/share-square.svg" alt=""></a>
-                                <a href="#" class="enl-f-r"><p>Listar Productos</p><img src="../../assets/img/icons/share-square.svg" alt=""></a>
-                                <a href="#" class="enl-f-r"><p>Nueva factura</p><img src="../../assets/img/icons/share-square.svg" alt=""></a>
+                                <a href="../product/" class="enl-f-r"><p>Listar Productos</p><img src="../../assets/img/icons/share-square.svg" alt=""></a>
+                                <a href="../bill/add-bill.php" class="enl-f-r"><p>Nueva factura</p><img src="../../assets/img/icons/share-square.svg" alt=""></a>
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,7 @@
                                         <td><?php echo $row['name_cliente'] ?></td>
                                         <td class="con-actions-table">
                                             <a href="../../controller/user.php?action=edit&id=<?php echo $row['id_bill'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
-                                        <a onclick="confirmTrash(<?php echo $row['id_bill'] ?>, '<?php echo $row['num_fact'] ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
+                                            <a onclick="confirmTrash(<?php echo $row['id_bill'] ?>, '<?php echo $row['num_fact'] ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
                                         </td>
                                     </tr>
                                     <?php
@@ -158,17 +158,17 @@
             }
         }
 
-        if(isset($_SESSION['deleteProduct'])){
-            if($_SESSION['deleteProduct']){
+        if(isset($_SESSION['bill_delete'])){
+            if($_SESSION['bill_delete']){
                 ?>
                 <script>
-                    notiuseradd = document.getElementById('notiprodelete');
+                    notiuseradd = document.getElementById('notibilldelete');
                     toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
                     toastBootstrap.show();
                 </script>
                 
                 <?php
-                unset($_SESSION['deleteProduct']);
+                unset($_SESSION['bill_delete']);
             }
         }
     ?>
