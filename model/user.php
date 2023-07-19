@@ -79,6 +79,20 @@
             return $output;
         }
 
+        public function searchUser($id){
+            require ('../../config/connection.php');
+
+            $input = "SELECT user.id,cedula, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
+            INNER JOIN user_has_role on user_id = user.id 
+            INNER JOIN role on user_has_role.role_id = role.id
+            WHERE user.cedula = $id";
+
+            $output = $db->query($input);
+
+
+            return $output;
+        }
+
     }
 
 ?>

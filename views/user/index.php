@@ -82,7 +82,8 @@
                                     <td><?php echo $row['phone'] ?></td>
                                     <td><?php echo $row['email'] ?></td>
                                     <td class="con-actions-table">
-                                        <a href="../../controller/user.php?action=edit&id=<?php echo $row['id'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
+                                        <a href="./user.php?cc=<?php echo $row['cedula'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
+                                        <a href="./edit.php?cc=<?php echo $row['cedula'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
                                         <a onclick="confirmTrash(<?php echo $row['id'] ?>, '<?php echo $nombre ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
                                    </td>
                                 </tr>

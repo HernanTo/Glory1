@@ -2,23 +2,31 @@
     class Account{     
         public function index($id){
             require ('../../config/connection.php');
-            $intput = "SELECT user.id,cedula, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
+            $input = "SELECT user.id,cedula, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
             INNER JOIN user_has_role on user_id = user.id 
             INNER JOIN role on user_has_role.role_id = role.id
             WHERE user.id = $id";
 
-            $output = $db->query($intput);
+            $output = $db->query($input);
+            return $output;
+        }
+        
+        public function logs($id){
+            require ('../../config/connection.php');
+            $input = "SELECT descr, logs.id, date,model, CONCAT(ft_name, ' ', fi_lastname) as name_user, photo, type FROM logs INNER JOIN user ON user.id = logs.user WHERE user = $id ORDER BY `logs`.`date` DESC";
+            
+            $output = $db->query($input);
             return $output;
         }
         
         public function edit($id){
             require ('../../config/connection.php');
-            $intput = "SELECT user.id,cedula, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
+            $input = "SELECT user.id,cedula, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
             INNER JOIN user_has_role on user_id = user.id 
             INNER JOIN role on user_has_role.role_id = role.id
             WHERE user.id = $id";
     
-            $output = $db->query($intput);
+            $output = $db->query($input);
             return $output;
         }
 

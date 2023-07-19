@@ -716,13 +716,14 @@ table tbody tr td{
 
 }
 .dataTables_paginate .pagination .paginate_button .page-link{
-  /* background: rgba(9, 13, 62, 0.04); */
+  background-color: #adb5bd;
   color: #514E6D;
   font-family: 'Poppins';
   border: 0px solid white;
+  border-radius: 10px;
 }
 .pagination .active .page-link{
-  background: rgba(0, 3, 41, 1) !important;
+  background: #00458e !important;
   /* border: 1px solid white; */
   color: white !important;
   font-weight: bold;

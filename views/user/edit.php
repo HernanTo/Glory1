@@ -1,9 +1,13 @@
 <?php
     include('../auth/security/securityGeneral.php');
-    include('../../model/account.php');
+    include('../../model/user.php');
 
-    $Account = new Account;
-    $userData = $Account->edit($_SESSION['user_id']);
+    $User = new User;
+    if(isset($_GET['cc'])){
+        $userData = $User->searchUser($_GET['cc']);
+    }else{
+        header('Location: ./');
+    }
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +16,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil | Lotus</title>
+    <title>Editar <?php echo $_GET['cc'] ?> | Lotus</title>
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
@@ -40,10 +44,12 @@
                         /
                         <a href="./index.php">Cuenta</a>
                         /
-                        <a>Editar Perfil</a>
+                        <a href="./user.php?cc=<?php echo $row['cedula'] ?>"><?php echo $row['nameLas'] ?></a>
+                        /
+                        <a>Editar</a>
                     </div>
                     <div class="info-page">
-                        <h2><img src="../../assets/img/icons/user-gear.svg" alt="">Editar Perfil</h2>
+                        <h2><img src="../../assets/img/icons/user-gear.svg" alt="">Editar - <?php echo $row['cedula'] ?></h2>
                     </div>
                 </div>
                 <div class="content-account">
@@ -58,24 +64,22 @@
                             <p>@<?php echo $row['nickname'] ?></p>
                         </div>
                         <div class="acti-acco">
-                            <a href="../auth/security/logout.php" class="logouit-accout">Cerrar Sesión</a>
+                            <a href="./user.php?cc=<?php echo $row['cedula'] ?>" class="logouit-accout">Cancelar</a>
                         </div>
                         <div class="con-src-accounts">
                             <a href="./index.php">Detalle</a>
-                            <a href="./edit.php" class="acco-active">Editar Perfil</a>
-                            <a href="./settings.php">Configuracion</a>
-                            <a href="./logs.php">Logs</a>
+                            <a href="./edit.php" class="acco-active">Editar</a>
                         </div>
                     </div>
 
                     <div class="main-sec-acco">
                         <div class="header-sec-ac header-ac">
                             <img src="../../assets/img/icons/id-card-clip-alt.svg" alt="information-user">
-                            <h2>Editar perfil</h2>
+                            <h2>Editar</h2>
                             <div class="divider"></div>
                         </div>
                         <div class="content-sec-ac">
-                            <form action="../../controller/account.php?action=update" method="post" enctype="multipart/form-data">
+                            <form action="../../controller/user.php?action=update" method="post" enctype="multipart/form-data">
                             <div class="con-detail-us-f">
                                 <section class="edit-two-c-ac">
                                     <label>Avatar</label>
@@ -86,6 +90,10 @@
                                         <input type="file" name="img-profil-c" id="img-profil-c" style="display: none" accept="image/png,image/jpeg">
                                         <input type="number" name="changepicturestate" value="0" id="changepicturestate" style="display: none;"> 
                                     </div>
+                                </section>
+                                <section class="edit-two-c-ac">
+                                    <label>Documento</label>
+                                    <input type="number" name="c" id="cc" value="<?php echo $row['cedula'] ?>" required>
                                 </section>
                                 <section class="edit-thre-c-ac">
                                     <label>Nombres</label>
@@ -117,57 +125,11 @@
                         </div>
 
                     </div>
-
-                    <div class="main-sec-acco" style="margin-top: 40px;">
-                        <div class="header-sec-ac header-ac">
-                            <img src="../../assets/img/icons/lock.svg" alt="information-user">
-                            <h2>Credenciales</h2>
-                            <div class="divider"></div>
-                        </div>
-                        <div class="content-sec-ac">
-                            <?php
-                                if($row['passchange'] != 1){
-                                    ?>
-                                    <div class="alert alert-warning alert-dismissible fade show">
-                                        <h4 class="alert-heading"><img src="../../assets/img/icons/light-emergency-on.svg" alt=""> ¡Necesita de su atención!</h4>
-                                        <p class="text-alert-war">Por motivos de seguridad, es necesario que cambie su contraseña por primera vez. La contraseña predeterminada ha sido proporcionada para facilitar el inicio de sesión, pero ahora es importante que la personalice</p>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    </div>
-                                    <?php
-                                }
-                            ?>
-                            <form action="../../controller/account.php?action=updatePassword" method="post" autocomplete="off" id="form-change-password" style="margin-top: 10px;">
-                                <section class="all-col-edit-ps">
-                                    <label for="current-password" class="form-label">Contraseña actual</label>
-                                    <input type="password" class="form-control" id="current-password" name="current-password" required>
-                                    <div class="invalid-feedback" id="current-pasw-inv">Ingrese una contraseña válida</div>
-                                </section>
-
-                                <section>
-                                    <label for="new-password" class="form-label">Nueva contraseña</label>
-                                    <input type="password" autocomplete=“new-password” class="form-control" id="new-password" name="new-password" required>
-                                    <div class="invalid-feedback" id="new-pass-chang">Contraseña no válida, asegúrase de que la nueva contraseña cumpla con los siguientes requisitos: mínimo 8 caracteres, al menos un número y una letra mayúscula.</div>
-                                </section>
-
-                                <section>
-                                    <label for="repeat-new-password" class="form-label">Confirmar nueva contraseña</label>
-                                    <input type="password" class="form-control" id="repeat-new-password" name="repeat-new-password" required>
-                                    <div class="invalid-feedback">Las contraseñas no coinciden. Por favor, inténtalo de nuevo.</div>
-                                </section>
-
-                                <section class="con-sub-edi-p con-btn-pass">
-                                    <input type="button" value="Actualizar datos" id="btn-passw">
-                                </section>
-                            </form>       
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>
         <?php
             }
-            include('./modal.php');
         ?>
     </div>
     
@@ -177,10 +139,6 @@
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/editProfile.js"></script>
-    <script>
-        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-    </script>
     <!-- scripts main -->
 </body>
 </html>
