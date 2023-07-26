@@ -34,7 +34,32 @@
         }
 
         public function delete(){
-            echo 'a';
+            $User = New User;
+            $User->delete($_POST['id']);
+
+            header('Location: ../views/user/');
+            
+        }
+
+        public function update(){
+            $ft_name = $_POST['ft_name'];
+            $sd_name = $_POST['sd_name'];
+            $fi_lastname = $_POST['fi_lastname'];
+            $sc_lastname = $_POST['sc_lastname'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $imgChange = $_FILES['img-profil-c'];
+            $changepicturestate = $_POST['changepicturestate'];
+            $idUserEdit = $_POST['ccUserEdit'];
+            $ccChange = $_POST['cc-change'];
+            $placa = $_POST['placa'];
+            $modelo = $_POST['modelo'];
+
+            $User = new User;
+            $User->update($ft_name,$sd_name,$fi_lastname,$sc_lastname,$email,$phone,$address,$imgChange, $idUserEdit, $changepicturestate, $ccChange, $placa, $modelo);
+            
+            header('Location: ../views/user/');
         }
     }
 
@@ -117,4 +142,5 @@
 
         return $nickname;
     }
+
 ?>

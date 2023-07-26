@@ -1,8 +1,12 @@
 <?php
     include('../auth/security/securityGeneral.php');
     require ('../../model/user.php');
+    require ('../../model/role.php');
     $User = new User;
     $data = $User->index();
+
+    $Role = new Role;
+    $dataRole = $Role->index();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,13 +39,13 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a>Usuarios</a>
+                        <a><?php echo $_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7 ? 'Clientes' :'Usuarios'  ?></a>
                     </div>
-                    <h2>Usuarios</h2>
+                    <h2><?php echo $_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7 ? 'Clientes' :'Usuarios'  ?></h2>
                         <div class="con-filter">
                             <button class="btn-modal-add">
                                 <img src="../../assets/img/icons/plus.svg" alt="">
-                                Nuevo usuario
+                                Nuevo <?php echo $_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7 ? 'clientes' :'usuarios'  ?>
                             </button>
                             <p>Filtrar por rol: </p>
                             <div class="con-filter-da"></div>
@@ -54,8 +58,6 @@
                             <th>Documento</th>
                             <th>Nombres</th>
                             <th>Rol</th>
-                            <th>Nickname</th>
-                            <th>Phone</th>
                             <th>Email</th>
                             <th>Actions</th>
                         </tr>
@@ -66,7 +68,7 @@
                                 if($row['role_id'] == 1){
                                     $role = "Administrador";
                                 }elseif($row['role_id'] == 4){
-                                    $role = "Administrador Limitado";
+                                    $role = "Gerente";
                                 }elseif($row['role_id'] == 5){
                                     $role = "Cliente";
                                 }elseif($row['role_id'] == 6){
@@ -78,8 +80,6 @@
                                     <td><?php echo $row['cedula'] ?></td>
                                     <td><?php echo $row['nombres'] ?></td>
                                     <td><?php echo $role ?></td>
-                                    <td>@<?php echo $row['nickname'] ?></td>
-                                    <td><?php echo $row['phone'] ?></td>
                                     <td><?php echo $row['email'] ?></td>
                                     <td class="con-actions-table">
                                         <a href="./user.php?cc=<?php echo $row['cedula'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
@@ -97,8 +97,6 @@
                             <th>Documento</th>
                             <th>Nombres</th>
                             <th>Rol</th>
-                            <th>Nickname</th>
-                            <th>Phone</th>
                             <th>Email</th>
                             <th>Actions</th>
                         </tr>
@@ -168,6 +166,32 @@
                 </script>
                 <?php
                 unset($_SESSION['user-add']);
+            }
+        }
+
+        if(isset($_SESSION['editUser'])){
+            if($_SESSION['editUser']){
+                ?>
+                <script>
+                    notiuseradd = document.getElementById('notiedituser');
+                    toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
+                    toastBootstrap.show();
+                </script>
+                <?php
+                unset($_SESSION['editUser']);
+            }
+        }
+        
+        if(isset($_SESSION['userDelete'])){
+            if($_SESSION['userDelete']){
+                ?>
+                <script>
+                    notiuseradd = document.getElementById('notideleteuser');
+                    toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
+                    toastBootstrap.show();
+                </script>
+                <?php
+                unset($_SESSION['userDelete']);
             }
         }
     ?>

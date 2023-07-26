@@ -1,46 +1,64 @@
 <?php
     class Product{
-        public function store($nameProduct, $barcode, $photo_product, $stock, $category, $price_product){
+        public function store($nameProduct, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $max_stock){
             require ('../config/connection.php');
-            $folder = '../assets/img/products/';
-            $namePiture = $photo_product['name'];
-            $typedPiture = pathinfo($photo_product['name'], PATHINFO_EXTENSION);
-			$sizePitureFile = $photo_product['size'];
+            $price = str_replace('$', '', $price_product);
+            $price = str_replace(',', '', $price);
             $num = rand(1111,9999);
-			$filefinal = $num. 'product.' . $typedPiture;
 
-
-            if(move_uploaded_file($photo_product['tmp_name'], $folder . $filefinal)){
-                chmod($folder . $filefinal, 0777);
-                $input = "INSERT INTO producto(Barcode, name_product, prices, amount, state, photo) VALUES ('$barcode','$nameProduct','$price_product','$stock', 1,'$filefinal')";
+            if($photo_product['name'] == ''){
+                $input = "INSERT INTO producto(Barcode, name_product, prices, amount, state, photo, max_stock, num_repuesto, num_photo) VALUES ('$barcode','$nameProduct','$price','$stock', 1,'default.png', $max_stock, '$num_repuesto', $num)";
 
                 mysqli_query($db, $input);
                 $product = mysqli_insert_id($db);
 
-                $input = "INSERT INTO product_has_category(id_product, id_category) VALUES ('$product','$category')";
-                mysqli_query($db, $input);
-                $_SESSION['newProduct'] = true;
 
-                include('../model/log.php');
-                date_default_timezone_set('America/Bogota');
-                $date =  date("Y-m-d H:i:s");
-                $Log = new Log;
+                foreach($category as $selectC){
+                    $input = "INSERT INTO product_has_category(id_product, id_category) VALUES ('$product','$selectC')";
+                    mysqli_query($db, $input);
+                }
 
-                $Log->store($_SESSION['user_id'], '2', 'Se creó un nuevo producto', $date, 1);
+            }else{
+                $folder = '../assets/img/products/';
+                $namePiture = $photo_product['name'];
+                $typedPiture = pathinfo($photo_product['name'], PATHINFO_EXTENSION);
+                $sizePitureFile = $photo_product['size'];
+                $filefinal = $num. 'product.' . $typedPiture;
 
-                header('Location: ../views/product/');
+                if(move_uploaded_file($photo_product['tmp_name'], $folder . $filefinal)){
+                    chmod($folder . $filefinal, 0777);
+                    $input = "INSERT INTO producto(Barcode, name_product, prices, amount, state, photo, max_stock, num_repuesto, num_photo) VALUES ('$barcode','$nameProduct','$price','$stock', 1,'$filefinal', $max_stock, '$num_repuesto', $num)";
+
+                    mysqli_query($db, $input);
+                    $product = mysqli_insert_id($db);
+
+
+                    foreach($category as $selectC){
+                        $input = "INSERT INTO product_has_category(id_product, id_category) VALUES ('$product','$selectC')";
+                        mysqli_query($db, $input);
+
+                    }
+                }
+
             }
+
+            $_SESSION['newProduct'] = true;
+
+            include('../model/log.php');
+            date_default_timezone_set('America/Bogota');
+            $date =  date("Y-m-d H:i:s");
+            $Log = new Log;
+
+            $Log->store($_SESSION['user_id'], '2', 'Se creó un nuevo producto', $date, 1);
+
+            header('Location: ../views/product/');
 
         }
 
         public function index(){
             require ('../../config/connection.php');
 
-            $input = "SELECT producto.id as id_product, Barcode, name_product, prices, amount, producto.state, category, Barcode, photo FROM producto
-            INNER JOIN product_has_category
-            ON id_product = producto.id
-            INNER JOIN category
-            ON id_category = category.id
+            $input = "SELECT producto.id as id_product, Barcode, name_product, prices, amount, producto.state, Barcode, photo FROM producto
             WHERE producto.state = 1";
 
             $output = $db->query($input);
@@ -63,6 +81,139 @@
             $Log->store($_SESSION['user_id'], '3', 'Se eliminó un producto', $date, 1);
 
             header('Location: ../views/product/');
+        }
+
+
+        public function showCategoryP($id){
+            require ('../../config/connection.php');
+
+            $input = "SELECT id_product,category  FROM product_has_category 
+            INNER JOIN category ON category.id = id_category
+            WHERE id_product = $id";
+
+            $output = $db->query($input);
+
+
+
+            foreach($output as $row){
+                ?>
+                    <div class="con-category-p-t"><?php echo $row['category'] ?></div>
+                <?php
+            }
+        }
+        public function CategoryP($id){
+            require ('../../config/connection.php');
+
+            $input = "SELECT id_product, category, id_category  FROM product_has_category 
+            INNER JOIN category ON category.id = id_category
+            WHERE id_product = $id";
+
+            $output = $db->query($input);
+
+
+            
+            $result = [];
+            foreach($output as $line){
+                array_push($result, $line['id_category']);
+            }
+            return $result;
+        }
+
+        public function searchProduct($id){
+            require ('../../config/connection.php');
+
+            $input = "SELECT *FROM producto WHERE id = $id";
+            $output = $db->query($input);
+
+            return $output;
+        }
+
+        public function update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $max_stock, $img_action, $id){
+            require ('../config/connection.php');
+
+            $price = str_replace('$', '', $price_product);
+            $price = str_replace(',', '', $price);
+
+            
+            $input = "SELECT photo, num_photo FROM producto WHERE id = $id";
+            $output = $db->query($input);
+            $deletestate = false;
+            $namePastPic = '';
+            $numPastPic = 0;
+
+            while($row = $output->fetch_assoc()){
+                if($row['photo'] != 'default.png'){
+                    $deletestate = true;
+                    $namePastPic = $row['photo'];
+                    $numPastPic = $row['num_photo'];
+                }
+            }
+
+            if($img_action == 1){
+                $folder = '../assets/img/products/';
+                $namePiture = $photo_product['name'];
+                $typedPiture = pathinfo($photo_product['name'], PATHINFO_EXTENSION);
+                $sizePitureFile = $photo_product['size'];
+                $filefinal = $numPastPic . 'product.' . $typedPiture;
+                
+                if($deletestate){
+                    unlink($folder . $namePastPic);
+                }
+
+                if(move_uploaded_file($photo_product['tmp_name'], $folder . $filefinal)){
+                    chmod($folder . $filefinal, 0777);
+                    $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', max_stock = '$max_stock', photo = '$filefinal' WHERE id = $id";
+    
+                    mysqli_query($db, $input);
+                    
+                    $_SESSION['editProduct'] = 1;
+    
+                    include('../model/log.php');
+                    date_default_timezone_set('America/Bogota');
+                    $date =  date("Y-m-d H:i:s");
+                    $Log = new Log;
+    
+                    $Log->store($_SESSION['user_id'], '1', 'Se editarón datos del producto ' . $barcode, $date, 1);
+    
+                }
+            }elseif($img_action == '2'){
+                if($deletestate){
+                    unlink('../assets/img/products/' . $namePastPic);
+                }
+
+                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', max_stock = '$max_stock', photo = 'default.png' WHERE id = $id";
+                mysqli_query($db, $input);
+                
+                $_SESSION['editProduct'] = 1;
+
+                include('../model/log.php');
+                date_default_timezone_set('America/Bogota');
+                $date =  date("Y-m-d H:i:s");
+                $Log = new Log;
+
+                $Log->store($_SESSION['user_id'], '1', 'Se editarón datos del producto ' . $barcode, $date, 1);
+
+            }elseif($img_action == 0){
+                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', max_stock = '$max_stock' WHERE id = $id";
+    
+                mysqli_query($db, $input);
+                $_SESSION['editProduct'] = 1;
+
+                include('../model/log.php');
+                date_default_timezone_set('America/Bogota');
+                $date =  date("Y-m-d H:i:s");
+                $Log = new Log;
+
+                $Log->store($_SESSION['user_id'], '1', 'Se editarón datos del producto ' . $barcode, $date, 1);
+            }
+
+            $input = "DELETE FROM product_has_category WHERE id_product = $id";
+            $output = $db->query($input);
+
+            foreach($category as $selectC){
+                $input = "INSERT INTO product_has_category(id_product, id_category) VALUES ('$id','$selectC')";
+                mysqli_query($db, $input);
+            }
         }
     }
 ?>

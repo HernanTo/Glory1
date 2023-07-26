@@ -2,7 +2,7 @@
     include('../auth/security/securityGeneral.php');
     require ('../../model/product.php');
     $Product = new Product;
-    $data = $Product->index($_SESSION['role_id']);
+    $data = $Product->index();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,7 +43,6 @@
                                 <img src="../../assets/img/icons/plus.svg" alt="">
                                 Nuevo producto
                             </a>
-                            <p>Categorías: </p>
                             <div class="con-filter-da"></div>
                             <div class="divider-fil"></div>
                         </div>
@@ -68,12 +67,19 @@
                                     <tr>
                                         <td><?php echo $row['Barcode'] ?></td>
                                         <td><?php echo $row['name_product'] ?></td>
-                                        <td><?php echo $row['category'] ?></td>
+                                        <td class="con-category-table"><?php $Product->showCategoryP($row['id_product'])?></td>
                                         <td class="prices"><?php echo $row['prices']?></td>
                                         <td><?php echo $row['amount'] ?></td>
                                         <td class="con-actions-table">
-                                            <a href="../../controller/user.php?action=edit&id=<?php echo $row['id_product'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
-                                            <a onclick="confirmTrash(<?php echo $row['id_product'] ?>, '<?php echo $nombre ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
+                                            <a href="./product.php?id=<?php echo $row['id_product'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
+                                            <?php
+                                                if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 4){
+                                                    ?>
+                                                        <a href="./edit.php?id=<?php echo $row['id_product'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
+                                                        <a onclick="confirmTrash(<?php echo $row['id_product'] ?>, '<?php echo $nombre ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
+                                                    <?php
+                                                }
+                                            ?>
                                         </td>
                                     </tr>
                                     <?php
@@ -115,33 +121,6 @@
         $(document).ready(function () {
             $('#example').DataTable({
                 responsive: true,
-                initComplete: function () {
-                this.api().columns([ 2 ]).every( function () {
-                var column = this;
-                var select = $('<select class="form-select form-select-sm selecttable-lotus"> <option value="">Todos</option> </select>')
-                .appendTo( $('.con-filter-da'))
-                .on( 'change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-                    column
-                        .search( val ? '^'+val+'$' : '', true, false )
-                        .draw();
-                } );
-
-                column.data().unique().sort().each( function ( d, j ) {
-                    if(column.search() === '^'+d+'$'){
-                        select.append(
-                            '<option value="'+d+'" selected="selected">'
-                            +d+
-                            '</option>'
-                        )
-                    } else {
-                        select.append('<option value="'+d+'">'+d+'</option>')
-                    }
-                });
-            });
-            }
             });
         });
     </script>
@@ -172,6 +151,20 @@
                 
                 <?php
                 unset($_SESSION['deleteProduct']);
+            }
+        }
+
+        if(isset($_SESSION['editProduct'])){
+            if($_SESSION['editProduct']){
+                ?>
+                <script>
+                    notiuseradd = document.getElementById('notiproedit');
+                    toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
+                    toastBootstrap.show();
+                </script>
+                
+                <?php
+                unset($_SESSION['editProduct']);
             }
         }
     ?>

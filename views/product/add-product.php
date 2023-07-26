@@ -15,6 +15,7 @@
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../libs/selects/select2.min.css">
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/component.css">
     <!-- ** Main Css -->
@@ -55,29 +56,35 @@
                                 <label for="floatingInput">Nombre producto</label>
                                 <img src="../../assets/img/icons/box-open.svg" alt="" class="ico-in">
                             </div>
-                            <div class="form-floating form-lotus">
-                                <select class="form-select" id="category" aria-label="Floating label select example" name="category" required>
-                                    <option selected disabled>Elegir una opción</option>
+                            <div class="con-categ">
+                                <select class="form-select" id="category" name="category[]" multiple="multiple" required>
+                                    <option value=""></option>
                                     <?php
                                         while($row = $data->fetch_assoc()){
                                             ?><option value="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></option><?php
                                         }
                                     ?>
                                 </select>
-                                <label for="category">Categoria</label>
-                                <img src="../../assets/img/icons/border-all.svg" alt="" class="ico-in">
                             </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Número de repuesto" name="num_repuesto" required>
+                                <label for="floatingInput">Número de repuesto</label>
+                                <img src="../../assets/img/icons/hastag.svg" alt="" class="ico-in">
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Código de barras" name="barcode" required>
+                                <label for="floatingInput">Código de barras</label>
+                                <img src="../../assets/img/icons/barcode-read.svg" alt="" class="ico-in">
+                            </div>
+
                             <div class="input-group-file">
                                 <label for="photo_product" class="con-lab">
                                     <div class="ico-inpt-file"><img src="../../assets/img/icons/upload.svg" alt=""></div>
                                     <div class="text-inpt-f" id="name_picture_prod">Seleccione la imagen</div>
                                 </label>
-                                <input type="file" id="photo_product" style="display: none" required accept="image/png,image/jpeg" name="photoProduct">
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Código de barras" name="barcode" required>
-                                <label for="floatingInput">Código de barras</label>
-                                <img src="../../assets/img/icons/barcode-read.svg" alt="" class="ico-in">
+                                <input type="file" id="photo_product" style="display: none" accept="image/png,image/jpeg" name="photoProduct">
                             </div>
                         </section>
 
@@ -96,6 +103,11 @@
                                 <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="stock" onkeydown="return event.keyCode !== 69" required>
                                 <label for="floatingInput">Cantidad de stock</label>
                                 <img src="../../assets/img/icons/truck-loading.svg" alt="" class="ico-in">
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="max_stock" onkeydown="return event.keyCode !== 69" required>
+                                <label for="floatingInput">Cantidad de stock máxima</label>
+                                <img src="../../assets/img/icons/box-open-full.svg" alt="" class="ico-in">
                             </div>
                         </section>
 
@@ -118,8 +130,20 @@
     <!-- scripts main -->
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../libs/selects/select2.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/add-product.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#category').select2({
+                placeholder: "Selecciona una o varias categorias",
+                multiple: true,
+                maximumSelectionLength: 2,
+                allowClear: true
+            });
+        });
+    </script>
     <!-- scripts main -->
 </body>
 </html>

@@ -1,0 +1,47 @@
+.action-logs{
+    max-width: 100px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    font-family: 'Poppins';
+    font-weight: 600;
+}
+.edit{
+    background: #00458e74;
+    color: #00458e;
+}
+.nuevo{
+    background: #ffc80066;
+    color: #000;
+}
+.error{
+    background-color: #f4433656;
+    color: #000;
+}
+.eliminar{
+    background: #514E6D;
+    color: white;
+}
+.user-g-log{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    column-gap: 15px;
+}
+.user-g-log img{
+    height: 40px;
+    object-fit: cover;
+    width: 40px;
+    border-radius: 10px;
+
+}
+.user-g-log h2{
+    font-size: 1.1rem;
+    font-family: 'Poppins';
+    margin: 0px;
+    color: black;
+}

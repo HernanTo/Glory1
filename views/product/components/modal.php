@@ -30,6 +30,23 @@
 <!-- Notificacion Producto nuevo -->
 
 
+<!-- Notificacion Producto nuevo -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="notiproedit" class="toast toast-lotus" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/img/icons/lotus.svg" class="rounded me-2 img-lotus-toas" alt="...">
+      <strong class="me-auto">Lotus</strong>
+      <small>Ahora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      ¡Producto editado con éxito!
+    </div>
+  </div>
+</div>
+<!-- Notificacion Producto nuevo -->
+
+
 <!-- Modal eliminar producto -->
 <div class="modal modal-general modal-delete" tabindex="-1" id="modal-delete-user">
   <div class="modal-dialog modal-dialog-centered">

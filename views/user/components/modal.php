@@ -80,22 +80,32 @@
                     Ingrese un telefóno válido
                 </div>
             </div>
-
-            <label for="" class="title-i">Rol <span>*</span></label>
-            <label for=""></label>
-            <label for=""></label>
-            <label for=""></label>
-            <div class="form-floating form-lotus rol-form-ge">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="role">
-                    <option selected disabled>Elegir una opción</option>
-                    <option value="1">Administrador</option>
-                    <option value="4">Administrador con límites</option>
-                    <option value="5">Cliente</option>
-                    <option value="6">Empleado</option>
-                </select>
-                <label for="floatingSelect">Rol</label>
-            </div>
-        </div>
+            <?php
+              if($_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7){
+                ?>
+                  <input type="number" name="role" value="5" style="display: none;">
+                <?php
+              }else{
+                ?>
+                    <label for="" class="title-i">Rol <span>*</span></label>
+                    <label for=""></label>
+                    <label for=""></label>
+                    <label for=""></label>
+                    <div class="form-floating form-lotus rol-form-ge">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="role">
+                            <option selected disabled>Elegir una opción</option>
+                          <?php
+                              while($row = $dataRole->fetch_assoc()){
+                                  ?><option value="<?php echo $row['id'] ?>"><?php echo $row['role'] ?></option><?php
+                              }
+                          ?>
+                        </select>
+                        <label for="floatingSelect">Rol</label>
+                    </div>
+                </div>
+                <?php
+              }
+            ?>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-primary" >Crear</button>
@@ -122,6 +132,38 @@
   </div>
 </div>
 <!-- Notificacion usuario nuevo -->
+
+<!-- Notificacion usuario edit -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="notiedituser" class="toast toast-lotus" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/img/icons/lotus.svg" class="rounded me-2 img-lotus-toas" alt="...">
+      <strong class="me-auto">Lotus</strong>
+      <small>Ahora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      ¡Datos del Usuario editados con éxito!
+    </div>
+  </div>
+</div>
+<!-- Notificacion usuario edit -->
+
+<!-- Notificacion usuario delete -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="notideleteuser" class="toast toast-lotus" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/img/icons/lotus.svg" class="rounded me-2 img-lotus-toas" alt="...">
+      <strong class="me-auto">Lotus</strong>
+      <small>Ahora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      ¡Usuario Eliminado con éxito!
+    </div>
+  </div>
+</div>
+<!-- Notificacion usuario delete -->
 
 
 <!-- Modal eliminar usuario -->

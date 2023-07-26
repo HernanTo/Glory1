@@ -4,11 +4,34 @@
 
     $User = new User;
     if(isset($_GET['cc'])){
-        $userData = $User->searchUser($_GET['cc']);
+        if($_GET['cc'] == ''){
+            header('Location: ./');
+        }else{
+            $userData = $User->searchUser($_GET['cc']);
+        }
     }else{
         header('Location: ./');
     }
+    
+    foreach($userData as $row){
+        if($_SESSION['role_id'] == 4){
+            if($row['role_id'] == 1){
+                $permis = false;
+            }
+        }else if($_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7){
+            if($row['role_id'] != 5){
+                $permis = false;
+            }else{
+                $permis = true;
+            }
+        }else{
+            $permis = true;
+        }
 
+        if($_SESSION['user_id'] == $row['id']){
+            header('Location: ../cuenta/edit.php');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +56,9 @@
         <?php
             include('../templates/navbar.php');
             include('../templates/sidebar.php');
-            while($row = $userData->fetch_assoc()){
+            if(mysqli_num_rows($userData) > 0 && $permis){
+                foreach($userData as $row){
+
         ?>
 
         <div class="container-general">
@@ -65,6 +90,7 @@
                         </div>
                         <div class="acti-acco">
                             <a href="./user.php?cc=<?php echo $row['cedula'] ?>" class="logouit-accout">Cancelar</a>
+                            <a onclick="confirmTrash(<?php echo $row['id'] ?>, '<?php echo $row['fullname'] ?>')" class="btn-elim-user">Eliminar</a>
                         </div>
                         <div class="con-src-accounts">
                             <a href="./index.php">Detalle</a>
@@ -80,6 +106,7 @@
                         </div>
                         <div class="content-sec-ac">
                             <form action="../../controller/user.php?action=update" method="post" enctype="multipart/form-data">
+                                <input type="text" name="ccUserEdit" value="<?php echo $row['cedula'] ?>" style="display: none;">
                             <div class="con-detail-us-f">
                                 <section class="edit-two-c-ac">
                                     <label>Avatar</label>
@@ -93,7 +120,7 @@
                                 </section>
                                 <section class="edit-two-c-ac">
                                     <label>Documento</label>
-                                    <input type="number" name="c" id="cc" value="<?php echo $row['cedula'] ?>" required>
+                                    <input type="number" name="cc-change" id="cc" value="<?php echo $row['cedula'] ?>" required>
                                 </section>
                                 <section class="edit-thre-c-ac">
                                     <label>Nombres</label>
@@ -117,6 +144,26 @@
                                     <label>Dirección</label>
                                     <input type="text" name="address" id="address" value="<?php echo $row['address'] ?>">
                                 </section>
+                                <?php
+                                    if($row['role_id'] == 5){
+                                        ?>
+                                        <section class="edit-two-c-ac">
+                                            <label>Placa</label>
+                                            <input type="text" name="placa" id="Placa" value="<?php echo $row['placa'] ?>">
+                                        </section>
+                                        <section class="edit-two-c-ac">
+                                            <label>Modelo</label>
+                                            <input type="text" name="modelo" id="Modelo" value="<?php echo $row['modelo'] ?>">
+                                        </section>
+                                        <?php
+                                    }else{
+                                        ?>
+
+                                        <input type="text" name="placa" id="Placa" value="<?php echo $row['placa'] ?>" style="display: none;">
+                                        <input type="text" name="modelo" id="Modelo" value="<?php echo $row['modelo'] ?>" style="display: none;">
+                                        <?php
+                                    }
+                                ?>
                                 <section class="con-sub-edi-p">
                                     <input type="submit" value="Actualizar datos">
                                 </section>
@@ -129,7 +176,20 @@
             </div>
         </div>
         <?php
+                }
+            }else{
+                ?>
+                
+                <div class="container-general con-g-nf">
+                    <div class="con-not-found">
+                        <img src="../../assets/img/icons/magnifying-glass.gif" alt="search" class="img-nof-s">
+                        <h2>No se encontraron resultados <img src="../../assets/img/icons/dead.svg" alt=""></h2>
+                        <a href="./">Volver</a>
+                    </div>
+                </div>
+                <?php
             }
+            include('./components/modal.php');
         ?>
     </div>
     
@@ -138,7 +198,7 @@
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
-    <script src="../js/editProfile.js"></script>
+    <script src="../js/editUser.js"></script>
     <!-- scripts main -->
 </body>
 </html>

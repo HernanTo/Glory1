@@ -23,6 +23,7 @@
     <!-- Css page -->
     <link rel="stylesheet" href="../../libs/datatable/datatables.min.css">
     <link rel="stylesheet" href="../../css/account.css">
+    <link rel="stylesheet" href="../../css/logs.css">
     <!-- Css page -->
 
 </head>

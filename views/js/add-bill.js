@@ -30,6 +30,8 @@ $(selectProduts).change('select2:select', function (e) {
                 amount: option.getAttribute('data-amount'),
                 img: option.getAttribute('data-img'),
                 inptCan: `can${option.value}`,
+                checkMOCan: `checkM${option.value}`,
+                inputMO: `checkM${option.value}`,
                 }
                 let ver = true;
                 if(seleccionados.length > 0){
@@ -38,6 +40,8 @@ $(selectProduts).change('select2:select', function (e) {
                             ver = false;
                         }
                     });
+
+                    // Verificar si el producto ya fue agregado antes
                     if(ver){
                         seleccionados.push(producto);
                         $('.con-product-ord').empty();
@@ -47,7 +51,6 @@ $(selectProduts).change('select2:select', function (e) {
                             addProductList(element);
                         });
 
-                        subtotal = 0;
                         seleccionados.forEach(element => {
                            let amount = document.getElementById(element.inptCan).value;
                
@@ -76,7 +79,6 @@ $(selectProduts).change('select2:select', function (e) {
                         addProductList(element);
                     });
 
-                    subtotal = 0;
                     seleccionados.forEach(element => {
                        let amount = document.getElementById(element.inptCan).value;
            

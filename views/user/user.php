@@ -4,11 +4,34 @@
 
     $User = new User;
     if(isset($_GET['cc'])){
-        $userData = $User->searchUser($_GET['cc']);
+        if($_GET['cc'] == ''){
+            header('Location: ./');
+        }else{
+            $userData = $User->searchUser($_GET['cc']);
+        }
     }else{
         header('Location: ./');
     }
 
+    foreach($userData as $row){
+        if($_SESSION['role_id'] == 4){
+            if($row['role_id'] == 1){
+                $permis = false;
+            }
+        }else if($_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7){
+            if($row['role_id'] != 5){
+                $permis = false;
+            }else{
+                $permis = true;
+            }
+        }else{
+            $permis = true;
+        }
+
+        if($_SESSION['user_id'] == $row['id']){
+            header('Location: ../cuenta/');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,8 +56,8 @@
         <?php
             include('../templates/navbar.php');
             include('../templates/sidebar.php');
-            if(mysqli_num_rows($userData) > 0){
-            while($row = $userData->fetch_assoc()){
+            if(mysqli_num_rows($userData) > 0 && $permis){
+            foreach($userData as $row){
         ?>
 
         <div class="container-general">
@@ -64,7 +87,7 @@
                         </div>
                         <div class="acti-acco">
                             <a href="./edit.php?cc=<?php echo $row['cedula'] ?>">Editar</a>
-                            <a href="./">Eliminar</a>
+                            <a onclick="confirmTrash(<?php echo $row['id'] ?>, '<?php echo $row['fullname'] ?>')" class="btn-elim-user">Eliminar</a>
                         </div>
                         <div class="con-src-accounts">
                             <a href="./index.php" class="acco-active">Detalle</a>
@@ -93,6 +116,16 @@
                                 <span><?php echo $row['phone'] ?></span>
                                 <label>Dirección</label>
                                 <span><?php echo $row['address'] ?></span>
+                                <?php
+                                    if($row['role_id'] == 5){
+                                        ?>
+                                        <label>Placa</label>
+                                        <span><?php echo $row['placa'] ?></span>
+                                        <label>Modelo</label>
+                                        <span><?php echo $row['modelo'] ?></span>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                             
                         </div>
@@ -115,6 +148,8 @@
             </div>
             <?php
         }
+
+        include('./components/modal.php');
 
         ?>
     </div>

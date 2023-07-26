@@ -16,7 +16,7 @@
                     </div>
                     <a href="../user/" class="items-sidebar">
                         <img src="../../assets/img/icons/users-alt.svg" alt="">
-                        <p>Usuarios</p>
+                        <p><?php echo $_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7 ? 'Clientes' :'Usuarios'  ?></p>
                     </a>
                     <a href="../product/" class="items-sidebar">
                         <img src="../../assets/img/icons/clipboard-list-check.svg" alt="">
@@ -30,7 +30,7 @@
                         <img src="../../assets/img/icons/file-invoice-dollar.svg" alt="">
                         <p>Facturas</p>
                     </a>
-                    <a href="" class="items-sidebar">
+                    <a href="../log/" class="items-sidebar">
                         <img src="../../assets/img/icons/logs.svg" alt="">
                         <p>Logs</p>
                     </a>

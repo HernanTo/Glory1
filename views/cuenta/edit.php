@@ -156,7 +156,7 @@
                                 </section>
 
                                 <section class="con-sub-edi-p con-btn-pass">
-                                    <input type="button" value="Actualizar datos" id="btn-passw">
+                                    <input type="button" value="Cambiar contraseña" id="btn-passw">
                                 </section>
                             </form>       
                         </div>

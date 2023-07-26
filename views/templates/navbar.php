@@ -75,6 +75,7 @@
             <div class="body-logs-d">
                 <?php
                     if(mysqli_num_rows($dataLogs) > 0){
+                        $count = 0;
                         while($row = $dataLogs->fetch_assoc()){
                             if($row['type'] == '1'){
                                 $iconLogs = 'pen-circleg.svg';
@@ -84,7 +85,21 @@
                                 $iconLogs = 'comment-xmarkg.svg';
                             }else if($row['type'] == '4'){
                                 $iconLogs = 'bug-slash.svg';
+                            }
 
+
+                            if($row['model'] == '1'){
+                               $enlace = '../product/';
+                            }elseif($row['model'] == '2'){
+                                $enlace = '../user/';
+                            }elseif($row['model'] == '3'){
+                                $enlace = '../bill/';
+                            }elseif($row['model'] == '4'){
+                                $enlace = '../service/';
+                            }elseif($row['model'] == '5'){
+                                $enlace = '../account/';
+                            }elseif($row['model'] == '6'){
+                                $enlace = '../cotizacion/';
                             }
                             ?>
                                 <div class="log-d">
@@ -92,12 +107,27 @@
                                     <div class="info-l"><?php echo $row['descr'] ?></div>
                                     <div class="info-date-l"><?php echo $row['date'] ?></div>
                                     <div class="info-au" title="<?php echo $row['name_user']?>">Por <img src="../../assets/img/profilePictures/<?php echo $row['photo'] ?>" alt="imagen-usuario" class="autor-log-img"></div>
-                                    <div class="con-red"><a href="../log/">IR</a></div>
+                                    <div class="con-red"><a href="<?php echo $enlace?>">Ir</a></div>
                                 </div>
                             <?php
+                            $count = $count + 1;
                         }
+                        $progreso = 30;
+                        for($i = 0; $i < $count - 1; $i++){
+                            ?>
+                            <div class="line-sec-log" style="top: <?php echo $progreso ?>px;"></div>    
+                            <?php
+                            $progreso = $progreso + 90;
+                        }
+                    }else{
+                        ?>
+                            <div class="log-v">
+                                <img src="../../assets/img/icons/empty.png" alt="">
+                                <h2>Sin actividad, por ahora.</h2>
+                            </div>
+                        <?php
                     }
                 ?>
             </div>
-            <div class="con-footer-logs-m"><a href="../log/">Ver todos -></a></div>
+            <div class="con-footer-logs-m"><a href="../log/">Ver más <img src="../../assets/img/icons/angle-circle-right.svg" alt=""></a></div>
         </div>

@@ -11,6 +11,7 @@ btnAddUser.addEventListener('click', event => {
         //       } 
         // })
 function confirmTrash(id, nameUser){
+    
     $('#modal-delete-user').modal('toggle');
     $('#name-user-delete').empty();
     document.getElementById('name-user-delete').appendChild(document.createTextNode(nameUser));
