@@ -130,7 +130,8 @@
                 }
                 if(move_uploaded_file($imgChange['tmp_name'], $folder . $filefinal)){
                     chmod($folder . $filefinal, 0777);
-                    $input = "UPDATE user SET cedula = '$ccChange', ft_name = '$ft_name', sd_name = '$sd_name', fi_lastname = '$fi_lastname', sc_lastname = '$sc_lastname', phone = '$phone', address = '$address', email = '$email', photo = '$filefinal' placa= '$placa' , modelo='$modelo' WHERE cedula = $documento";
+                    $input = "UPDATE user SET cedula = '$ccChange', ft_name = '$ft_name', sd_name = '$sd_name', fi_lastname = '$fi_lastname', sc_lastname = '$sc_lastname', phone = '$phone', address = '$address', email = '$email', photo = '$filefinal', placa= '$placa' , modelo='$modelo' WHERE cedula = $documento";
+                    echo $input;
     
                     mysqli_query($db, $input);
                     
@@ -149,7 +150,7 @@
                     unlink('../assets/img/profilePictures/' . $namePastPic);
                 }
 
-                $input = "UPDATE user SET cedula = '$ccChange', ft_name = '$ft_name', sd_name = '$sd_name', fi_lastname = '$fi_lastname', sc_lastname = '$sc_lastname', phone = '$phone', address = '$address', email = '$email', photo = 'default.png' placa= '$placa' , modelo='$modelo' WHERE cedula = $documento";
+                $input = "UPDATE user SET cedula = '$ccChange', ft_name = '$ft_name', sd_name = '$sd_name', fi_lastname = '$fi_lastname', sc_lastname = '$sc_lastname', phone = '$phone', address = '$address', email = '$email', photo = 'default.png', placa= '$placa' , modelo='$modelo' WHERE cedula = $documento";
     
                 mysqli_query($db, $input);
                 $_SESSION['editUser'] = 1;

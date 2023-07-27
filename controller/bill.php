@@ -18,7 +18,9 @@
             $customer = $_POST['customer'];
             $seller = $_POST['seller'];
             $product_price = $_POST['product_price'];
-            
+            $check_mano_obra = $_POST['check_mano_obra'];
+            $price_mano_obra = $_POST['price_mano_obra'];
+
             $Bill->store(
                 $date_bill,
                 $reference,
@@ -27,6 +29,8 @@
                 $customer,
                 $seller,
                 $product_price,
+                $check_mano_obra,
+                $price_mano_obra
             );
         }
 

@@ -1,3 +1,5 @@
+
+
 document.getElementById('img-profil-c').addEventListener('change', event => {
     var fileInput = document.getElementById('img-profil-c');
     var filePath = fileInput.value;
@@ -17,6 +19,7 @@ document.getElementById('img-profil-c').addEventListener('change', event => {
     }
     )
     document.getElementById('trash-pic').addEventListener('click', event =>{
+
       document.getElementById('img-profil-c').value = "";
       document.getElementById('edit-profile-img').src = "../../assets/img/profilePictures/default.png";
       document.getElementById('changepicturestate').value = 2;

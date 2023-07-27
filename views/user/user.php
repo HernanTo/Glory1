@@ -1,6 +1,9 @@
 <?php
     include('../auth/security/securityGeneral.php');
     include('../../model/user.php');
+    require ('../../model/role.php');
+    $Role = new Role;
+    $dataRole = $Role->index();
 
     $User = new User;
     if(isset($_GET['cc'])){

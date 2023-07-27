@@ -24,14 +24,14 @@ $(selectProduts).change('select2:select', function (e) {
         if (option.selected) {
             if(option.value != ""){
                 var producto = {
-                id: option.value,
-                name: option.text,
-                price: option.getAttribute('data-price'),
-                amount: option.getAttribute('data-amount'),
-                img: option.getAttribute('data-img'),
-                inptCan: `can${option.value}`,
-                checkMOCan: `checkM${option.value}`,
-                inputMO: `checkM${option.value}`,
+                    id: option.value,
+                    name: option.text,
+                    price: option.getAttribute('data-price'),
+                    amount: option.getAttribute('data-amount'),
+                    img: option.getAttribute('data-img'),
+                    inptCan: `can${option.value}`,
+                    checkMOCan: `checkM${option.value}`,
+                    inputMO: `priceM${option.value}`,
                 }
                 let ver = true;
                 if(seleccionados.length > 0){
@@ -50,12 +50,14 @@ $(selectProduts).change('select2:select', function (e) {
                         seleccionados.forEach(element => {
                             addProductList(element);
                         });
-
+                        
+                        subtotal = 0;
                         seleccionados.forEach(element => {
                            let amount = document.getElementById(element.inptCan).value;
-               
-                           subtotal = subtotal + (parseInt(element.price) * parseInt(amount));
-               
+                           let manoObra = document.getElementById(element.inputMO).value;
+                
+                           subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+                
                            $('#con-sub-t').empty();
                            document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
                         })
@@ -78,12 +80,14 @@ $(selectProduts).change('select2:select', function (e) {
                     seleccionados.forEach(element => {
                         addProductList(element);
                     });
-
+                    
+                    subtotal = 0;
                     seleccionados.forEach(element => {
                        let amount = document.getElementById(element.inptCan).value;
-           
-                       subtotal = subtotal + (parseInt(element.price) * parseInt(amount));
-           
+                       let manoObra = document.getElementById(element.inputMO).value;
+            
+                       subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+            
                        $('#con-sub-t').empty();
                        document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
                     })
@@ -144,6 +148,35 @@ function addProductList(product){
 
     conActionProd.appendChild(imgCross);
     conProduct.appendChild(conActionProd);
+
+    let divManoObra = document.createElement('div');
+    $(divManoObra).addClass('con-mo');
+    let divConCheck = document.createElement('div');
+    $(divConCheck).addClass('con-check');
+    let inputCheck = document.createElement('input');
+    inputCheck.setAttribute('id', product.checkMOCan);
+
+    inputCheck.type = "checkbox";
+    let labelCheck = document.createElement('label');
+    labelCheck.appendChild(document.createTextNode('¿Mano de obra?'));
+    divConCheck.appendChild(inputCheck);
+    divConCheck.appendChild(labelCheck);
+    divManoObra.appendChild(divConCheck);
+
+    let divconInputMo = document.createElement('div');
+    $(divconInputMo).addClass('con-input-mo');
+    let inputPriceMo = document.createElement('input');
+    inputPriceMo.type = 'number';
+    $(inputPriceMo).addClass('form-control');
+    $(inputPriceMo).addClass('price-mo-no');
+    inputPriceMo.placeholder = "Precio";
+    inputPriceMo.value = 0;
+    inputPriceMo.setAttribute('id', product.inputMO);
+    divconInputMo.appendChild(inputPriceMo);
+    divManoObra.appendChild(divconInputMo);
+
+    conProduct.appendChild(divManoObra);
+
     
     $('.con-product-ord').append(conProduct);
     $(imgCross).on('click', function() {
@@ -159,17 +192,44 @@ function addProductList(product){
       
     inputamount.addEventListener('change', event =>{
         subtotal = 0;
-         seleccionados.forEach(element => {
-            let amount = document.getElementById(element.inptCan).value;
+        seleccionados.forEach(element => {
+           let amount = document.getElementById(element.inptCan).value;
+           let manoObra = document.getElementById(element.inputMO).value;
 
-            subtotal = subtotal + (parseInt(element.price) * parseInt(amount));
+           subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
 
-            $('#con-sub-t').empty();
-            document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
-         })
-         iva = subtotal * 0.19;
-         $('#con-t').empty();
-         document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
+           $('#con-sub-t').empty();
+           document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+        })
+        iva = subtotal * 0.19;
+        $('#con-t').empty();
+        document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
+    })
+
+    inputCheck.addEventListener('change', event=>{
+        if(event.target.checked){
+            $(inputPriceMo).removeClass('price-mo-no');
+            $(inputPriceMo).addClass('price-mo');
+        }else{
+            $(inputPriceMo).removeClass('price-mo');
+            $(inputPriceMo).addClass('price-mo-no');
+
+        }
+    })
+    inputPriceMo.addEventListener('change', event=>{
+        subtotal = 0;
+        seleccionados.forEach(element => {
+           let amount = document.getElementById(element.inptCan).value;
+           let manoObra = document.getElementById(element.inputMO).value;
+
+           subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+
+           $('#con-sub-t').empty();
+           document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+        })
+        iva = subtotal * 0.19;
+        $('#con-t').empty();
+        document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
     })
 }
 
@@ -244,10 +304,22 @@ $('.btn-sub-bill').on('click', function(){
         inputPrice.setAttribute('name', 'product_price[]');
         $(inputPrice).addClass('inp-inf');
         inputPrice.value = element.price;
+        
+        let CheckManoObra = document.createElement('input');
+        CheckManoObra.type = 'check';
+        CheckManoObra.value = document.getElementById(element.checkMOCan).checked;
+        CheckManoObra.setAttribute('name', 'check_mano_obra[]');
+
+        let priceManoObra = document.createElement('input');
+        priceManoObra.type = 'text';
+        priceManoObra.value = document.getElementById(element.inputMO).value;
+        priceManoObra.setAttribute('name', 'price_mano_obra[]');
 
         $('#form-bill').append(inputProduct);
         $('#form-bill').append(inputAmount);
         $('#form-bill').append(inputPrice);
+        $('#form-bill').append(CheckManoObra);
+        $('#form-bill').append(priceManoObra);
 
         document.getElementById('form-bill').submit();
     })

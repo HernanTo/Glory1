@@ -1,6 +1,9 @@
 <?php
     include('../auth/security/securityGeneral.php');
     include('../../model/user.php');
+    require ('../../model/role.php');
+    $Role = new Role;
+    $dataRole = $Role->index();
 
     $User = new User;
     if(isset($_GET['cc'])){
@@ -159,8 +162,8 @@
                                     }else{
                                         ?>
 
-                                        <input type="text" name="placa" id="Placa" value="<?php echo $row['placa'] ?>" style="display: none;">
-                                        <input type="text" name="modelo" id="Modelo" value="<?php echo $row['modelo'] ?>" style="display: none;">
+                                        <input type="text" name="placa" id="Placa" value="0" style="display: none;">
+                                        <input type="text" name="modelo" id="Modelo" value="0" style="display: none;">
                                         <?php
                                     }
                                 ?>
