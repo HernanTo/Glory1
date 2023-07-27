@@ -1,0 +1,346 @@
+.header-table h2{
+    text-align: left;
+    padding-top: 15px;
+    font-size: 2rem;
+}
+.con-bill-summary{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+}
+.con-items-bill-s{
+    width: 100%;
+    background: rgba(9, 13, 62, 0.15);
+    border-radius: 12px;
+    margin-top: 20px;
+}
+.header-items-s{
+    border-bottom: 1px solid #505765;
+    display: flex;
+    padding: 16px 20px;
+    justify-content: space-between;
+}
+.header-items-s h2{
+    margin: 0px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    color: #505765;
+    font-size: 20px;
+}
+.header-items-s img{
+    width: 25px;
+}
+.body-items-sum{
+    padding: 15px 20px;
+}
+.body-items-sum p{
+    margin: 0px;
+}
+.body-items-fact{
+    display: grid;
+    row-gap: 10px;
+}
+.body-items-fact span{
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: 14px 24px;
+    align-items: center;
+}
+.body-items-fact span img{
+    grid-column: 1/2;
+    grid-row: 1/3;
+    width: 25px;
+}
+.body-items-fact span h3{
+    margin: 0px;
+    font-family: 'Poppins';
+    font-weight: 550;
+    color: #505765;
+    font-size: 15px;
+    width: 100%;
+    padding-left: 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.body-items-fact span label{
+    height: 100%;
+    padding-left: 15px;
+    width: 100%;
+    color: #505765;
+    font-family: 'Nunito';
+    font-size: 13px;
+    font-weight: 250;
+}
+.actions-bill{
+    display: grid;
+    grid-template-columns: repeat(3, 47px);
+    grid-template-rows: 45px;
+    column-gap: 15px;
+    justify-content: center;
+    padding: 15px 0px;
+    width: 100%;
+}
+.actions-bill a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    transition: all 0.6s;
+}
+.actions-bill a img{
+    width: 25px;
+}
+.actions-bill button{
+    border-radius: 12px;
+    border: none;
+    padding: 0px;
+    transition: all 0.6s;
+}
+.actions-bill button:hover, .actions-bill a:hover{
+    transform: scale(1.1);
+}
+.actions-bill button img{
+    width: 25px;
+}
+.export-document{
+    background: #505765;
+}
+.edit-bill{
+    background: #4A75CC;
+}
+.delete-bill{
+    background: #9F0808;
+}
+.body-clien-sum{
+    display: grid;
+    row-gap: 10px;
+}
+.body-clien-sum p{
+    font-size: 16px;
+    font-family: 'Nunito';
+    color: #505765;
+    margin: 0px;
+}
+.action-user-sum{
+    background: #505765;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-family: 'Poppins';
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    width: 122px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.body-seller-sum{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 20px 42.5px;
+    justify-items: center;
+    row-gap: 15px;
+}
+.body-seller-sum img{
+    width: 50px;
+}
+.body-seller-sum h2{
+    margin: 0px;
+    font-family: 'Poppins';
+    font-size: 17px;
+    font-family: 600;
+}
+
+.con-items-min{
+    max-width: 350px;
+}
+
+.con-item-order-s{
+    width: 100%;
+    overflow-x: auto;
+}
+.body-order-sum{
+    min-width: 600px;
+    display: grid;
+    row-gap: 15px;
+}
+.product-su{
+    display: grid;
+    grid-template-columns: 80px 1fr 100px;
+    grid-template-rows: 21px repeat(2, 18px) 21px;
+    column-gap: 10px;
+}
+.product-su img{
+    grid-row: 1/5;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.product-su h2{
+    grid-column: 2/4;
+    font-family: 'Poppins';
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0px;
+}
+.product-su h4{
+    margin: 0px;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: italic;
+}
+.product-su p{
+    margin: 0px;
+    font-size: 15px;
+    font-family: 'Nunito';
+
+}
+.cantidad-prod-s{
+    grid-row: 3/4;
+}
+.mano-obra-su{
+    grid-row: 4/5;
+}
+.prices-pro{
+    font-size: 19px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    text-align: right;
+}
+.con-sum-prices{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    grid-column: 20px;
+    border-top: 2px dashed #505765;
+    padding-top: 20px;
+}
+.con-sum-prices p{
+    font-family: 'Nunito';
+    font-size: 18px;
+    margin: 0px;
+}
+.con-sum-prices h5, .con-sum-prices h2{
+    text-align: right;
+    font-family: 'Poppins';
+    font-size: 18px;
+    margin: 0px;
+}
+.con-sum-prices h2{
+    font-weight: bold;
+}
+@media(min-width: 719px){
+    .con-bill-summary{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 30px;
+        grid-template-rows: 60px;
+        max-width: 730px;
+        row-gap: 20px;
+    }
+    .con-items-fact{
+        grid-row: 2/3;
+        grid-column: 1/3;
+    }
+    .body-items-fact{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 30px;
+    }
+    .con-items-bill-s{
+        margin: 0px;
+    }
+
+
+    .con-items-cli{
+        grid-row: 3/4;
+        grid-column: 2/3;
+    }
+    .con-items-seller{
+        grid-row: 3/4;
+        grid-column: 1/2;
+    }
+    .actions-bill{
+        grid-column: 1/3;
+        justify-content: flex-start !important;
+    }
+    .con-item-order-s{
+        grid-column: 1/3;
+    }
+}
+@media(min-width:1320px){
+    .con-bill-summary{
+        max-width: none;
+        grid-template-columns: 500px repeat(2, 125px) 50px;
+        grid-template-rows: auto;
+        padding-top: 30px;
+    }
+    .actions-bill{
+        grid-column: 4/5;
+        height: 100%;
+        grid-template-columns: 47px;
+        grid-template-rows: repeat(3, 45px);
+        row-gap: 20px;
+    }
+    .con-items-fact{
+        grid-row: 1/2;
+        grid-column: 1/2;
+        max-height: 226px;
+    }
+    .con-items-cli{
+        grid-row: 1/2;
+        grid-column: 2/4;
+    }
+    .con-items-seller{
+        grid-column: 3/5;
+        max-height: 235px;
+    }
+    .con-item-order-s{
+        grid-row: 3/4;
+        grid-column: 1/3;
+    }
+}
+@media (min-width: 1536px){
+    .con-bill-summary{
+        grid-template-columns: 480px repeat(2, 240px) 45px;
+        grid-template-rows: 226px;
+    }
+    .body-order-sum{
+        min-width: auto;
+    }
+    .con-items-fact{
+        grid-column: 2/4;
+        grid-row: 1/2;
+    }
+    .con-item-order-s{
+        grid-row: 1/2;
+        grid-column: 1/2;
+        height: max-content;
+    }
+    .con-items-seller{
+        grid-column: 2/3;
+        max-height: 267.5px;
+        grid-row: 2/3;
+    }
+    .con-items-cli{
+        grid-column: 3/4;
+        grid-row: 2/3;
+    }
+    .actions-bill{
+        grid-column: 4/5;
+        height: 100%;
+        grid-template-columns: 47px;
+        grid-template-rows: repeat(3, 45px);
+        row-gap: 20px;
+    }
+}
+@media (min-width: 1770px){
+    .con-bill-summary{
+        grid-template-columns: 650px repeat(2, 280px) 45px;
+        grid-template-rows: 226px;
+    }
+    .actions-bill{
+        margin-left: 100px;
+    }
+}

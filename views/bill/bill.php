@@ -19,51 +19,7 @@
     <link rel="stylesheet" href="../../css/component.css">
     <!-- ** Main Css -->
 
-    <style>
-                .container-bill-ex{
-            background: #fff;
-            padding: 35px 35px;
-            width: 285px !important;
-            border-radius: 5px;
-            border: 2px solid #000;
-        }
-        table{
-            border-collapse: collapse;
-        }
-        table tr th{
-            font-family: 'Poppins';
-            font-size: 22px;
-            padding-bottom: 10px;
-            text-align: center !important;
-        }
-        table tr td{
-            font-family: 'Nunito';
-            
-        }
-        .con-btn-x{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, 180px);
-            grid-template-rows: repeat(3, 50px);
-            row-gap: 10px;
-            justify-content: center;
-            width: 285px;
-        }
-        .con-btn-x a{
-            background: red;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .contain-expo{
-            display: grid;
-            row-gap: 20px;
-            grid-template-columns: repeat(auto-fit, 285px);
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/bill.css">
 </head>
 <body>
     <div class="con-main-general">
@@ -82,71 +38,118 @@
                         /
                         <a><?php echo $_GET['referencia'] ?></a>
                     </div>
-                    <h2>Factura</h2>
-                        <div class="con-filter">
-
-                        </div>
+                    <h2>Resumen factura</h2>
                 </div>
-                <div class="contain-expo">
-                    <div class="container-bill-ex">
-                        <?php 
-                        foreach ($data as $fila) {
-                            $idfact = $fila['id'];
-                        ?>
-                        <table>
-                            <tr>
-                                <th colspan="2">Lotus</th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">Adress: 1234 Lorem Ipsum, Dolor</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">Tel: 123-456-7890</td>
-                            </tr>
-                            <tr style="border-bottom: 1px dashed black;border-top: 1px dashed black; height: 35px;">
-                                <td style="padding-left: 10px;">Fecha:</td>
-                                <td><?php echo $fila['date'] ?></td>
-                            </tr>
-                            <?php
-                                
-                                while($row = $product->fetch_assoc()){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $row['name_product'] ?></td>
-                                        <td style="text-align: right;"><?php echo $row['price_u'] ?></td>
-                                    </tr>
-                                    <?php
-                                }
-                            ?>
-                            <tr style="border-top: 1px dashed black;">
-                                <td style="font-family: 'Poppins'; font-size: 20px;">Total</td>
-                                <td style="text-align: right;"><?php echo $fila['total_prices'] ?></td>
-                            </tr>
-                            <tr>
-                                <td>Sub-total</td>
-                                <td style="text-align: right;"><?php echo $fila['subtotal'] ?></td>
-                            </tr>
-                            <tr>
-                                <td>IVA</td>
-                                <td style="text-align: right;"><?php echo ($fila['total_prices'] - $fila['subtotal']) ?></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center;font-weight: bold;font-family: 'Poppins'; font-size: 23px; padding-top: 20px;padding-bottom: 10px;">Gracias</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center;">
-                                <img alt='Barcode Generator TEC-IT' src='https://barcode.tec-it.com/barcode.ashx?data=<?php echo $fila['num_fact'] ?>&code=Code128&translate-esc=true' style="width: 210px; height: 90px"/>
-                            </td>
-                            </tr>
-                        </table>
-                        <?php
-                        }
-                        ?>
+                <div class="con-bill-summary">
+                    <div class="con-items-bill-s con-items-fact">
+                        <div class="header-items-s">
+                            <h2>Factura</h2>
+                            <img src="../../assets/img/icons/receipt 1.svg" alt="">
+                        </div>
+                        <div class="body-items-sum body-items-fact">
+                            <span>
+                                <label>Número de factura</label>
+                                <h3>456545456</h3>
+                                <img src="../../assets/img/icons/hastag 2.svg" alt="">
+                            </span>
+
+                            <span>
+                                <label>Fecha</label>
+                                <h3>25-08-2023</h3>
+                                <img src="../../assets/img/icons/calendar 1.svg" alt="">
+                            </span>
+
+                            <span>
+                                <label>Código de barras</label>
+                                <h3>3233223</h3>
+                                <img src="../../assets/img/icons/barcode-read 2.svg" alt="">
+                            </span>
+
+                            <span>
+                                <label>Descuento</label>
+                                <h3>No aplica</h3>
+                                <img src="../../assets/img/icons/badge-percent 1.svg" alt="">
+                            </span>
+                            
+                            <span>
+                                <label>Subtotal</label>
+                                <h3 class="prices">2000</h3>
+                                <img src="../../assets/img/icons/usd-circle 1.svg" alt="">
+                            </span>
+
+                            <span>
+                                <label>Total</label>
+                                <h3 class="prices">3000</h3>
+                                <img src="../../assets/img/icons/hand-holding-usd 1.svg" alt="">
+                            </span>
+                        </div>
                     </div>
-                    <div class="con-btn-x">
-                        <a href="" style="background: #009ef7; color: white;">Exportar factura</a>
-                        <a href="" style="background: rgb(10, 88, 202); color: white;">Editar</a>
-                        <a onclick="confirmTrash(<?php echo $idfact ?>, <?php echo $_GET['referencia'] ?>)" style="background: #c9c9c9; color: black;">Eliminar</a>
+                    <div class="actions-bill">
+                        <button class="export-document"><img src="../../assets/img/icons/file-export 1.svg" alt=""></button>
+
+                        <a href="" class="edit-bill"><img src="../../assets/img/icons/edit 1.svg" alt=""></a>
+
+                        <button class="delete-bill"><img src="../../assets/img/icons/delete-document 1.svg" alt=""></button>
+                    </div>
+
+                    <div class="con-items-bill-s con-items-min con-items-cli">
+                        <div class="header-items-s">
+                            <h2>Cliente</h2>
+                            <img src="../../assets/img/icons/user-crown 1.svg" alt="">
+                        </div>
+                        <div class="body-items-sum body-clien-sum">
+                            <p>Juan Diego Mejia</p>
+                            <p>3132093326</p>
+                            <p>juandi@gmail.com</p>
+                            <p>Kra 10B #13-56 Oeste</p>
+                            <a href="../user/" class="action-user-sum">Ver Cliente</a>
+                        </div>
+                    </div>
+
+                    <div class="con-items-bill-s con-items-min con-items-seller">
+                        <div class="header-items-s">
+                            <h2>Vendedor</h2>
+                            <img src="../../assets/img/icons/user-crown 1.svg" alt="">
+                        </div>
+                        <div class="body-items-sum body-seller-sum">
+                            <img src="../../assets/img/profilePictures/default.png" alt="">
+                            <h2>Juan Pedro</h2>
+                            <a href="../user/" class="action-user-sum">Ver Más</a>
+                        </div>
+                    </div>
+
+                    <div class="con-items-bill-s con-item-order-s">
+                        <div class="header-items-s">
+                            <h2>Orden</h2>
+                            <img src="../../assets/img/icons/box-open 1.svg" alt="">
+                        </div>
+                        <div class="body-items-sum body-order-sum">
+                            <div class="product-su">
+                                <img src="../../assets/img/products/default.png" alt="product">
+                                <h2>Motor Hidráulico 8 válvulas</h2>
+                                <h4 class="prices">22000</h4>
+
+                                <p class="cantidad-prod-s">Cantidad: <i>10</i></p>
+                                <p class="mano-obra-su">Mano de obra: <i>No aplica</i></p>
+
+                                <h1 class="prices prices-pro">10000</h1>
+                            </div>
+                            
+
+                            <div class="con-sum-prices">
+                                <p>Descuento</p>
+                                <h5>No Aplica</h5>
+
+                                <p>Subtotal</p>
+                                <h2 class="prices">2.000</h2>
+
+                                <p>IVA</p>
+                                <h2 class="prices">3000</h2>
+
+                                <p>Total:</p>
+                                <h2 class="prices">10000</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
