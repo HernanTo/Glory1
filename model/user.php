@@ -95,7 +95,7 @@
             $input = "SELECT user.id,cedula, placa, modelo, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, nickname, password, phone, email,address,photo, role, role_id, passchange,ft_name,sd_name,fi_lastname, sc_lastname FROM user 
             INNER JOIN user_has_role on user_id = user.id 
             INNER JOIN role on user_has_role.role_id = role.id
-            WHERE user.cedula = $id";
+            WHERE user.cedula = '$id'";
 
             $output = $db->query($input);
 
@@ -165,7 +165,7 @@
             }elseif($changepicturestate == 0){
 
                 $input = "UPDATE user SET cedula = '$ccChange', ft_name = '$ft_name', sd_name = '$sd_name', fi_lastname = '$fi_lastname', sc_lastname = '$sc_lastname', phone = '$phone', address = '$address', email = '$email', placa= '$placa' , modelo='$modelo' WHERE cedula = $documento";
-    
+                echo $input;
                 mysqli_query($db, $input);
                 $_SESSION['editUser'] = 1;
 

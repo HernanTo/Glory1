@@ -29,6 +29,10 @@
             for ($i=0; $i < sizeof($product_id) ; $i++) { 
                 $priceTp = $product_price[$i] * $product_amount[$i];
                 $manoObra = $check[$i] == 'true' ? 1 : 0;
+                if($manoObra == 1){
+                    $priceTp = $priceTp + $pricemo[$i];
+                }
+                
                 $input = "INSERT INTO bill_has_product(id_bill, id_product, price_u, amount, prices_total, date, prices_mano_obra, mano_obra) VALUES ('$bill','$product_id[$i]','$product_price[$i]','$product_amount[$i]','$priceTp','$date_bill', '$pricemo[$i]', '$manoObra')";
 
                 mysqli_query($db, $input);
@@ -60,19 +64,26 @@
         public function generateBill($reference){
             require ('../../config/connection.php');
 
-            $input = "SELECT * FROM bill WHERE num_fact = $reference";
+            $input = "SELECT bill.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo FROM bill INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
             $output = $db->query($input);
             $data = $output;
-            
-            while($row = $output->fetch_assoc()){
-                $input = "SELECT id_bill,id_product,price_u,bill_has_product.amount,prices_total,prices_total,name_product  FROM bill_has_product 
-                INNER JOIN producto
-                ON id_product = id
-                WHERE id_bill = $row[id]";
-                $products = $db->query($input);
+
+            if(mysqli_num_rows($output) > 0){
+                while($row = $output->fetch_assoc()){
+                    $input = "SELECT id_bill,id_product,price_u,bill_has_product.amount,num_repuesto, prices_total,prices_total,name_product, mano_obra, prices_mano_obra, photo FROM bill_has_product INNER JOIN producto ON id_product = id WHERE id_bill = $row[id_bill]";
+                    $products = $db->query($input);
+                    
+                    $input = "SELECT bill.id,num_fact,cedula,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email,photo,fi_lastname,sc_lastname,ft_name,sc_lastname  FROM bill INNER JOIN user ON vendedor = user.id WHERE num_fact = '$reference'";
+                    $seller = $db->query($input);
+                }
+
+            }else{
+                $products = null;
+                $seller = null;
             }
             
-            return [$data, $products];
+            
+            return [$data, $products, $seller];
         }
 
         public function delete($id){

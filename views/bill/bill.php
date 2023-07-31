@@ -3,7 +3,7 @@
     include ('../../model/bill.php');
     $Bill = new Bill;
 
-    list($data, $product) = $Bill->generateBill($_GET['referencia']);
+    list($data, $product, $seller) = $Bill->generateBill($_GET['referencia']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,6 +26,10 @@
         <?php
             include('../templates/navbar.php');
             include('../templates/sidebar.php');
+
+            if(mysqli_num_rows($data) > 0){
+                foreach($data as $row){
+                    
         ?>
 
         <div class="container-general">
@@ -49,19 +53,19 @@
                         <div class="body-items-sum body-items-fact">
                             <span>
                                 <label>Número de factura</label>
-                                <h3>456545456</h3>
+                                <h3><?php echo $row['num_fact'] ?></h3>
                                 <img src="../../assets/img/icons/hastag 2.svg" alt="">
                             </span>
 
                             <span>
                                 <label>Fecha</label>
-                                <h3>25-08-2023</h3>
+                                <h3><?php echo $row['date'] ?></h3>
                                 <img src="../../assets/img/icons/calendar 1.svg" alt="">
                             </span>
 
                             <span>
                                 <label>Código de barras</label>
-                                <h3>3233223</h3>
+                                <h3><?php echo $row['num_fact'] ?></h3>
                                 <img src="../../assets/img/icons/barcode-read 2.svg" alt="">
                             </span>
 
@@ -73,19 +77,19 @@
                             
                             <span>
                                 <label>Subtotal</label>
-                                <h3 class="prices">2000</h3>
+                                <h3 class="prices"><?php echo $row['subtotal'] ?></h3>
                                 <img src="../../assets/img/icons/usd-circle 1.svg" alt="">
                             </span>
 
                             <span>
                                 <label>Total</label>
-                                <h3 class="prices">3000</h3>
+                                <h3 class="prices"><?php echo $row['total_prices'] ?></h3>
                                 <img src="../../assets/img/icons/hand-holding-usd 1.svg" alt="">
                             </span>
                         </div>
                     </div>
                     <div class="actions-bill">
-                        <button class="export-document"><img src="../../assets/img/icons/file-export 1.svg" alt=""></button>
+                        <a href="./generate_bill_excel.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-export 1.svg" alt=""></a>
 
                         <a href="" class="edit-bill"><img src="../../assets/img/icons/edit 1.svg" alt=""></a>
 
@@ -98,25 +102,31 @@
                             <img src="../../assets/img/icons/user-crown 1.svg" alt="">
                         </div>
                         <div class="body-items-sum body-clien-sum">
-                            <p>Juan Diego Mejia</p>
-                            <p>3132093326</p>
-                            <p>juandi@gmail.com</p>
-                            <p>Kra 10B #13-56 Oeste</p>
-                            <a href="../user/" class="action-user-sum">Ver Cliente</a>
+                            <p><?php echo $row['fullname'] ?></p>
+                            <p><?php echo $row['phone'] ?></p>
+                            <p><?php echo $row['email'] ?></p>
+                            <p><?php echo $row['address'] ?></p>
+                            <a href="../user/user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Cliente</a>
                         </div>
                     </div>
 
-                    <div class="con-items-bill-s con-items-min con-items-seller">
-                        <div class="header-items-s">
-                            <h2>Vendedor</h2>
-                            <img src="../../assets/img/icons/user-crown 1.svg" alt="">
-                        </div>
-                        <div class="body-items-sum body-seller-sum">
-                            <img src="../../assets/img/profilePictures/default.png" alt="">
-                            <h2>Juan Pedro</h2>
-                            <a href="../user/" class="action-user-sum">Ver Más</a>
-                        </div>
-                    </div>
+                    <?php
+                        foreach($seller as $fila){
+                            ?>
+                            <div class="con-items-bill-s con-items-min con-items-seller">
+                                <div class="header-items-s">
+                                    <h2>Vendedor</h2>
+                                    <img src="../../assets/img/icons/user-crown 1.svg" alt="">
+                                </div>
+                                <div class="body-items-sum body-seller-sum">
+                                    <img src="../../assets/img/profilePictures/<?php echo $fila['photo'] ?>" alt="">
+                                    <h2><?php echo $row['nameLas'] ?></h2>
+                                    <a href="../user//user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Más</a>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    ?>
 
                     <div class="con-items-bill-s con-item-order-s">
                         <div class="header-items-s">
@@ -124,30 +134,41 @@
                             <img src="../../assets/img/icons/box-open 1.svg" alt="">
                         </div>
                         <div class="body-items-sum body-order-sum">
-                            <div class="product-su">
-                                <img src="../../assets/img/products/default.png" alt="product">
-                                <h2>Motor Hidráulico 8 válvulas</h2>
-                                <h4 class="prices">22000</h4>
+                            <?php
+                                foreach($product as $dat){
+                                    if($dat['mano_obra'] == '0'){
+                                        $manoObra = 'No aplica';
+                                    }else{
+                                        $manoObra = $dat['prices_mano_obra'];
+                                    }
 
-                                <p class="cantidad-prod-s">Cantidad: <i>10</i></p>
-                                <p class="mano-obra-su">Mano de obra: <i>No aplica</i></p>
+                                    ?>
+                                    <div class="product-su">
+                                        <img src="../../assets/img/products/<?php echo $dat['photo'] ?>" alt="product">
+                                        <h2><?php echo $dat['name_product'] ?></h2>
+                                        <h4 class="prices"><?php echo $dat['price_u'] ?></h4>
 
-                                <h1 class="prices prices-pro">10000</h1>
-                            </div>
+                                        <p class="cantidad-prod-s">Cantidad: <i><?php echo $dat['amount'] ?></i></p>
+                                        <p class="mano-obra-su">Mano de obra: <i class="<?php echo $manoObra != 'No aplica' ? 'prices' : '' ?>"><?php echo $manoObra ?></i></p>
+
+                                        <h1 class="prices prices-pro"><?php echo $dat['prices_total'] ?></h1>
+                                    </div>
+                                    <?php
+                                }
+                            ?>
                             
-
                             <div class="con-sum-prices">
                                 <p>Descuento</p>
                                 <h5>No Aplica</h5>
 
                                 <p>Subtotal</p>
-                                <h2 class="prices">2.000</h2>
+                                <h2 class="prices"><?php echo $row['subtotal'] ?></h2>
 
                                 <p>IVA</p>
-                                <h2 class="prices">3000</h2>
+                                <h2 class="prices"><?php echo $row['subtotal'] * 0.19 ?></h2>
 
                                 <p>Total:</p>
-                                <h2 class="prices">10000</h2>
+                                <h2 class="prices"><?php echo $row['total_prices']?></h2>
                             </div>
                         </div>
                     </div>
@@ -158,6 +179,18 @@
 
     <!-- Modal -->
     <?php
+                }
+            }else{
+                ?>
+                    <div class="container-general con-g-nf">
+                        <div class="con-not-found">
+                            <img src="../../assets/img/icons/magnifying-glass.gif" alt="search" class="img-nof-s">
+                            <h2>No se encontraron resultados <img src="../../assets/img/icons/dead.svg" alt=""></h2>
+                            <a href="./">Volver</a>
+                        </div>
+                    </div>
+                <?php
+            }
         include('./components/modal.php');
     ?>
     <!-- Modal -->

@@ -122,7 +122,7 @@
         public function searchProduct($id){
             require ('../../config/connection.php');
 
-            $input = "SELECT *FROM producto WHERE id = $id";
+            $input = "SELECT *FROM producto WHERE id = '$id'";
             $output = $db->query($input);
 
             return $output;
