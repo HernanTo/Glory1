@@ -195,13 +195,13 @@
         ob_clean();
 
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Factura_' . $_GET['referencia'] . '_lotus.xlsx"');
-        header('Cache-Control: max-age=0');
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename="Factura_' . $_GET['referencia'] . '_lotus.xlsx"');
+        // header('Cache-Control: max-age=0');
         
         // Crear un objeto Writer para enviar el contenido del archivo Excel directamente al cliente
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save('php://output');
+        $writer->save('./temp/' . $name_xlsx);
         
         exit;
 ?>
