@@ -124,6 +124,7 @@
         $canTotal = 0;
 
         foreach ($data as $datos){
+                $activeWorksheet->setCellValue('D6', $datos['num_fact']);
                 $activeWorksheet->setCellValue('F15', $datos['date']);
                 $activeWorksheet->setCellValue('F16', $datos['fullname']);
                 $activeWorksheet->setCellValue('F17', $datos['address']);
@@ -160,7 +161,7 @@
                         $ultimaFila = $canProd;
 
                         $activeWorksheet->setCellValue('E' . ($numCell + 1), 'Subtotal');
-                        $activeWorksheet->setCellValue('H' . ($numCell + 1), $canProd);
+                        $activeWorksheet->setCellValue('H' . ($numCell + 1), $canTotal);
 
                         addBorder($numCell, $activeWorksheet);
                 }
@@ -195,13 +196,12 @@
         ob_clean();
 
 
-        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        // header('Content-Disposition: attachment;filename="Factura_' . $_GET['referencia'] . '_lotus.xlsx"');
-        // header('Cache-Control: max-age=0');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Factura_' . $_GET['referencia'] . '_lotus.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save('php://output');
         
         // Crear un objeto Writer para enviar el contenido del archivo Excel directamente al cliente
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save('./temp/' . $name_xlsx);
-        
         exit;
 ?>

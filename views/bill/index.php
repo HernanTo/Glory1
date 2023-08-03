@@ -69,6 +69,7 @@
                                         <td class="prices"><?php echo $row['total_prices'] ?></td>
                                         <td><?php echo $row['name_cliente'] ?></td>
                                         <td class="con-actions-table">
+                                            <a href="./bill.php?referencia=<?php echo $row['num_fact'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
                                             <a href="../../controller/user.php?action=edit&id=<?php echo $row['id_bill'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
                                             <a onclick="confirmTrash(<?php echo $row['id_bill'] ?>, '<?php echo $row['num_fact'] ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
                                         </td>

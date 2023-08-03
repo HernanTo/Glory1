@@ -27,6 +27,7 @@ $(selectProduts).change('select2:select', function (e) {
                     id: option.value,
                     name: option.text,
                     price: option.getAttribute('data-price'),
+                    max_amount: option.getAttribute('data-amount'),
                     amount: option.getAttribute('data-amount'),
                     img: option.getAttribute('data-img'),
                     inptCan: `can${option.value}`,
@@ -110,6 +111,7 @@ function addProductList(product){
     // $('.not-pro-ord').css("display", "none")
     let conProduct = document.createElement('div');
     $(conProduct).addClass("prod-rod");
+    $(conProduct).addClass("prod-rod-bill");
     let conImg = document.createElement('div');
     $(conImg).addClass('con-img-prod');
     let imgP = document.createElement('img');
@@ -127,7 +129,6 @@ function addProductList(product){
     let tagPrice = document.createElement('p');
     tagPrice.appendChild(document.createTextNode(formatCurrency(product.price)));
     textProd.appendChild(tagPrice);
-    
     
     let inputamount = document.createElement('input');
     inputamount.type = "number";
@@ -176,6 +177,11 @@ function addProductList(product){
     divManoObra.appendChild(divconInputMo);
 
     conProduct.appendChild(divManoObra);
+    
+    let canMax = document.createElement('i');
+    $(canMax).addClass('stock-con')
+    canMax.appendChild(document.createTextNode(`Stock: ${(product.max_amount)}`))
+    conProduct.appendChild(canMax);
 
     
     $('.con-product-ord').append(conProduct);
@@ -191,19 +197,48 @@ function addProductList(product){
       };
       
     inputamount.addEventListener('change', event =>{
-        subtotal = 0;
-        seleccionados.forEach(element => {
-           let amount = document.getElementById(element.inptCan).value;
-           let manoObra = document.getElementById(element.inputMO).value;
-
-           subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
-
-           $('#con-sub-t').empty();
-           document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
-        })
-        iva = subtotal * 0.19;
-        $('#con-t').empty();
-        document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
+        if(inputamount.value[0] == 0){
+            let value = inputamount.value;
+            value = reemplazarzero(value);
+            inputamount.value = value;
+        }
+        if(parseInt(inputamount.value) > product.max_amount){
+            console.log(inputamount.value)
+            console.log(product.max_amount)
+            inputamount.value = 1;
+            $(canMax).addClass('stock_sob')
+            setTimeout(() => {
+                $(canMax).removeClass('stock_sob');
+                
+            }, 1000);
+            subtotal = 0;
+            seleccionados.forEach(element => {
+               let amount = document.getElementById(element.inptCan).value;
+               let manoObra = document.getElementById(element.inputMO).value;
+    
+               subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+    
+               $('#con-sub-t').empty();
+               document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+            })
+            iva = subtotal * 0.19;
+            $('#con-t').empty();
+            document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
+        }else{
+            subtotal = 0;
+            seleccionados.forEach(element => {
+               let amount = document.getElementById(element.inptCan).value;
+               let manoObra = document.getElementById(element.inputMO).value;
+    
+               subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+    
+               $('#con-sub-t').empty();
+               document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+            })
+            iva = subtotal * 0.19;
+            $('#con-t').empty();
+            document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
+        }
     })
 
     inputCheck.addEventListener('change', event=>{
@@ -213,9 +248,23 @@ function addProductList(product){
         }else{
             $(inputPriceMo).removeClass('price-mo');
             $(inputPriceMo).addClass('price-mo-no');
-
+            inputPriceMo.value = 0;
+            subtotal = 0;
+            seleccionados.forEach(element => {
+               let amount = document.getElementById(element.inptCan).value;
+               let manoObra = document.getElementById(element.inputMO).value;
+    
+               subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+    
+               $('#con-sub-t').empty();
+               document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+            })
+            iva = subtotal * 0.19;
+            $('#con-t').empty();
+            document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
         }
     })
+
     inputPriceMo.addEventListener('change', event=>{
         subtotal = 0;
         seleccionados.forEach(element => {
@@ -286,41 +335,84 @@ function formatCurrency(number) {
 }
 
 $('.btn-sub-bill').on('click', function(){
-    seleccionados.forEach(element =>{
-        let inputProduct = document.createElement('input');
-        inputProduct.type = "number";
-        inputProduct.setAttribute('name', 'product_id[]');
-        $(inputProduct).addClass('inp-inf');
-        inputProduct.value = element.id;
-        
-        let inputAmount = document.createElement('input');
-        inputAmount.type = "number";
-        inputAmount.setAttribute('name', 'product_amount[]');
-        $(inputAmount).addClass('inp-inf');
-        inputAmount.value = document.getElementById(element.inptCan).value;
+    if(document.getElementById('references').value != ''){
+        if(document.getElementById('customers').value != ''){
+            if(document.getElementById('seller').value != ''){
+                seleccionados.forEach(element =>{
+                    let inputProduct = document.createElement('input');
+                    inputProduct.type = "number";
+                    inputProduct.setAttribute('name', 'product_id[]');
+                    $(inputProduct).addClass('inp-inf');
+                    inputProduct.value = element.id;
+                    
+                    let inputAmount = document.createElement('input');
+                    inputAmount.type = "number";
+                    inputAmount.setAttribute('name', 'product_amount[]');
+                    $(inputAmount).addClass('inp-inf');
+                    inputAmount.value = document.getElementById(element.inptCan).value;
+            
+                    let inputPrice = document.createElement('input');
+                    inputPrice.type = "number";
+                    inputPrice.setAttribute('name', 'product_price[]');
+                    $(inputPrice).addClass('inp-inf');
+                    inputPrice.value = element.price;
+                    
+                    let CheckManoObra = document.createElement('input');
+                    CheckManoObra.type = 'check';
+                    CheckManoObra.value = document.getElementById(element.checkMOCan).checked;
+                    CheckManoObra.setAttribute('name', 'check_mano_obra[]');
+            
+                    let priceManoObra = document.createElement('input');
+                    priceManoObra.type = 'text';
+                    priceManoObra.value = document.getElementById(element.inputMO).value;
+                    priceManoObra.setAttribute('name', 'price_mano_obra[]');
+            
+                    $('#form-bill').append(inputProduct);
+                    $('#form-bill').append(inputAmount);
+                    $('#form-bill').append(inputPrice);
+                    $('#form-bill').append(CheckManoObra);
+                    $('#form-bill').append(priceManoObra);
+            
+                    document.getElementById('form-bill').submit();
+                })
+            }
 
-        let inputPrice = document.createElement('input');
-        inputPrice.type = "number";
-        inputPrice.setAttribute('name', 'product_price[]');
-        $(inputPrice).addClass('inp-inf');
-        inputPrice.value = element.price;
-        
-        let CheckManoObra = document.createElement('input');
-        CheckManoObra.type = 'check';
-        CheckManoObra.value = document.getElementById(element.checkMOCan).checked;
-        CheckManoObra.setAttribute('name', 'check_mano_obra[]');
-
-        let priceManoObra = document.createElement('input');
-        priceManoObra.type = 'text';
-        priceManoObra.value = document.getElementById(element.inputMO).value;
-        priceManoObra.setAttribute('name', 'price_mano_obra[]');
-
-        $('#form-bill').append(inputProduct);
-        $('#form-bill').append(inputAmount);
-        $('#form-bill').append(inputPrice);
-        $('#form-bill').append(CheckManoObra);
-        $('#form-bill').append(priceManoObra);
-
-        document.getElementById('form-bill').submit();
-    })
+        }
+    }
 })
+function reemplazarzero(value){
+    while(value[0] == 0){
+        value = value.slice(1);
+    }
+    if(value == ''){
+        value = 1;
+    }
+    return value;
+}
+
+function errModalStock(err){
+    $(document).ready(function() {
+        $('#err_bill_stock').modal('toggle');
+    });
+    err = JSON.parse(err);
+    console.log(err);
+
+    err.forEach(element => {
+        console.log(element);
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        
+        td.appendChild(document.createTextNode(`${element.barcode} - ${element.nameprod}`))
+        tr.appendChild(td);
+        
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(`${element.stockactual}`))
+        tr.appendChild(td);
+        
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(`${element.stockseleccionado}`))
+        tr.appendChild(td);
+
+        document.getElementById('table_stock_err').appendChild(tr);
+    });
+}

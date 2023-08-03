@@ -26,7 +26,7 @@
             header('Location: ../views/user/');
         }
 
-        public function storebill($ft_name, $sd_name, $ft_lastname, $st_lastname, $cedula, $address, $email, $phone, $role){
+        public function storebill($ft_name, $sd_name, $ft_lastname, $st_lastname, $cedula, $address, $email, $phone, $role, $dire){
             require ('../config/connection.php');
             
             $nickname = generatorNicknames($ft_name, $ft_lastname);
@@ -49,8 +49,15 @@
             $Log = new Log;
 
             $Log->store($_SESSION['user_id'], '2', 'Se creó un nuevo usuario', $date, 2);
+
+            if($dire == 1){
+                header('Location: ../views/cotizaciones/add.php');
+                
+            }elseif($dire == 2){
+                header('Location: ../views/bill/add-bill.php');
+
+            }
             
-            header('Location: ../views/bill/add-bill.php');
         }
         
         public function index(){

@@ -30,6 +30,10 @@
                         <img src="../../assets/img/icons/file-invoice-dollar.svg" alt="">
                         <p>Facturas</p>
                     </a>
+                    <a href="../cotizaciones/" class="items-sidebar">
+                        <img src="../../assets/img/icons/person-dolly.svg" alt="">
+                        <p>Cotizaciones</p>
+                    </a>
                     <a href="../log/" class="items-sidebar">
                         <img src="../../assets/img/icons/logs.svg" alt="">
                         <p>Logs</p>

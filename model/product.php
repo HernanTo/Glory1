@@ -66,6 +66,17 @@
 
             return $output;
         }
+        public function indexBill(){
+            require ('../../config/connection.php');
+
+            $input = "SELECT producto.id as id_product, Barcode, name_product, prices, amount, producto.state, Barcode, photo FROM producto
+            WHERE producto.state = 1 and amount > 0";
+
+            $output = $db->query($input);
+
+
+            return $output;
+        }
 
         public function delete($id){
             require ('../config/connection.php');

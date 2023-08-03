@@ -158,7 +158,7 @@
 .modal_erro_img h4{
     font-weight: 650;
     font-family: 'Poppins';
-    color: #f44336;
+    color: #cc534a;
     margin: 0px;
     margin-top: 10px;
 }
@@ -173,8 +173,9 @@
     justify-content: center !important;
 }
 .close-modal-err{
-    background: #009ef7;
-    color: black;
+    background: #aaa;
+    color: #d9d9d9;
+    border: none;
     font-family: 'Poppins';
 }
 

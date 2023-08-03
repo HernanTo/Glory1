@@ -18,33 +18,80 @@
 
             }
             $total = $subT + ($subT * 0.19);
-            echo $total;
 
+            $estado = true;
+            $err = [];
 
-            $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1)";
-            
-            mysqli_query($db, $input);
-            $bill = mysqli_insert_id($db);
+            // $product_amount[0] = 11;
+            // $product_amount[1] = 223;
             
             for ($i=0; $i < sizeof($product_id) ; $i++) { 
-                $priceTp = $product_price[$i] * $product_amount[$i];
-                $manoObra = $check[$i] == 'true' ? 1 : 0;
-                if($manoObra == 1){
-                    $priceTp = $priceTp + $pricemo[$i];
-                }
-                
-                $input = "INSERT INTO bill_has_product(id_bill, id_product, price_u, amount, prices_total, date, prices_mano_obra, mano_obra) VALUES ('$bill','$product_id[$i]','$product_price[$i]','$product_amount[$i]','$priceTp','$date_bill', '$pricemo[$i]', '$manoObra')";
+                $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
+                $output = $db->query($inputProduct);
 
-                mysqli_query($db, $input);
+                foreach($output as $product)
+                if($product_amount[$i] > $product['amount']){
+                        $estado = false;
+                        $errorTemp = [
+                            'barcode' => $product['Barcode'], 
+                            'nameprod' => $product['name_product'], 
+                            'stockactual' => $product['amount'], 
+                            'stockseleccionado' => $product_amount[$i], 
+                        ];
+
+                        $err[] = $errorTemp;
+                    }
             }
-            include('../model/log.php');
-            date_default_timezone_set('America/Bogota');
-            $date =  date("Y-m-d H:i:s");
-            $Log = new Log;
 
-            $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
+            if($estado){
+                $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1)";
+            
+                mysqli_query($db, $input);
+                $bill = mysqli_insert_id($db);
+                            
+                for ($i=0; $i < sizeof($product_id) ; $i++) { 
+    
+                    $priceTp = $product_price[$i] * $product_amount[$i];
+                    $manoObra = $check[$i] == 'true' ? 1 : 0;
+                    if($manoObra == 1){
+                        $priceTp = $priceTp + $pricemo[$i];
+                    }
+                    
+                    $input = "INSERT INTO bill_has_product(id_bill, id_product, price_u, amount, prices_total, date, prices_mano_obra, mano_obra) VALUES ('$bill','$product_id[$i]','$product_price[$i]','$product_amount[$i]','$priceTp','$date_bill', '$pricemo[$i]', '$manoObra')";
+    
+                    mysqli_query($db, $input);
 
-            header('Location: ../views/bill/bill.php?referencia=' . $reference);
+                $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
+                $output = $db->query($inputProduct);
+
+                foreach($output as $prod){
+                    $stockRest = $prod['amount'] - $product_amount[$i];
+                    $input = "UPDATE producto SET amount = $stockRest WHERE id = " . $prod['id'];
+                    
+                    mysqli_query($db, $input);
+                }
+
+                }
+                include('../model/log.php');
+                date_default_timezone_set('America/Bogota');
+                $date =  date("Y-m-d H:i:s");
+                $Log = new Log;
+    
+                $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
+    
+                header('Location: ../views/bill/bill.php?referencia=' . $reference);
+            }else{
+                $_SESSION['err_bill'] = $err;
+
+                include('../model/log.php');
+                date_default_timezone_set('America/Bogota');
+                $date =  date("Y-m-d H:i:s");
+                $Log = new Log;
+    
+                $Log->store($_SESSION['user_id'], '4', 'No se pudo crear la factura debido a la falta de stock', $date, 3);
+    
+                header('Location: ../views/bill/add-bill.php');
+            }
         }
 
         public function index(){
@@ -126,6 +173,12 @@
 
             header('Location: ../views/bill/');
 
+        }
+        public function numBills(){
+            require ('../../config/connection.php');
+            $input = "select num_fact from bill";
+            $output = $db->query($input);
+            return $output;
         }
     }
 ?> 

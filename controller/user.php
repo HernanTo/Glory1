@@ -32,6 +32,32 @@
                 $role
             );
         }
+        public function storebill(){
+            $ft_name = $_POST['ft_name'];
+            $sd_name = $_POST['sd_name'];
+            $ft_lastname = $_POST['ft_lastname'];
+            $st_lastname = $_POST['st_lastname'];
+            $cedula = $_POST['cedula'];
+            $address = $_POST['address'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $role = $_POST['role'];
+            $direcc = $_POST['direcc'];
+
+            $User = new User;
+            $User->storebill(
+                $ft_name,
+                $sd_name,
+                $ft_lastname,
+                $st_lastname,
+                $cedula,
+                $address,
+                $email,
+                $phone,
+                $role,
+                $direcc
+            );
+        }
 
         public function delete(){
             $User = New User;

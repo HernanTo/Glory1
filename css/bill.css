@@ -74,7 +74,7 @@
 }
 .actions-bill{
     display: grid;
-    grid-template-columns: repeat(3, 47px);
+    grid-template-columns: repeat(4, 47px);
     grid-template-rows: 45px;
     column-gap: 15px;
     justify-content: center;
@@ -109,6 +109,9 @@
 }
 .edit-bill{
     background: #4A75CC;
+}
+.export__excel{
+    background: #077d3f;
 }
 .delete-bill{
     background: #9F0808;
@@ -280,7 +283,7 @@
         grid-column: 4/5;
         height: 100%;
         grid-template-columns: 47px;
-        grid-template-rows: repeat(3, 45px);
+        grid-template-rows: repeat(4, 45px);
         row-gap: 20px;
     }
     .con-items-fact{
@@ -331,7 +334,7 @@
         grid-column: 4/5;
         height: 100%;
         grid-template-columns: 47px;
-        grid-template-rows: repeat(3, 45px);
+        grid-template-rows: repeat(4, 45px);
         row-gap: 20px;
     }
 }

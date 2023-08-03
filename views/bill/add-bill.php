@@ -2,11 +2,44 @@
     include('../auth/security/securityGeneral.php');
     require ('../../model/user.php');
     require ('../../model/product.php');
+    require ('../../model/bill.php');
+
     $User = new User;
     $Product = new Product;
+    $Bill = new Bill;
     $customers = $User->searchRol(5);
     $seller = $User->searchRol(6);
-    $products = $Product->index();
+    $products = $Product->indexBill();
+
+    $numsBill = $Bill->numBills();
+    $referencia = generateNumReferences($numsBill);
+
+    function verBillNumBill($bill, $num){
+        $estado = false;
+
+        foreach($bill as $referencia){
+            if($referencia['num_fact'] == $num){
+                $estado = true;
+            }
+        }
+
+        return $estado;
+    }
+
+    function generateNumReferences($numsBill){
+        if(mysqli_num_rows($numsBill) > 0){
+            $num = rand(00000000, 99999999);
+            while(verBillNumBill($numsBill, $num)){
+                $num = rand(00000000, 99999999);
+            }
+            
+        }else{
+            $num = rand(00000000, 99999999);
+        }
+
+        return $num;
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +47,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo producto | Lotus</title>
+    <title>Nueva Factura | Lotus</title>
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
@@ -41,7 +74,7 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a href="../product/">Productos</a>
+                        <a href="../bill/">Factura</a>
                         /
                         <a>Nueva factura</a>
                     </div>
@@ -59,7 +92,7 @@
                         <label for="floatingInputValue">Fecha</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Referencia" name="reference" required>
+                        <input type="number" class="form-control" id="references" placeholder="Referencia" name="reference" value="<?php echo $referencia ?>" required>
                         <label for="floatingInputValue">Referencia</label>
                         <img src="../../assets/img/icons/notebook.svg" alt="" class="ico-in">
                     </div>
@@ -197,6 +230,17 @@
                 </script>
                 <?php
                 unset($_SESSION['user-add']);
+            }
+        }
+        if(isset($_SESSION['err_bill'])){
+            if($_SESSION['err_bill']){
+                $err = json_encode($_SESSION['err_bill']);
+                ?>
+                <script>
+                    errModalStock('<?php echo $err ?>')
+                </script>
+                <?php
+                unset($_SESSION['err_bill']);
             }
         }
     ?>

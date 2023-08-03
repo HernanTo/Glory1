@@ -98,6 +98,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <input type="text" value="2" name="direcc" style="display: none;">
             <button type="submit" class="btn btn-primary" >Crear</button>
         </form>
       </div>
@@ -165,3 +166,33 @@
   </div>
 </div>
  <!-- Modal eliminar usuario -->
+
+ <div class="modal fade modal-general" id="err_bill_stock"  tabindex="-1" aria-labelledby="staticBackdropLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              <img src="../../assets/img/icons/exclamation.svg" alt="">
+              Error al generar la factura
+            </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal__body__errstock">
+        <p class="msg-err-sto">Algunos de los productos seleccionados no disponen del stock necesario, ajuste la factura teniendo en cuenta lo siguiente:</p>
+        <table class="table-stock-err">
+          <tr>
+            <th style="width: 50%;">Producto</th>
+            <th>Stock dis.</th>
+            <th>Cant. Sol.</th>
+          </tr>
+          <tbody id="table_stock_err">
+
+          </tbody>
+        </table>
+      </div>
+        
+      <div class="modal-footer" style="justify-content: center;">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+  </div>
+</div>
