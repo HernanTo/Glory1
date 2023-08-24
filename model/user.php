@@ -185,6 +185,20 @@
             }
         }
 
+        public function updateRole($id, $role){
+            require ('../config/connection.php');
+            $input = "UPDATE user_has_role SET role_id = '$role' WHERE user_id = '$id'";
+            mysqli_query($db, $input);
+
+            $_SESSION['editUser'] = 1;
+            include('../model/log.php');
+            date_default_timezone_set('America/Bogota');
+            $date =  date("Y-m-d H:i:s");
+            $Log = new Log;
+
+            $Log->store($_SESSION['user_id'], '1', 'Se edito el rol del usuario' . $ccChange, $date, 2);
+        }
+
         public function delete($id){
             require ('../config/connection.php');
 

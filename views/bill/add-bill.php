@@ -3,6 +3,10 @@
     require ('../../model/user.php');
     require ('../../model/product.php');
     require ('../../model/bill.php');
+    require ('../../model/role.php');
+    
+    $Role = new Role;
+    $dataRole = $Role->index();
 
     $User = new User;
     $Product = new Product;
@@ -201,6 +205,8 @@
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../../libs/selects/select2.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/adduser.js"></script>
+
     <script src="../js/add-bill.js"></script>
     <!-- scripts main -->
     <script>

@@ -83,7 +83,15 @@
             <?php
               if($_SESSION['role_id'] == 6 || $_SESSION['role_id'] == 7){
                 ?>
-                  <input type="number" name="role" value="5" style="display: none;">
+                  <input type="number" name="role" value="5" style="display: none;" class="rol__new__user">
+                  <div class="form-floating form-lotus">
+                      <input type="text" class="form-control" id="placa" placeholder="Placa" name="placa">
+                      <label for="floatingInput">Placa</label>
+                    </div>
+                    <div class="form-floating form-lotus">
+                      <input type="text" class="form-control" id="modelo" placeholder="modelo" name="Modelo">
+                      <label for="floatingInput">Modelo</label>
+                    </div>
                 <?php
               }else{
                 ?>
@@ -92,7 +100,7 @@
                     <label for=""></label>
                     <label for=""></label>
                     <div class="form-floating form-lotus rol-form-ge">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="role">
+                        <select class="form-select rol__new__user" id="floatingSelect" aria-label="Floating label select example" name="role">
                             <option selected disabled>Elegir una opción</option>
                           <?php
                               while($row = $dataRole->fetch_assoc()){
@@ -102,10 +110,20 @@
                         </select>
                         <label for="floatingSelect">Rol</label>
                     </div>
-                </div>
-                <?php
+                    <div class="form-floating form-lotus con-inpt-client">
+                      <input type="text" class="form-control" id="placa" placeholder="Placa" name="placa">
+                      <label for="floatingInput">Placa</label>
+                    </div>
+                    <div class="form-floating form-lotus con-inpt-client">
+                      <input type="text" class="form-control" id="modelo" placeholder="modelo" name="Modelo">
+                      <label for="floatingInput">Modelo</label>
+                    </div>
+
+                    <?php
               }
-            ?>
+              ?>
+
+              </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-primary" >Crear</button>

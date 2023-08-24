@@ -15,9 +15,10 @@
             $barcode = $_POST['barcode'];
             $name_product = $_POST['name_product'];
             $num_repuesto = $_POST['num_repuesto'];
-            $max_stock = $_POST['max_stock'];
+            $min_stock = $_POST['min_stock'];
+            $product_cost = $_POST['product_cost'];
             $Product = new Product;
-            $Product->store($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $max_stock);
+            $Product->store($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $product_cost);
         }
 
         public function delete(){
@@ -34,11 +35,11 @@
             $barcode = $_POST['barcode'];
             $name_product = $_POST['name_product'];
             $num_repuesto = $_POST['num_repuesto'];
-            $max_stock = $_POST['max_stock'];
+            $min_stock = $_POST['min_stock'];
             $img_action = $_POST['changepicturestate'];
             $id = $_POST['id'];
             $Product = new Product;
-            $Product->update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $max_stock, $img_action, $id);
+            $Product->update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $img_action, $id);
 
             header('Location: ../views/product/');
         }

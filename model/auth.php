@@ -29,7 +29,7 @@
                 ON user.id = user_has_role.user_id
                 INNER JOIN role
                 ON role_id = role.id
-                WHERE cedula = '$nickname' AND state = 1";
+                WHERE cedula = '$nickname' AND state = 1 and role_id != 5";
 
                 $output = $db->query($input);
                 $totalRows    = mysqli_num_rows($output); 

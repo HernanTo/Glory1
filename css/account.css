@@ -220,7 +220,7 @@
     grid-template-columns: 100%;
     margin-top: 20px;
 }
-.con-detail-us-f section input, #form-change-password .con-sub-edi-p input{
+.con-detail-us-f section input, #form-change-password .con-sub-edi-p input, .con-sub-edi-p input{
     height: 45px;
     border-radius: 10px;
     outline: none;
@@ -230,12 +230,12 @@
     background: #5057653a;
     font-family: 'Nunito';
 }
-.con-detail-us-f .con-sub-edi-p, #form-change-password .con-sub-edi-p{
+.con-detail-us-f .con-sub-edi-p, #form-change-password .con-sub-edi-p, .con-sub-edi-p{
     display: grid;
     grid-template-columns: 190px;
     justify-content: center;
 }
-.con-detail-us-f .con-sub-edi-p input, #form-change-password .con-sub-edi-p input{
+.con-detail-us-f .con-sub-edi-p input, #form-change-password .con-sub-edi-p input, .con-sub-edi-p input{
     padding: 0px;
     background: #00458ec2;
     font-weight: 600;

@@ -246,10 +246,10 @@ body{
     color: #514E6D;
     font-size: 16px;
 }
-.con-filter select{
-    background: rgba(0, 0, 0, 0.075);
+.con-filter select, .buttons-page-length{
+    background: rgba(0, 0, 0, 0.075) !important;
     font-family: 'Poppins';
-    border: 1px solid rgba(255, 255, 255, 7%);
+    border: 1px solid rgba(255, 255, 255, 7%) !important; 
     height: 100%;
     margin: 0px !important;
     outline: none;
@@ -668,6 +668,25 @@ body{
     font-weight: bold;
 }
 
+.dt-buttons .buttons-html5{
+    background: #595959 !important;
+    border-radius: 12px !important;
+    font-family: 'Poppins';
+    font-weight: bold;
+    border: none !important;
+    transition: all .6s;
+    color: white !important;
+}
+.dt-buttons .buttons-html5:hover{
+    transform: scale(1.08);
+}
+
+.dt-buttons .buttons-html5:nth-child(3){
+    background: #12a757 !important;
+}
+.dt-buttons .buttons-html5:nth-child(4){
+    background: #9F0808 !important;
+}
 @media (max-height: 520px){
     .center-help{
         padding: 0px;
@@ -1166,4 +1185,10 @@ body{
     .rol-form-ge{
         grid-column: 1/2;
     }
+}
+.con-inpt-client{
+    display: none;
+}
+.con-inpt-client-visible{
+    display: grid;
 }

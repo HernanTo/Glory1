@@ -23,6 +23,7 @@
     <!-- ** Main Css -->
     <!-- Css page -->
     <link rel="stylesheet" href="../../libs/datatable/datatables.min.css">
+    <link rel="stylesheet" href="../../libs/datatable/datatablesButtons.css">
     <!-- Css page -->
 
 </head>
@@ -117,41 +118,75 @@
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/user.js"></script>
+    <script src="../js/adduser.js"></script>
+
     <script src="../../libs/datatable/datatables.min.js"></script>
+    <script src="../../libs/datatable/datatablesButtons.js"></script>
+    <script src="../../libs/datatable/jszip.min.js"></script>
+    <script src="../../libs/datatable/pdfmake.min.js"></script>
+    <script src="../../libs/datatable/vfs_fonts.js"></script>
+    <script src="../../libs/datatable/buttons.html5.min.js"></script>
 
     <script>
         $(document).ready(function () {
             $('#example').DataTable({
                 responsive: true,
+                dom: 'Bfrtip',
+                lengthMenu: [
+                    [ 25, 50, 100, -1 ],
+                    [ '25', '50', '100', 'Mostrar todo' ]
+                ],
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1,2,3]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1,2,3]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                ],          
                 initComplete: function () {
-                this.api().columns([ 2 ]).every( function () {
-                var column = this;
-                var select = $('<select class="form-select form-select-sm selecttable-lotus"> <option value="">Todos</option> </select>')
-                .appendTo( $('.con-filter-da'))
-                .on( 'change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-                    column
-                        .search( val ? '^'+val+'$' : '', true, false )
-                        .draw();
-                } );
+                    this.api().columns([ 2 ]).every( function () {
+                        var column = this;
+                        var select = $('<select class="form-select form-select-sm selecttable-lotus"> <option value="">Todos</option> </select>')
+                        .appendTo( $('.con-filter-da'))
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
 
-                column.data().unique().sort().each( function ( d, j ) {
-                    if(column.search() === '^'+d+'$'){
-                        select.append(
-                            '<option value="'+d+'" selected="selected">'
-                            +d+
-                            '</option>'
-                        )
-                    } else {
-                        select.append('<option value="'+d+'">'+d+'</option>')
-                    }
-                });
-            });
-            }
+                        column.data().unique().sort().each( function ( d, j ) {
+                            if(column.search() === '^'+d+'$'){
+                                select.append(
+                                    '<option value="'+d+'" selected="selected">'
+                                    +d+
+                                    '</option>'
+                                )
+                            } else {
+                                select.append('<option value="'+d+'">'+d+'</option>')
+                            }
+                        });
+                    });
+                },  
             });
         });
+
     </script>
 
 

@@ -144,8 +144,8 @@
                                 <img src="../../assets/img/icons/truck-loading.svg" alt="" class="ico-in">
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="max_stock" onkeydown="return event.keyCode !== 69" required  value="<?php echo $row['max_stock'] ?>">
-                                <label for="floatingInput">Cantidad de stock máxima</label>
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="min_stock" onkeydown="return event.keyCode !== 69" required  value="<?php echo $row['min_stock'] ?>">
+                                <label for="floatingInput">Cantidad de stock mínima</label>
                                 <img src="../../assets/img/icons/box-open-full.svg" alt="" class="ico-in">
                             </div>
                         </section>

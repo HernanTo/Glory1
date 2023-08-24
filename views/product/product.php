@@ -107,14 +107,9 @@
                                     <h5><?php  echo $row['amount'] ?></h5>
                                 </span>
                                 <span>
-                                    <img src="../../assets/img/icons/box-open-full.svg" alt="">
-                                    <p>Stock máximo</p>
-                                    <h5><?php  echo $row['max_stock'] ?></h5>
-                                </span>
-                                <span>
                                     <img src="../../assets/img/icons/box-open.svg" alt="">
                                     <p>Stock Mínimo</p>
-                                    <h5><?php  echo intval($row['max_stock'] * 0.15) ?></h5>
+                                    <h5><?php  echo intval($row['min_stock']) ?></h5>
                                 </span>
                             </div>
                         </div>
@@ -144,7 +139,7 @@
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>Stock Actual</th>
-                            <th>Stock Máxmio</th>
+                            <th>Stock Mínimo</th>
                             <th>Estado</th>
                         </tr>
                         <tbody>
@@ -154,7 +149,7 @@
                                 <td  style="min-width: 110px;"><?php  echo $row['name_product'] ?></td>
                                 <td  style="min-width: 110px;" class="prices"><?php  echo $row['prices'] ?></td>
                                 <td  style="min-width: 110px;"><?php  echo $row['amount'] ?></td>
-                                <td style="min-width: 110px;"><?php  echo $row['max_stock'] ?></td>
+                                <td style="min-width: 110px;"><?php  echo $row['min_stock'] ?></td>
                                 <td style="min-width: 110px;"><?php  echo $row['state'] == 1 ? 'Activo' : 'Inactivo' ?></td>
                             </tr>
                         </tbody>

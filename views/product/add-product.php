@@ -99,14 +99,19 @@
                                 <label for="floatingInput">Precio por unidad</label>
                                 <img src="../../assets/img/icons/dollar.svg" alt="" class="ico-in">
                             </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Precio por unidad" name="product_cost" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" required>
+                                <label for="floatingInput">Costo por unidad</label>
+                                <img src="../../assets/img/icons/dollar.svg" alt="" class="ico-in">
+                            </div>
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="stock" onkeydown="return event.keyCode !== 69" required>
                                 <label for="floatingInput">Cantidad de stock</label>
                                 <img src="../../assets/img/icons/truck-loading.svg" alt="" class="ico-in">
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="max_stock" onkeydown="return event.keyCode !== 69" required>
-                                <label for="floatingInput">Cantidad de stock máxima</label>
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="min_stock" onkeydown="return event.keyCode !== 69" required>
+                                <label for="floatingInput">Cantidad minima de stock</label>
                                 <img src="../../assets/img/icons/box-open-full.svg" alt="" class="ico-in">
                             </div>
                         </section>
@@ -137,9 +142,9 @@
     <script>
         $(document).ready(function() {
             $('#category').select2({
-                placeholder: "Selecciona una o varias categorias",
+                placeholder: "Selecciona una categoria",
                 multiple: true,
-                maximumSelectionLength: 2,
+                maximumSelectionLength: 1,
                 allowClear: true
             });
         });

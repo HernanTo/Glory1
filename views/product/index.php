@@ -19,6 +19,8 @@
     <!-- ** Main Css -->
     <!-- Css page -->
     <link rel="stylesheet" href="../../libs/datatable/datatables.min.css">
+    <link rel="stylesheet" href="../../libs/datatable/datatablesButtons.css">
+    
     <!-- Css page -->
 
 </head>
@@ -116,11 +118,42 @@
     <script src="../js/sidebar.js"></script>
     <script src="../js/indexprod.js"></script>
     <script src="../../libs/datatable/datatables.min.js"></script>
+    <script src="../../libs/datatable/datatablesButtons.js"></script>
+    <script src="../../libs/datatable/jszip.min.js"></script>
+    <script src="../../libs/datatable/pdfmake.min.js"></script>
+    <script src="../../libs/datatable/vfs_fonts.js"></script>
+    <script src="../../libs/datatable/buttons.html5.min.js"></script>
 
     <script>
         $(document).ready(function () {
             $('#example').DataTable({
                 responsive: true,
+                dom: 'Bfrtip',
+                lengthMenu: [
+                    [ 25, 50, 100, -1 ],
+                    [ '25', '50', '100', 'Mostrar todo' ]
+                ],
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3,4 ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3,4 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3,4 ]
+                        }
+                    },
+                ],    
             });
         });
     </script>

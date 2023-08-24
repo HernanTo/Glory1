@@ -87,6 +87,15 @@
             
             header('Location: ../views/user/');
         }
+        public function updateRole(){
+            $role = $_POST['role'];
+            $id = $_POST['iduseredit'];
+
+            $User = new User;
+            $User->updateRole($id, $role);
+            
+            header('Location: ../views/user/');
+        }
     }
 
     $userControlller = new userControlller;

@@ -15,7 +15,8 @@
     }else{
         header('Location: ./');
     }
-    
+    $roleU = 0;
+    $idUserEdit = 0;    
     foreach($userData as $row){
         if($_SESSION['role_id'] == 4){
             if($row['role_id'] == 1){
@@ -61,6 +62,8 @@
             include('../templates/sidebar.php');
             if(mysqli_num_rows($userData) > 0 && $permis){
                 foreach($userData as $row){
+                    $roleU = $row['role_id'];
+                    $idUserEdit = $row['id'];
 
         ?>
 
@@ -70,7 +73,7 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a href="./index.php">Cuenta</a>
+                        <a href="./index.php">Usuarios</a>
                         /
                         <a href="./user.php?cc=<?php echo $row['cedula'] ?>"><?php echo $row['nameLas'] ?></a>
                         /
@@ -175,6 +178,45 @@
                         </div>
 
                     </div>
+                    <?php
+                        if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 4){
+                            ?>
+                            <div class="main-sec-acco" style="margin-top: 20px;">
+                                <div class="header-sec-ac header-ac">
+                                    <img src="../../assets/img/icons/id-card-clip-alt.svg" alt="information-user">
+                                    <h2>Editar Rol</h2>
+                                    <div class="divider"></div>
+                                </div>
+                                <div class="content-sec-ac">
+                                    <form action="../../controller/user.php?action=updateRole" method="post" enctype="multipart/form-data">
+                                        <input type="number" value="<?php echo $idUserEdit ?>" name="iduseredit" style="display: none;">
+                                    <div class="form-floating form-lotus rol-form-ge">
+                                        <select class="form-select rol__new__user" id="floatingSelect" aria-label="Floating label select example" name="role" style="margin-bottom: 30px;">
+                                                <?php
+                                                    while($fila = $dataRole->fetch_assoc()){
+                                                        if($fila['id'] == $roleU){
+                                                            ?><option value="<?php echo $fila['id'] ?>" selected><?php echo $fila['role'] ?></option><?php
+        
+                                                        }else{
+        
+                                                            ?><option value="<?php echo $fila['id'] ?>"><?php echo $fila['role'] ?></option><?php
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                            <label for="floatingSelect">Rol</label>
+                                        </div>
+                                        <section class="con-sub-edi-p">
+                                            <input type="submit" value="Editar rol">
+                                        </section>
+                                    </form>
+                                </div>
+        
+                            </div>
+                            <?php
+                        }
+                    ?>
+
                 </div>
             </div>
         </div>

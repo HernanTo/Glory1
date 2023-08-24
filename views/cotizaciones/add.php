@@ -3,15 +3,23 @@
     require ('../../model/user.php');
     require ('../../model/product.php');
     require ('../../model/cotizaciones.php');
+    require ('../../model/role.php');
+
+    $Role = new Role;
+    $dataRole = $Role->index();
+
     $User = new User;
-    $Product = new Product;
-    $Cotizaciones = new Cotizaciones;
     $customers = $User->searchRol(5);
     $seller = $User->searchRol(6);
+
+    $Product = new Product;
     $products = $Product->index();
 
+    $Cotizaciones = new Cotizaciones;
+    
     $numsBill = $Cotizaciones->numBills();
     $referencia = generateNumReferences($numsBill);
+
 
     function verBillNumBill($bill, $num){
         $estado = false;
@@ -200,6 +208,7 @@
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../../libs/selects/select2.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/adduser.js"></script>
     <script src="../js/add-cotiza.js"></script>
     <!-- scripts main -->
     <script>
