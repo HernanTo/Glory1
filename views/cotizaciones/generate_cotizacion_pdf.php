@@ -343,18 +343,21 @@ $html = '
                                 $count = $count + 1;
 
                             }
+                            foreach ($data as $dataBill){
+                                $fecha = new DateTime($dataBill['date']);
+                                $fecha->modify('+10 days');
+                                $fecha = $fecha->format('d-m-Y');
                             $html .= '</tbody>
                         </table>
                     </div>
                     <div class="footer-bill">
                         <div class="msg-fo">
                         Sujeto a variación de precio y stock. <br>
-                        Cotización válida hasta 30.05.2023
+                        Cotización válida hasta '. $fecha  .'
                         </div>
                         <table class="info-detail">
                             ';
 
-                            foreach ($data as $dataBill){
                                 $html .=' <tr>
                                     <td class="firt-col-foo">Subtotal PU</td>
                                     <td class="sg-col-foo">:</td>

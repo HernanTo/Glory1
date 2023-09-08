@@ -192,6 +192,12 @@
 
         }else{
                 foreach ($data as $datos){
+                        $fecha = new DateTime($dataBill['date']);
+                        $fecha->modify('+10 days');
+                        $fecha = $fecha->format('d-m-Y');
+
+                        $activeWorksheet->setCellValue('E47', 'Sujeto a variación de precio y stock.
+                        Cotización válida hasta ' . $fecha);
                         $activeWorksheet->setCellValue('O47', $datos['subtotal']);
                         $activeWorksheet->setCellValue('O49', $datos['subtotal']);
                         $activeWorksheet->setCellValue('O50', $datos['subtotal'] * 0.19);

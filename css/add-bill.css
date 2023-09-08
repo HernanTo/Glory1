@@ -30,20 +30,19 @@
 
 .prod-rod{
     display: grid;
-    grid-template-columns: 60px 250px 50px;
+    grid-template-columns: 340px 1fr 50px;
     grid-template-rows: 45px 30px 35px;
     column-gap: 20px;
     background: #f5f5f594;
-    padding: 20px;
+    padding: 20px;  
     border-radius: 12px;
-    max-width: 465px;
     row-gap: 15px;
+    /* background: red; */
 }
 .con-mo{
-    grid-row: 3/4;
     grid-column: 1/4;
     display: grid;
-    grid-template-columns: 45% 50%;
+    grid-template-columns: 1fr 120px;
     align-items: center;
 }
 .con-mo label{
@@ -52,6 +51,9 @@
 }
 .prod-rod .con-img-prod{
     grid-row: 1/3;
+    box-shadow: 0px 0px 2px 1px #595959;
+    border-radius: 12px;
+    max-width: 180px;
 }
 .con-mo  input{
     font-family: 'Nunito';
@@ -79,12 +81,53 @@
 .prod-rod .text-prod{
     display: grid;
     align-items: center;
-    grid-row: 1/3;
-    grid-column: 2/3;
+    grid-row: 3/6;
+    grid-column: 1/2;
     display: grid;
     grid-template-columns: 60% 40%;
-    grid-template-rows: repeat(2, 50%);
+    grid-template-rows: repeat(3, 25px);
     align-items: center;
+    row-gap: 5px;
+}
+.divInfoC{
+    border-left: 2px dashed black;
+    grid-column: 2/4;
+    grid-row: 1/6;
+    padding-left: 30px;
+    /* padding-right: 30px; */
+    display: grid;
+    grid-auto-rows: 40px;
+    grid-template-columns: 100%;
+    row-gap: 5px;
+    align-content: center;
+}
+.divDesc{
+    grid-column: 1/2;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    justify-content: space-between;
+}
+.divDesc select{
+    width: 120px;
+    height: 40px;
+    border: 0px solid;
+    outline: none;
+    padding-left: 10px;
+}
+.divamount{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.divDesc label{
+    font-family: 'Poppins';
+}
+.can_amo{
+    width: 120px !important;
+}
+.divamount label{
+    font-family: 'Poppins';
 }
 .prod-rod .text-prod h3{
     font-family: 'Poppins';
@@ -101,7 +144,7 @@
     width: 120px;
 }
 .prod-rod .action-prod{
-    grid-row: 1/3;
+    grid-row: 1/6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,6 +202,7 @@
     display: grid;
     row-gap: 20px;
     transition: all 0.6s;
+    grid-column: 1/3;
 }
 .not-pro-ord p{
     color: white;
@@ -249,4 +293,7 @@
     font-size: 15px;
     text-align: center;
     height: 40px;
+}
+.hide_in_form{
+    display: none !important;
 }

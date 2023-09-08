@@ -4,7 +4,7 @@
     //     header('Location: ./');
     // }
 
-    include('../../model/Product.php');
+    include('../../model/product.php');
 
     $Product = new Product;
     if(isset($_GET['id'])){

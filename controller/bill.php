@@ -20,6 +20,9 @@
             $product_price = $_POST['product_price'];
             $check_mano_obra = $_POST['check_mano_obra'];
             $price_mano_obra = $_POST['price_mano_obra'];
+            $descuento = $_POST['descuento'];
+            $iva = $_POST['iva_check'];
+            $estado_pago = $_POST['estado_pago_check'];
 
             $Bill->store(
                 $date_bill,
@@ -30,7 +33,10 @@
                 $seller,
                 $product_price,
                 $check_mano_obra,
-                $price_mano_obra
+                $price_mano_obra, 
+                $descuento,
+                $iva,
+                $estado_pago
             );
         }
 

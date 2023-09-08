@@ -343,8 +343,7 @@ $html = '
                     </div>
                     <div class="footer-bill">
                         <div class="msg-fo">
-                        Sujeto a variación de precio y stock. <br>
-                        Cotización válida hasta 30.05.2023
+                            <br>
                         </div>
                         <table class="info-detail">
                             ';

@@ -1,7 +1,7 @@
 <?php
     include('../auth/security/securityGeneral.php');
     include('../../model/category.php');
-    include('../../model/Product.php');
+    include('../../model/product.php');
 
     $Category = new Category;
     $dataCategory = $Category->index();

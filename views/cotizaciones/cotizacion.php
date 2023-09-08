@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización | Lotus</title>
+    <title>Facturas | Lotus</title>
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
@@ -38,11 +38,11 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a href="./">Cotizaciones</a>
+                        <a href="./">Facturas</a>
                         /
                         <a><?php echo $_GET['referencia'] ?></a>
                     </div>
-                    <h2>Resumen Cotización</h2>
+                    <h2>Resumen factura</h2>
                 </div>
                 <div class="con-bill-summary">
                     <div class="con-items-bill-s con-items-fact">
@@ -71,7 +71,7 @@
 
                             <span>
                                 <label>Descuento</label>
-                                <h3>No aplica</h3>
+                                <h3 class="<?php echo $row['descuento'] <= 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h3>
                                 <img src="../../assets/img/icons/badge-percent 1.svg" alt="">
                             </span>
                             
@@ -89,9 +89,9 @@
                         </div>
                     </div>
                     <div class="actions-bill">
-                        <a href="./generate_cotizacion_pdf.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-export 1.svg" alt=""></a>
+                        <a href="./generate_bill_pdf.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-export 1.svg" alt=""></a>
 
-                        <a href="./generate_cotizacion_excel.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document export__excel" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-excel.svg" alt=""></a>
+                        <a href="./generate_bill_excel.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document export__excel" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-excel.svg" alt=""></a>
 
                         <a href="" class="edit-bill"><img src="../../assets/img/icons/edit 1.svg" alt=""></a>
 
@@ -123,7 +123,7 @@
                                 <div class="body-items-sum body-seller-sum">
                                     <img src="../../assets/img/profilePictures/<?php echo $fila['photo'] ?>" alt="">
                                     <h2><?php echo $row['nameLas'] ?></h2>
-                                    <a href="../user//user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Más</a>
+                                    <a href="../user/user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Más</a>
                                 </div>
                             </div>
                             <?php
@@ -138,11 +138,12 @@
                         <div class="body-items-sum body-order-sum">
                             <?php
                                 foreach($product as $dat){
-                                    if($dat['stock'] == 0){
-                                        $stock = 'No';
+                                    $descuento = 0;
+                                    $descuento = $descuento + $dat['descuento'];
+                                    if($dat['mano_obra'] == '0'){
+                                        $manoObra = 'No aplica';
                                     }else{
-                                        $stock = 'Si';
-                                        
+                                        $manoObra = $dat['prices_mano_obra'];
                                     }
 
                                     ?>
@@ -152,24 +153,32 @@
                                         <h4 class="prices"><?php echo $dat['price_u'] ?></h4>
 
                                         <p class="cantidad-prod-s">Cantidad: <i><?php echo $dat['amount'] ?></i></p>
+                                        <p class="mano-obra-su">Mano de obra: <i class="<?php echo $manoObra != 'No aplica' ? 'prices' : '' ?>"><?php echo $manoObra ?></i></p>
 
                                         <h1 class="prices prices-pro"><?php echo $dat['prices_total'] ?></h1>
-
-                                        <p class="mano-obra-su">Stock: <i><?php echo $stock ?></i></p>
                                     </div>
                                     <?php
                                 }
                             ?>
                             
                             <div class="con-sum-prices">
+                                <?php 
+                                    
+
+                                    if($row['iva'] == 'false'){
+                                        $iva = 'No Aplica';
+                                    }else{
+                                        $iva = $row['subtotal'] * 0.19;
+                                    }
+                                ?>
                                 <p>Descuento</p>
-                                <h5>No Aplica</h5>
+                                <h5 class="<?php echo $row['descuento'] <= 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h5>
 
                                 <p>Subtotal</p>
                                 <h2 class="prices"><?php echo $row['subtotal'] ?></h2>
 
                                 <p>IVA</p>
-                                <h2 class="prices"><?php echo $row['subtotal'] * 0.19 ?></h2>
+                                <h2 class="<?php echo $iva == 'No Aplica' ? 'd' : 'prices'; ?>"><?php echo $iva ?></h2>
 
                                 <p>Total:</p>
                                 <h2 class="prices"><?php echo $row['total_prices']?></h2>
@@ -195,7 +204,6 @@
                     </div>
                 <?php
             }
-        include('./components/modal.php');
     ?>
     <!-- Modal -->
 

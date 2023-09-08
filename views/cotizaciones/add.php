@@ -170,14 +170,38 @@
                 <br>
                 <section class="sect-form-p sect-form-up">
                     <div class="divider-form">
+                        <h3>Configuración</h3>
+                        <img src="../../assets/img/icons/usd-circle.svg" alt="">
+                    </div>
+                    <div class="resumen-orden">
+                        <div class="info-fact">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="iva__check" checked>
+                                <label class="form-check-label" for="iva__check">IVA</label>
+                            </div>
+                        </div>
+                        <!-- <div class="info-fact">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="estado__pago_check">
+                                <label class="form-check-label" for="estado__pago_check">Estado de pago</label>
+                            </div>
+                        </div> -->
+                    </div>
+                </section>
+                <section class="sect-form-p sect-form-up">
+                    <div class="divider-form">
                         <h3>Información</h3>
                         <img src="../../assets/img/icons/usd-circle.svg" alt="">
                     </div>
                     <div class="resumen-orden">
                         <div class="info-fact">
                             <h3>IVA: </h3>
-                            <p>19%</p>
+                            <p id="iva_info">$0</p>
                         </div>
+                        <!-- <div class="info-fact">
+                            <h3>Estado: </h3>
+                            <p id="estado__pago">Pendiente de pago</p>
+                        </div> -->
                         <div class="info-fact">
                             <h3>Subtotal: </h3>
                             <p class="con-sub-t" id="con-sub-t">$0</p>

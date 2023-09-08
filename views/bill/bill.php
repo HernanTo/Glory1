@@ -4,6 +4,7 @@
     $Bill = new Bill;
 
     list($data, $product, $seller) = $Bill->generateBill($_GET['referencia']);
+    $descuento = 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,7 +72,7 @@
 
                             <span>
                                 <label>Descuento</label>
-                                <h3>No aplica</h3>
+                                <h3 class="<?php echo $row['descuento'] < 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h3>
                                 <img src="../../assets/img/icons/badge-percent 1.svg" alt="">
                             </span>
                             
@@ -138,6 +139,8 @@
                         <div class="body-items-sum body-order-sum">
                             <?php
                                 foreach($product as $dat){
+                                    $descuento = 0;
+                                    $descuento = $descuento + $dat['descuento'];
                                     if($dat['mano_obra'] == '0'){
                                         $manoObra = 'No aplica';
                                     }else{
@@ -160,14 +163,23 @@
                             ?>
                             
                             <div class="con-sum-prices">
+                                <?php 
+                                    
+
+                                    if($row['iva'] == 'false'){
+                                        $iva = 'No Aplica';
+                                    }else{
+                                        $iva = $row['subtotal'] * 0.19;
+                                    }
+                                ?>
                                 <p>Descuento</p>
-                                <h5>No Aplica</h5>
+                                <h5 class="<?php echo $row['descuento'] < 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h5>
 
                                 <p>Subtotal</p>
                                 <h2 class="prices"><?php echo $row['subtotal'] ?></h2>
 
                                 <p>IVA</p>
-                                <h2 class="prices"><?php echo $row['subtotal'] * 0.19 ?></h2>
+                                <h2 class="<?php echo $iva == 'No Aplica' ? 'd' : 'prices'; ?>"><?php echo $iva ?></h2>
 
                                 <p>Total:</p>
                                 <h2 class="prices"><?php echo $row['total_prices']?></h2>
@@ -193,7 +205,6 @@
                     </div>
                 <?php
             }
-        include('./components/modal.php');
     ?>
     <!-- Modal -->
 

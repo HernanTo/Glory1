@@ -18,6 +18,11 @@
             $customer = $_POST['customer'];
             $seller = $_POST['seller'];
             $product_price = $_POST['product_price'];
+            $check_mano_obra = $_POST['check_mano_obra'];
+            $price_mano_obra = $_POST['price_mano_obra'];
+            $descuento = $_POST['descuento'];
+            $iva = $_POST['iva_check'];
+            // $estado_pago = $_POST['estado_pago_check'];
 
             $Cotizaciones->store(
                 $date_bill,
@@ -26,7 +31,12 @@
                 $product_id,
                 $customer,
                 $seller,
-                $product_price
+                $product_price,
+                $check_mano_obra,
+                $price_mano_obra, 
+                $descuento,
+                $iva,
+                // $estado_pago
             );
         }
 

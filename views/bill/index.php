@@ -97,9 +97,6 @@
     </div>
 
     <!-- Modal -->
-    <?php
-        include('./components/modal.php');
-    ?>
     <!-- Modal -->
 
     <!-- scripts main -->
