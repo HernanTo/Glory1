@@ -22,6 +22,10 @@
                         <img src="../../assets/img/icons/clipboard-list-check.svg" alt="">
                         <p>Productos</p>
                     </a>
+                    <a href="../service/" class="items-sidebar">
+                        <img src="../../assets/img/icons/tools.svg" alt="">
+                        <p>Servicios</p>
+                    </a>
     
                     <div class="divisor-sidebar">
                         <h4>ADICIONALES</h4>

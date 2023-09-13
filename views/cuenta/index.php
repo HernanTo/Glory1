@@ -36,6 +36,7 @@
             <div class="container-index-user con-acount-general">
                 <div class="header-page-g">
                     <div class="bread-cump">
+                        <span></span>
                         <a href="../dashboard/">Home</a>
                         /
                         <a>Cuenta</a>
