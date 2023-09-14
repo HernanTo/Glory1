@@ -1,5 +1,6 @@
 <?php 
     $role = '';
+    // !! Obsoleto Mejorar !!
     if($_SESSION['role_id'] == 1){
         $role = 'Administrador';
         
@@ -9,6 +10,8 @@
     }elseif($_SESSION['role_id'] == 6){
         $role = 'Trabajador';
 
+    }elseif($_SESSION['role_id'] == 7){
+        $role = 'Servicios';
     }
 
     include('../../model/log.php');
