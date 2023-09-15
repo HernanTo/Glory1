@@ -12,7 +12,7 @@
     $Product = new Product;
     $Bill = new Bill;
     $customers = $User->searchRol(5);
-    $seller = $User->searchRol(6);
+    $seller = $User->searchRol(6,1);
     $products = $Product->indexBill();
 
     $numsBill = $Bill->numBills();
@@ -92,7 +92,7 @@
                         <img src="../../assets/img/icons/info.svg" alt="">
                     </div>
                     <div class="form-floating">
-                        <input type="date" class="form-control date-input" id="date_bill" placeholder="Fecha" name="date_bill" required="">
+                        <input type="date" class="form-control date-input" id="date_bill" placeholder="Fecha" name="date_bill" required>
                         <label for="floatingInputValue">Fecha</label>
                     </div>
                     <div class="form-floating">

@@ -1,8 +1,12 @@
 <?php
     include('../auth/security/securityGeneral.php');
-    require ('../../model/product.php');
-    $Product = new Product;
-    $data = $Product->index();
+    require ('../../model/service.php');
+    require ('../../model/role.php');
+    $Service = new Service;
+    $data = $Service->index();
+
+    $Role = new Role;
+    $dataRole = $Role->index();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | Lotus</title>
+    <title>Servicios | Lotus</title>
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
@@ -37,13 +41,13 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a>Productos</a>
+                        <a>Servicios</a>
                     </div>
-                    <h2>Productos</h2>
+                    <h2>Servicios</h2>
                         <div class="con-filter">
-                            <a href="./add-product.php" class="btn-modal-add" style="text-decoration: none;">
+                            <a href="./add.php" class="btn-modal-add" style="text-decoration: none;">
                                 <img src="../../assets/img/icons/plus.svg" alt="">
-                                Nuevo producto
+                                Nuevo Servicio
                             </a>
                             <div class="con-filter-da"></div>
                             <div class="divider-fil"></div>
@@ -52,11 +56,10 @@
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Barras</th>
-                            <th>Nombre</th>
-                            <th>Categoria</th>
+                            <th>Referencia</th>
+                            <th>Detalle</th>
                             <th>Precio</th>
-                            <th>Stock</th>
+                            <th>Cliente</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -64,24 +67,14 @@
                         <?php
                             if(mysqli_num_rows($data) > 0){
                                 while($row = $data->fetch_assoc()){
-                                    $nombre = $row['name_product'];
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['Barcode'] ?></td>
-                                        <td><?php echo $row['name_product'] ?></td>
-                                        <td class="con-category-table"><?php $Product->showCategoryP($row['id_product'])?></td>
-                                        <td class="prices"><?php echo $row['prices']?></td>
-                                        <td><?php echo $row['amount'] ?></td>
+                                        <td><?php echo $row['referencia'] ?></td>
+                                        <td><?php echo $row['detail'] ?></td>
+                                        <td><?php echo $row['price']?></td>
+                                        <td><?php echo $row['cliente'] ?></td>
                                         <td class="con-actions-table">
-                                            <a href="./product.php?id=<?php echo $row['id_product'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
-                                            <?php
-                                                if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 4){
-                                                    ?>
-                                                        <a href="./edit.php?id=<?php echo $row['id_product'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
-                                                        <a onclick="confirmTrash(<?php echo $row['id_product'] ?>, '<?php echo $nombre ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
-                                                    <?php
-                                                }
-                                            ?>
+                                            
                                         </td>
                                     </tr>
                                     <?php
@@ -93,11 +86,10 @@
 
                     <tfoot>
                         <tr>
-                            <th>Barras</th>
-                            <th>Nombre</th>
-                            <th>Categoria</th>
+                            <th>Referencia</th>
+                            <th>Detalle</th>
                             <th>Precio</th>
-                            <th>Stock</th>
+                            <th>Cliente</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
@@ -158,49 +150,6 @@
         });
     </script>
 
-
-    <?php
-        if(isset($_SESSION['newProduct'])){
-            if($_SESSION['newProduct']){
-                ?>
-                <script>
-                    let notiuseradd = document.getElementById('notiprodadd');
-                    let toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
-                    toastBootstrap.show();
-                </script>
-                <?php
-                unset($_SESSION['newProduct']);
-            }
-        }
-
-        if(isset($_SESSION['deleteProduct'])){
-            if($_SESSION['deleteProduct']){
-                ?>
-                <script>
-                    notiuseradd = document.getElementById('notiprodelete');
-                    toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
-                    toastBootstrap.show();
-                </script>
-                
-                <?php
-                unset($_SESSION['deleteProduct']);
-            }
-        }
-
-        if(isset($_SESSION['editProduct'])){
-            if($_SESSION['editProduct']){
-                ?>
-                <script>
-                    notiuseradd = document.getElementById('notiproedit');
-                    toastBootstrap = bootstrap.Toast.getOrCreateInstance(notiuseradd)
-                    toastBootstrap.show();
-                </script>
-                
-                <?php
-                unset($_SESSION['editProduct']);
-            }
-        }
-    ?>
     <!-- scripts main -->
 </body>
 </html>

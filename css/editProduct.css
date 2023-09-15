@@ -125,7 +125,7 @@
     border-left: 2px solid #595959;
     display: grid;
     align-items: center;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     padding-left: 10px;
 }
 .divider-form{
@@ -209,7 +209,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .foo-add-u button{
     border: 0px solid;
@@ -245,7 +245,7 @@
 .modal_erro_img p{
     margin: 0px;
     margin-top: 10px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-weight: 550;
 }
 .foo-modal-err{
@@ -263,7 +263,7 @@
     background: #d9d9d974 !important;
     border: var(--bs-border-width) solid var(--bs-border-color) !important;
     color: black  !important;
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito Sans' !important;
     height: 58px !important;
     display: flex !important;
     align-items: center !important;
@@ -284,7 +284,7 @@
     padding: 10px 20px !important;
 }
 .select2-results__options{
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito Sans' !important;
 }
 .select2-search__field{
     margin: 0px !important;

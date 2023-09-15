@@ -68,7 +68,7 @@
     padding-left: 15px;
     width: 100%;
     color: #505765;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-size: 13px;
     font-weight: 250;
 }
@@ -122,7 +122,7 @@
 }
 .body-clien-sum p{
     font-size: 16px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     color: #505765;
     margin: 0px;
 }
@@ -198,7 +198,7 @@
 .product-su p{
     margin: 0px;
     font-size: 15px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 
 }
 .cantidad-prod-s{
@@ -222,7 +222,7 @@
     padding-top: 20px;
 }
 .con-sum-prices p{
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-size: 18px;
     margin: 0px;
 }

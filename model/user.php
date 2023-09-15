@@ -82,13 +82,13 @@
             return $output;
         }
 
-        public function searchRol($rol){
+        public function searchRol($rol, $rolS = 'FALSE'){
             require ('../../config/connection.php');
 
             $input = "SELECT id, cedula, CONCAT(ft_name, ' ', fi_lastname) AS nombres, nickname, phone, address, email, photo, role_id FROM user
             INNER JOIN user_has_role
             ON user_id = id
-            WHERE state = 1 AND role_id = $rol";
+            WHERE (state = 1 AND role_id = $rol) OR role_id = $rolS";
 
             $output = $db->query($input);
 

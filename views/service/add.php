@@ -1,10 +1,9 @@
 <?php
     include('../auth/security/securityGeneral.php');
     require ('../../model/user.php');
-    require ('../../model/product.php');
-    require ('../../model/cotizaciones.php');
     require ('../../model/role.php');
-
+    require ('../../model/service.php');
+    
     $Role = new Role;
     $dataRole = $Role->index();
 
@@ -12,14 +11,9 @@
     $customers = $User->searchRol(5);
     $seller = $User->searchRol(6, 1);
 
-    $Product = new Product;
-    $products = $Product->index();
-
-    $Cotizaciones = new Cotizaciones;
-    
-    $numsBill = $Cotizaciones->numBills();
-    $referencia = generateNumReferences($numsBill);
-
+    $Service = new Service;
+    $numServ = $Service->numRef();
+    $referencia = generateNumReferences($numServ);
 
     function verBillNumBill($bill, $num){
         $estado = false;
@@ -54,7 +48,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva cotización | Lotus</title>
+    <title>Nuevo Servicio | Lotus</title>
     <link rel="shortcut icon" href="../../assets/img/icons/lotus.svg" />
     <!-- ** Main Css -->
     <link rel="stylesheet" href="../../libs/bootstrap/bootstrap.min.css">
@@ -65,6 +59,7 @@
     <!-- Css page -->
     <link rel="stylesheet" href="../../css/add-product.css">    
     <link rel="stylesheet" href="../../css/add-bill.css">    
+    <link rel="stylesheet" href="../../css/add-service.css">    
     <!-- Css page -->
 
 </head>
@@ -81,17 +76,17 @@
                     <div class="bread-cump">
                         <a href="../dashboard/">Home</a>
                         /
-                        <a href="../cotizaciones/">Cotizaciones</a>
+                        <a href="../bill/">Servicio</a>
                         /
-                        <a>Nueva Cotización</a>
+                        <a>Nuevo servicio</a>
                     </div>
                     <h2><img src="../../assets/img/icons/square-plus.svg" alt=""> 
-                        Nueva Cotización</h2>
+                        Nuevo servicio</h2>
                 </div>
-                <form action="../../controller/cotizaciones.php?action=store" method="post" id="form-bill">
+                <form action="../../controller/service.php?action=store" method="post" id="form-bill">
                 <section class="sect-form-p sect-form-up">
                     <div class="divider-form">
-                        <h3>Información básica de la cotización</h3>
+                        <h3>Información básica del servicio</h3>
                         <img src="../../assets/img/icons/info.svg" alt="">
                     </div>
                     <div class="form-floating">
@@ -119,7 +114,7 @@
 
                     </div>
                     <div class="con-select-s">
-                    <label for="">Vendedor:</label>
+                        <label for="">Vendedor:</label>
                         <select name="seller" id="seller">
                             <option value=""></option>
                         <?php
@@ -134,38 +129,16 @@
                         </form>
                         <div class="input-add-user-bill" id="btn-add-seller"><img src="../../assets/img/icons/plus.svg" alt=""> Añadir</div>
                     </div>
-                    <div class="con-select-s">
-                    <label for="">Lista de productos:</label>
-                        <select name="products" id="products">
-                            <option value=""></option>
-                        <?php
-                                while ($row = $products->fetch_assoc()){
-                                    ?>
-                                        <option value="<?php echo $row['id_product'] ?>" data-price="<?php echo $row['prices'] ?>" data-amount="<?php echo $row['amount'] ?>" data-img="<?php echo $row['photo'] ?>" data-barcode="<?php echo $row['Barcode'] ?>">(<?php echo $row['Barcode'] ?>) <?php echo $row['name_product'] ?></option>
-                                    <?php
-                                }
-                            ?>
-                        </select>
-                        <a href="../product/add-product.php" class="input-add-user-bill"><img src="../../assets/img/icons/plus.svg" alt=""> Añadir</a>
-
-                        <div class="alert alert-warning" role="alert" style="margin-top: 20px; display: none;" id="alert-prod-ag">
-                            El producto seleccionado, ya fue agregado
-                        </div>
+                    <div class="cont__desc">
+                        <label for="desc">Descripción</label>
+                        <textarea name="desc" id="desc"></textarea>
+                        <div class="count__chart"><span id="count__chart">0</span> Caracteres de 500</div>
                     </div>
-                </section>
-                <br>
-                <section class="sect-form-p sect-form-up">
-                    <div class="divider-form">
-                        <h3>Artículos de la cotización</h3>
-                        <img src="../../assets/img/icons/shopping-bag-add.svg" alt="">
+                    <div class="form-floating">
+                        <input type="text" data-type='currency' class="form-control prices" id="price" placeholder="Precio" name="price" required>
+                        <label for="floatingInputValue">Precio</label>
+                        <img src="../../assets/img/icons/dollar.svg" alt="" class="ico-in">
                     </div>
-                    <div class="con-product-ord">
-                        <div class="not-pro-ord">
-                            <img src="../../assets/img/icons/plus.svg" alt="">
-                            <p>Agregue productos</p>
-                        </div>
-                    </div>
-
                 </section>
                 <br>
                 <section class="sect-form-p sect-form-up">
@@ -180,12 +153,12 @@
                                 <label class="form-check-label" for="iva__check">IVA</label>
                             </div>
                         </div>
-                        <!-- <div class="info-fact">
+                        <div class="info-fact">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="estado__pago_check">
                                 <label class="form-check-label" for="estado__pago_check">Estado de pago</label>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </section>
                 <section class="sect-form-p sect-form-up">
@@ -198,10 +171,10 @@
                             <h3>IVA: </h3>
                             <p id="iva_info">$0</p>
                         </div>
-                        <!-- <div class="info-fact">
+                        <div class="info-fact">
                             <h3>Estado: </h3>
                             <p id="estado__pago">Pendiente de pago</p>
-                        </div> -->
+                        </div>
                         <div class="info-fact">
                             <h3>Subtotal: </h3>
                             <p class="con-sub-t" id="con-sub-t">$0</p>
@@ -233,7 +206,8 @@
     <script src="../../libs/selects/select2.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/adduser.js"></script>
-    <script src="../js/add-cotiza.js"></script>
+    <script src="../js/addservice.js"></script>
+
     <!-- scripts main -->
     <script>
         $(document).ready(function() {
@@ -245,9 +219,6 @@
             $('#seller').select2({
                 placeholder: "Selecciona el vendedor",
                 allowClear: true
-            });
-            $('#products').select2({
-                placeholder: "Selecciona los productos"
             });
         });
     </script>
@@ -262,6 +233,17 @@
                 </script>
                 <?php
                 unset($_SESSION['user-add']);
+            }
+        }
+        if(isset($_SESSION['err_bill'])){
+            if($_SESSION['err_bill']){
+                $err = json_encode($_SESSION['err_bill']);
+                ?>
+                <script>
+                    errModalStock('<?php echo $err ?>')
+                </script>
+                <?php
+                unset($_SESSION['err_bill']);
             }
         }
     ?>

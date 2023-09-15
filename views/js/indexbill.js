@@ -1,4 +1,4 @@
-function formatCurrency(number) {
+function pEvent(number) {
     if (isNaN(number)) {
       return "Invalid number";
     }

@@ -44,7 +44,7 @@
     align-items: center;
     column-gap: 10px;
     margin-bottom: 10px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     color: #514E6D;
     font-style: italic;
 }
@@ -103,7 +103,7 @@
 }
 .text-alert-war{
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .main-sec-acco{
     background: rgba(9, 13, 62, 0.15);
@@ -136,7 +136,7 @@
     color: white;
     text-align: center;
     border-radius: 12px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .content-sec-ac{
     padding: 25px;
@@ -149,7 +149,7 @@
 .con-detail-us label{
     color: #514E6D;
     font-size: 15px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     padding: 0px;
     margin: 0px;
 }
@@ -228,7 +228,7 @@
     padding-left: 15px;
     margin-bottom: 15px;
     background: #5057653a;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .con-detail-us-f .con-sub-edi-p, #form-change-password .con-sub-edi-p, .con-sub-edi-p{
     display: grid;
@@ -260,7 +260,7 @@
 .modal_erro_img p{
     margin: 0px;
     margin-top: 10px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-weight: 550;
 }
 .foo-modal-err{
@@ -301,7 +301,7 @@
     padding-left: 15px;
     margin-bottom: 15px;
     background-color: #5057653a;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 #form-change-password section label{
     font-family: 'Poppins';

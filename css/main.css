@@ -33,12 +33,12 @@
 }
 .toast-lotus .toast-header small{
     color: white !important;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .toast-lotus .toast-body{
     background: rgba(0, 3, 41, 0.7) !important;
     color: white;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     border-radius: 0px 0px 10px 10px;
     height: 100%;
 }

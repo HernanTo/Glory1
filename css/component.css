@@ -124,7 +124,7 @@ body{
 .body-sidebar .items-sidebar p{
     margin: 0px;
     color: white;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-weight: 550;
     font-size: 17px;
 
@@ -184,7 +184,7 @@ body{
     margin: 0px;
     text-align: center;
     font-size: 15px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .center-help a{
     font-size: 14px;
@@ -197,7 +197,7 @@ body{
     text-decoration: none;
     color: white;
     background: rgba(255, 255, 255, 10%);
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .container-general{
     padding: 30px;
@@ -217,7 +217,7 @@ body{
 .bread-cump a{
     color: #595959;
     text-decoration: none;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-size: 15px;
     margin-top: 1px;
 }
@@ -242,7 +242,7 @@ body{
 }
 .con-filter p{
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     color: #514E6D;
     font-size: 16px;
 }
@@ -340,17 +340,17 @@ body{
     background-color: rgba(255, 255, 255, 7%);
     border: 1px solid rgba(9, 13, 62, 0.1);
     color: black;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .form-general .form-lotus .form-select{
     background-color: rgba(255, 255, 255, 7%);
     border: 1px solid rgba(9, 13, 62, 0.1);
     color: black;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .form-general .form-lotus label{
     color: black ;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .form-general{
     display: grid;
@@ -369,7 +369,7 @@ body{
 }
 .form-general .title-i{
     color: white;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     display: none;
 }
 .form-general .title-i span{
@@ -384,7 +384,7 @@ body{
 }
 .modal-delete .modal-body p{
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     text-align: center;
     font-size: 17px;
 }
@@ -487,14 +487,14 @@ body{
     grid-column: 2/4;
     font-size: 1.1rem;
     color: white;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     width: 100%;
 }
 .log-d .info-au{
     grid-column: 3/4;
     display: flex;
     align-items: center;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     color: white;
     column-gap: 10px;
 }
@@ -637,7 +637,7 @@ body{
     width: 35px;
 }
 .con-not-found a{
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     text-decoration: none;
     background: #00458e;
     color: #fff;
@@ -740,7 +740,7 @@ body{
         background-color: rgba(255, 255, 255, 10%);
         border: 1px solid rgba(255, 255, 255, 7%) ;
         color: white;
-        font-family: 'Nunito';
+        font-family: 'Nunito Sans';
         padding-left: 20px;
         outline: none;
     }
@@ -910,7 +910,7 @@ body{
         margin: 0px;
     }
     .head-sidebar p{
-        font-family: 'Nunito';
+        font-family: 'Nunito Sans';
         font-size: 15px;
         font-weight: 550;
         color: #505765;
@@ -1025,7 +1025,7 @@ body{
     .con-sidebar-min-d .body-sidebar .items-sidebar p{
         margin: 0px !important;
         color: white !important;
-        font-family: 'Nunito' !important;
+        font-family: 'Nunito Sans' !important;
         font-weight: 550 !important;
         font-size: 17px !important;
         display: grid;
@@ -1069,7 +1069,7 @@ body{
         margin: 0px !important;
         text-align: center !important;
         font-size: 15px !important;
-        font-family: 'Nunito' !important;
+        font-family: 'Nunito Sans' !important;
         display: grid;
     }
     .con-sidebar-min-d .center-help a{
@@ -1083,7 +1083,7 @@ body{
         text-decoration: none !important;
         color: white !important;
         background: rgba(255, 255, 255, 10%) !important;
-        font-family: 'Nunito' !important;
+        font-family: 'Nunito Sans' !important;
         display: grid;
     }
     .con-sidebar-min-d .center-help a b{
@@ -1119,7 +1119,7 @@ body{
         display: block;
     }
     .con-sidebar-min-d .head-sidebar p{
-        font-family: 'Nunito' !important;
+        font-family: 'Nunito Sans' !important;
         font-size: 15px !important;
         font-weight: 550 !important;
         color: #505765 !important;

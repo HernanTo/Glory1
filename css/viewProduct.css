@@ -29,7 +29,7 @@
     margin: 0px;
 }
 .con-info-basic-prd p{
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-size: 16px;
     margin: 0px;
     font-weight: 400;
@@ -55,7 +55,7 @@
 .con-categories-v h6{
     grid-column: 1/3;
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-size: 14px;
     font-weight: bold;
 }
@@ -107,7 +107,7 @@
 }
 .body-data-prod span p{
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     margin-left: 15px;
 }
 .body-data-prod span h5{
@@ -164,7 +164,7 @@
 .container-table-product table tbody tr td{
     height: 75px;
     text-align: center;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     font-weight: 600;
 }
 .con-barcode-prodc img{

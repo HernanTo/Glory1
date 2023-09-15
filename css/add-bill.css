@@ -2,7 +2,7 @@
     background: #f5f5f594 !important;
     border: var(--bs-border-width) solid var(--bs-border-color) !important;
     color: black  !important;
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito Sans' !important;
     height: 58px !important;
     display: flex !important;
     align-items: center !important;
@@ -25,7 +25,7 @@
     padding: 10px 20px !important;
 }
 .select2-results__options{
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito Sans' !important;
 }
 
 .prod-rod{
@@ -56,7 +56,7 @@
     max-width: 180px;
 }
 .con-mo  input{
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .con-input-mo input{
     transition: all 0.4s;
@@ -138,7 +138,7 @@
 }
 .prod-rod .text-prod p{
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 .prod-rod .text-prod input{
     width: 120px;
@@ -225,7 +225,7 @@
 }
 .info-fact p{
     font-size: 18px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     margin: 0px;
 }
 .btn-disabled{
@@ -274,7 +274,7 @@
 .modal__body__errstock p{
     padding: 0px;
     margin: 0px;
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
     margin-bottom: 15px;
 }
 .table-stock-err{
