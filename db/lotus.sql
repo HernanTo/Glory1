@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 14-09-2023 a las 02:28:43
+-- Servidor: localhost
+-- Tiempo de generación: 15-09-2023 a las 19:21:25
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -209,7 +209,8 @@ INSERT INTO `logs` (`id`, `user`, `type`, `descr`, `date`, `model`) VALUES
 (283, 1, 2, 'Se creó una nueva cotización', '2023-09-08 09:36:21', 6),
 (284, 1, 2, 'Se creó una nueva cotización', '2023-09-08 09:45:28', 6),
 (285, 1, 2, 'Se creó una nueva cotización', '2023-09-08 09:47:28', 6),
-(286, 1, 2, 'Se creó un nuevo usuario', '2023-09-13 09:22:17', 2);
+(286, 1, 2, 'Se creó un nuevo usuario', '2023-09-13 09:22:17', 2),
+(287, 1, 2, 'Se ha creado un servicio', '2023-09-15 12:14:14', 4);
 
 -- --------------------------------------------------------
 
@@ -286,11 +287,24 @@ INSERT INTO `role` (`id`, `role`) VALUES
 
 CREATE TABLE `service` (
   `id` int(11) NOT NULL,
-  `detail` varchar(200) NOT NULL,
+  `date` date DEFAULT NULL,
+  `detail` varchar(500) NOT NULL,
+  `referencia` int(11) DEFAULT NULL,
   `price` decimal(10,0) NOT NULL,
+  `iva` varchar(50) DEFAULT NULL,
   `customer` int(11) NOT NULL,
-  `service` int(11) NOT NULL
+  `service` int(11) NOT NULL,
+  `state` int(11) NOT NULL,
+  `state_page` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `service`
+--
+
+INSERT INTO `service` (`id`, `date`, `detail`, `referencia`, `price`, `iva`, `customer`, `service`, `state`, `state_page`) VALUES
+(1, '2023-09-15', 'Cambio de llanta', 84845819, 10000, 'true', 5, 6, 1, 'false'),
+(2, '2023-09-15', 'Cambio de llanta', 84845819, 10000, 'true', 5, 6, 1, 'false');
 
 -- --------------------------------------------------------
 
@@ -479,7 +493,7 @@ ALTER TABLE `cotizaciones`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -497,7 +511,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT de la tabla `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -546,8 +560,7 @@ ALTER TABLE `product_has_category`
 -- Filtros para la tabla `service`
 --
 ALTER TABLE `service`
-  ADD CONSTRAINT `service_FK` FOREIGN KEY (`customer`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `service_FK_1` FOREIGN KEY (`service`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `service_FK` FOREIGN KEY (`customer`) REFERENCES `user` (`id`);
 
 --
 -- Filtros para la tabla `user_has_role`
