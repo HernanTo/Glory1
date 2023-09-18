@@ -48,7 +48,7 @@
 }
 .con-categories-v{
     display: grid;
-    grid-template-columns: 110px 110px;
+    grid-template-columns: 110px;
     column-gap: 10px;
     row-gap: 10px;
 }
@@ -227,7 +227,7 @@
         grid-row: 1/2;
     }
     .con-info-basic-prd h2{
-        font-size: 24px;
+        font-size: 18px;
     }
     .con-info-basic-prd p{
         font-size: 20px;

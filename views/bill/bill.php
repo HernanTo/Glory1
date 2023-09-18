@@ -72,7 +72,8 @@
 
                             <span>
                                 <label>Descuento</label>
-                                <h3 class="<?php echo $row['descuento'] < 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h3>
+                                
+                                <h3 class="<?php echo intval($row['descuento']) == 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h3>
                                 <img src="../../assets/img/icons/badge-percent 1.svg" alt="">
                             </span>
                             
@@ -106,15 +107,15 @@
                         </div>
                         <div class="body-items-sum body-clien-sum">
                             <p><?php echo $row['fullname'] ?></p>
-                            <p><?php echo $row['phone'] ?></p>
-                            <p><?php echo $row['email'] ?></p>
-                            <p><?php echo $row['address'] ?></p>
+                            <p>Tel: <?php echo $row['phone'] ?></p>
+                            <p>Email: <?php echo $row['email'] ?></p>
                             <a href="../user/user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Cliente</a>
                         </div>
                     </div>
 
                     <?php
-                        foreach($seller as $fila){
+                        foreach($seller as $filas){
+                            
                             ?>
                             <div class="con-items-bill-s con-items-min con-items-seller">
                                 <div class="header-items-s">
@@ -122,9 +123,9 @@
                                     <img src="../../assets/img/icons/user-crown 1.svg" alt="">
                                 </div>
                                 <div class="body-items-sum body-seller-sum">
-                                    <img src="../../assets/img/profilePictures/<?php echo $fila['photo'] ?>" alt="">
-                                    <h2><?php echo $row['nameLas'] ?></h2>
-                                    <a href="../user/user.php?cc=<?php echo $row['cedula'] ?>" class="action-user-sum">Ver Más</a>
+                                    <img src="../../assets/img/profilePictures/<?php echo $filas['photo'] ?>" alt="">
+                                    <h2><?php echo $filas['nameLas'] ?></h2>
+                                    <a href="../user/user.php?cc=<?php echo $filas['cedula'] ?>" class="action-user-sum">Ver Más</a>
                                 </div>
                             </div>
                             <?php
@@ -173,7 +174,7 @@
                                     }
                                 ?>
                                 <p>Descuento</p>
-                                <h5 class="<?php echo $row['descuento'] < 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h5>
+                                <h5 class="<?php echo $row['descuento'] == 0 ? 'd' : 'prices'; ?>"><?php echo $row['descuento'] == 0 ? 'No aplica' : $row['descuento']; ?></h5>
 
                                 <p>Subtotal</p>
                                 <h2 class="prices"><?php echo $row['subtotal'] ?></h2>
@@ -211,6 +212,17 @@
     <!-- scripts main -->
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+          function formatCurrency(number) {
+            if (isNaN(number)) {
+            return "Invalid number";
+            }
+            let formattedNumber = new Intl.NumberFormat("es-CO").format(number);
+            formattedNumber = `$${formattedNumber}`;
+
+            return formattedNumber;
+        }
+    </script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/indexbill.js"></script>
     <!-- scripts main -->

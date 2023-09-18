@@ -148,6 +148,9 @@
 }
 .body-seller-sum img{
     width: 50px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
 }
 .body-seller-sum h2{
     margin: 0px;

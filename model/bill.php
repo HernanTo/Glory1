@@ -128,7 +128,7 @@
         public function generateBill($reference){
             require ('../../config/connection.php');
 
-            $input = "SELECT bill.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo, iva, descuento FROM bill INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
+            $input = "SELECT bill.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo, iva, descuento, vendedor FROM bill INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
             $output = $db->query($input);
             $data = $output;
 
@@ -137,7 +137,7 @@
                     $input = "SELECT id_bill,id_product,price_u,bill_has_product.amount,num_repuesto, prices_total,prices_total,name_product, mano_obra, prices_mano_obra, photo,descuento FROM bill_has_product INNER JOIN producto ON id_product = id WHERE id_bill = $row[id_bill]";
                     $products = $db->query($input);
                     
-                    $input = "SELECT bill.id,num_fact,cedula,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email,photo,fi_lastname,sc_lastname,ft_name,sc_lastname  FROM bill INNER JOIN user ON vendedor = user.id WHERE num_fact = '$reference'";
+                    $input = "SELECT CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname, cedula, photo,fi_lastname,sc_lastname,ft_name,sc_lastname FROM bill INNER JOIN user ON vendedor = user.id WHERE num_fact = '$reference'";
                     $seller = $db->query($input);
                 }
 

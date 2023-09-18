@@ -102,6 +102,17 @@
     <!-- scripts main -->
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+          function formatCurrency(number) {
+            if (isNaN(number)) {
+            return "Invalid number";
+            }
+            let formattedNumber = new Intl.NumberFormat("es-CO").format(number);
+            formattedNumber = `$${formattedNumber}`;
+
+            return formattedNumber;
+        }
+    </script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/indexbill.js"></script>
     <script src="../../libs/datatable/datatables.min.js"></script>

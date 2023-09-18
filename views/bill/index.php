@@ -72,7 +72,7 @@
                                         <td class="con-actions-table">
                                             <a href="./bill.php?referencia=<?php echo $row['num_fact'] ?>" class="actions-table"><img src="../../assets/img/icons/eye.svg" alt=""></a>
                                             <a href="../../controller/user.php?action=edit&id=<?php echo $row['id_bill'] ?>" class="actions-table"><img src="../../assets/img/icons/pencil.svg" alt=""></a>
-                                            <a onclick="confirmTrash(<?php echo $row['id_bill'] ?>, '<?php echo $row['num_fact'] ?>')" class="actions-table"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
+                                            <a onclick="confirmTrash(<?php echo $row['id_bill'] ?>, '<?php echo $row['num_fact'] ?>')" class="actions-table" id="btn-eliminar-user"><img src="../../assets/img/icons/trash-xmark.svg" alt=""></a>
                                         </td>
                                     </tr>
                                     <?php
@@ -102,6 +102,18 @@
     <!-- scripts main -->
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+          function formatCurrency(number) {
+            if (isNaN(number)) {
+            return "Invalid number";
+            }
+            let formattedNumber = new Intl.NumberFormat("es-CO").format(number);
+            formattedNumber = `$${formattedNumber}`;
+
+            return formattedNumber;
+        }
+    </script>
+
     <script src="../js/sidebar.js"></script>
     <script src="../js/indexbill.js"></script>
     <script src="../../libs/datatable/datatables.min.js"></script>
