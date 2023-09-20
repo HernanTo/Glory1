@@ -20,6 +20,7 @@
     display: flex;
     padding: 16px 20px;
     justify-content: space-between;
+    align-items: center;
 }
 .header-items-s h2{
     margin: 0px;
@@ -33,6 +34,7 @@
 }
 .body-items-sum{
     padding: 15px 20px;
+    height: calc(100% - 80px);
 }
 .body-items-sum p{
     margin: 0px;
@@ -69,11 +71,15 @@
 .con__add_bill{
     background: #00458e;
 }
+.prod__low_st{
+    height: 100%;
+    overflow: auto;
+}
 .con__table{
     /* background-color: red; */
     text-align: center;
-    overflow: auto;
     padding-bottom: 20px;
+    height: 100%;
 }
 .con__table__prod_low_st table{
     min-width: 500px;
@@ -97,6 +103,14 @@
     font-weight: 700;
     row-gap: 2px;
     text-align: left;
+    font-size: 15px;
+}
+.name__prod_ls a{
+    text-decoration: none;
+    color: black;
+}
+.name__prod_ls a:hover{
+    color: #00458e;
 }
 .name__prod_ls label{
     display: flex;
@@ -169,6 +183,21 @@
 .progress_dash__up{
     color: #50cd89;
     background-color: #1c3238;
+}
+.src__card{
+    background: #505765;
+    color: white;
+    text-decoration: none;
+    font-family: 'Poppins';
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition: all 0.6s;
+}
+.src__card:hover{
+    transform: scale(1.05);
+}
+#item__ventas__stock{
+    max-height: 381px !important;
 }
 @media (min-width: 719px){
     .container-dash {

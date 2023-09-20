@@ -138,8 +138,8 @@
                             <th># Repuesto</th>
                             <th>Nombre</th>
                             <th>Precio</th>
+                            <th>Costo</th>
                             <th>Stock Actual</th>
-                            <th>Stock Mínimo</th>
                             <th>Estado</th>
                         </tr>
                         <tbody>
@@ -148,8 +148,8 @@
                                 <td style="min-width: 110px;"><?php  echo $row['num_repuesto'] ?></td>
                                 <td  style="min-width: 110px;"><?php  echo $row['name_product'] ?></td>
                                 <td  style="min-width: 110px;" class="prices"><?php  echo $row['prices'] ?></td>
+                                <td class="prices"><?php  echo $row['product_cost'] ?></td>
                                 <td  style="min-width: 110px;"><?php  echo $row['amount'] ?></td>
-                                <td style="min-width: 110px;"><?php  echo $row['min_stock'] ?></td>
                                 <td style="min-width: 110px;"><?php  echo $row['state'] == 1 ? 'Activo' : 'Inactivo' ?></td>
                             </tr>
                         </tbody>

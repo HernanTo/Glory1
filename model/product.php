@@ -139,11 +139,14 @@
             return $output;
         }
 
-        public function update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $img_action, $id){
+        public function update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $img_action, $id, $product_cost){
             require ('../config/connection.php');
 
             $price = str_replace('$', '', $price_product);
             $price = str_replace(',', '', $price);
+            
+            $product_cost = str_replace('$', '', $product_cost);
+            $product_cost = str_replace(',', '', $product_cost);
 
             
             $input = "SELECT photo, num_photo FROM producto WHERE id = $id";
@@ -173,7 +176,7 @@
 
                 if(move_uploaded_file($photo_product['tmp_name'], $folder . $filefinal)){
                     chmod($folder . $filefinal, 0777);
-                    $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock', photo = '$filefinal' WHERE id = $id";
+                    $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock', photo = '$filefinal', product_cost = '$product_cost' WHERE id = $id";
     
                     mysqli_query($db, $input);
                     
@@ -192,7 +195,7 @@
                     unlink('../assets/img/products/' . $namePastPic);
                 }
 
-                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock', photo = 'default.png' WHERE id = $id";
+                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock', photo = 'default.png', product_cost = '$product_cost' WHERE id = $id";
                 mysqli_query($db, $input);
                 
                 $_SESSION['editProduct'] = 1;
@@ -205,7 +208,7 @@
                 $Log->store($_SESSION['user_id'], '1', 'Se editarón datos del producto ' . $barcode, $date, 1);
 
             }elseif($img_action == 0){
-                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock' WHERE id = $id";
+                $input = "UPDATE producto SET Barcode = '$barcode', num_repuesto = '$num_repuesto', name_product = '$name_product', prices = '$price', amount = '$stock', min_stock = '$min_stock', product_cost = '$product_cost' WHERE id = $id";
     
                 mysqli_query($db, $input);
                 $_SESSION['editProduct'] = 1;

@@ -138,6 +138,11 @@
                                 <label for="floatingInput">Precio por unidad</label>
                                 <img src="../../assets/img/icons/dollar.svg" alt="" class="ico-in">
                             </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Precio por unidad" name="product_cost" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" required  value="<?php echo $row['product_cost'] ?>">
+                                <label for="floatingInput">Costo por unidad</label>
+                                <img src="../../assets/img/icons/dollar.svg" alt="" class="ico-in">
+                            </div>
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingInput" placeholder="Cantidad de stock"  name="stock" onkeydown="return event.keyCode !== 69" required  value="<?php echo $row['amount'] ?>">
                                 <label for="floatingInput">Cantidad de stock</label>

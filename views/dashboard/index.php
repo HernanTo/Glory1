@@ -1,5 +1,12 @@
 <?php 
     include('../auth/security/securityGeneral.php');
+    include('../../model/report.php');
+    $Report = new report;
+    $Report->ganancias(9, 2023);
+    $ventasMes = $Report->ventasMes(9, 2023);
+    list($pagas, $noPagas, $total) = $Report->fact(9, 2023);
+    list($ganancias, $ganaciasCategoriasF) = $Report->ganancias(9, 2023);
+    $lowStock = $Report->lowStock();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,7 +71,7 @@
                 <div class="con-items-bill-s con-items-fact" id="item__ventas__stock">
                     <div class="header-items-s">
                         <h2>Productos poco stock</h2>
-                        <img src="../../assets/img/icons/warehouse-alt.svg" alt="">
+                        <a href="" class="src__card">Ver Productos</a>
                     </div>
                     <div class="body-items-sum body-items-fact">
                         <div class="prod__low_st">
@@ -77,12 +84,18 @@
                                         <th style="min-width: 100px;">Stock</th>
                                     </tr>
                                     <tbody>
-                                        <tr class="row_prod_ls">
-                                            <td><img src="https://proyectoshernan.online/lotus/assets/img/products/7832product.jpg" alt="product" class="img__prod_lows"></td>
-                                            <td class="name__prod_ls">Parrilla Frontal Glory 580 <label><img src="../../assets/img/icons/barcode-read 2.svg" alt="barcode">172723</label></td>
-                                            <td class="prices">10000</td>
-                                            <td class="stock__prod_ls">5</td>
-                                        </tr>
+                                        <?php
+                                            foreach($lowStock as $row){
+                                                ?>
+                                                <tr class="row_prod_ls">
+                                                    <td><img src="../../assets/img/products/<?php echo $row['photo'] ?>" alt="product" class="img__prod_lows"></td>
+                                                    <td class="name__prod_ls"><a href="../product/product.php?id=<?php echo $row['id'] ?>"><?php echo $row['name_product'] ?></a> <label><img src="../../assets/img/icons/barcode-read 2.svg" alt="barcode"><?php echo $row['Barcode'] ?></label></td>
+                                                    <td class="prices"><?php echo $row['prices'] ?></td>
+                                                    <td class="stock__prod_ls"><?php echo $row['amount'] ?></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
