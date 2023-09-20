@@ -1,12 +1,45 @@
 <?php
     class report{
-        public function ventasMes($mes, $año){
+        public function ventasMes($mes, $año, $dia){
             require ('../../config/connection.php');
 
-            $input = "select count(num_fact) as amountMonth  from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true'";
+            $input = "select date, total_prices  from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true'";
             $output = $db->query($input);
 
-            return $output;
+            $dates = [];
+            $total = [];
+            $stateDateCurrent = false;
+
+            foreach($output as $row){
+                if(sizeof($dates) == 0){
+                    $dates[] = $row['date'];
+                    $total[] = $row['total_prices'];
+                }else{
+                    $count = 0;
+                    foreach($dates as $date){
+                        if($date == $row['date']){
+                            $total[$count] += $row['total_prices'];
+                            break;
+                        }else{
+                            $dates[] = $row['date'];
+                            $total[] = $row['total_prices'];
+                            break;
+                        }
+                        $count++;
+                    }
+                }
+            }
+            foreach($dates as $date){
+                if($date == "$año-$mes-$dia"){
+                    $stateDateCurrent = true;
+                }
+            }
+            if(!$stateDateCurrent){
+                $dates[] = "$año-$mes-$dia";
+                $total[] = 0;
+            }
+
+            return [$dates, $total];
         }
 
         public function fact($mes, $año){
@@ -14,14 +47,25 @@
 
             $input = "select count(num_fact) as pagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true'";
             $pagas = $db->query($input);
+            $factState = [];
+            foreach($pagas as $row){
+                $factState[] = $row['pagada'];
+            }
 
-            $input = "select count(num_fact) as pagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'false'";
+            $input = "select count(num_fact) as Nopagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'false'";
             $noPagas = $db->query($input);
+            foreach($noPagas as $row){
+                $factState[] = $row['Nopagada'];
+            }
             
-            $input = "select count(num_fact) as pagada from bill where (month(date) = '$mes' and year(date) = '$año')";
-            $total = $db->query($input);
+            // $input = "select count(num_fact) as total from bill where (month(date) = '$mes' and year(date) = '$año')";
+            // $total = $db->query($input);
+            // $noPagas = $db->query($input);
+            // foreach($total as $row){
+            //     $factState[] = $row['total'];
+            // }
 
-            return [$pagas, $noPagas, $total];
+            return $factState;
         }
 
         public function ganancias($mes, $año){

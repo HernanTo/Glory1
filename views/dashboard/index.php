@@ -2,10 +2,10 @@
     include('../auth/security/securityGeneral.php');
     include('../../model/report.php');
     $Report = new report;
-    $Report->ganancias(9, 2023);
-    $ventasMes = $Report->ventasMes(9, 2023);
-    list($pagas, $noPagas, $total) = $Report->fact(9, 2023);
-    list($ganancias, $ganaciasCategoriasF) = $Report->ganancias(9, 2023);
+    $Report->ganancias('09', '2023');
+    list($dates, $total) = $Report->ventasMes('09', '2023', '20');
+    $factState = $Report->fact('09', '2023');
+    list($ganancias, $ganaciasCategoriasF) = $Report->ganancias('09', '2023');
     $lowStock = $Report->lowStock();
 ?>
 <!DOCTYPE html>
@@ -51,12 +51,12 @@
                 </div>
                 <div class="card_dash" id="card_gan">
                     <span class="h__card_dash">
-                        <h2><span>$</span>69.700</h2>
+                        <h2 class="prices"><?php echo $ganancias ?></h2>
                         <div class="progress__dash progress_dash__up"><img src="../../assets/img/icons/arrow-trend-up.svg" alt="up">2.2%</div>
                         <label>Ganancias del mes</label>
                     </span>
                     <span class="b__card_dash">
-                        <img src="../../assets/img/temp.png" alt="">
+                        <canvas id="chartCategories" class="charts_dash"></canvas> 
                     </span>
                 </div>
                 <div class="con-items-bill-s con-items-fact" id="item__ventas__mes">
@@ -65,7 +65,7 @@
                         <img src="../../assets/img/icons/barsvg.svg" alt="">
                     </div>
                     <div class="body-items-sum body-items-fact">
-
+                    <canvas id="chartMonth" class="charts_month"></canvas> 
                     </div>
                 </div>
                 <div class="con-items-bill-s con-items-fact" id="item__ventas__stock">
@@ -108,7 +108,7 @@
                         <img src="../../assets/img/icons/barsvg.svg" alt="">
                     </div>
                     <div class="body-items-sum body-items-fact">
-
+                        <canvas id="chartFact" class="charts_dash"></canvas> 
                     </div>
                 </div>
                 <div class="con-items-bill-s con-items-fact" id="fact_pend">
@@ -128,6 +128,8 @@
     <script src="../../libs/bootstrap/jquery.js"></script>
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../../libs/chart.js/chart.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
     <!-- scripts main -->
     <script>
           function formatCurrency(number) {
@@ -146,5 +148,115 @@
             prices[i].appendChild(document.createTextNode(formatCurrency(precio)));
         }
     </script>
+    <script>
+         $(document).ready(function () {
+            //<< Chart ganancias del mes
+                let gananciasCategory = <?php echo json_encode($ganaciasCategoriasF); ?>;
+                let labelCategory = [];
+                let dataCategory = [];
+                gananciasCategory.forEach(element => {
+                    labelCategory.push(element['nameCategory']);
+                    dataCategory.push(element['ganancia']);
+                });
+                let data = {
+                    labels: labelCategory,
+                    datasets: [{
+                        label: 'Ganancias por categorias',
+                        data: dataCategory,
+                        borderWidth: 0
+                    }]
+                }
+
+                let config = {
+                    type: 'doughnut',
+                    data,
+                    options: {
+                        responsive: 'true',
+                        aspectRatio: null,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            },
+                        },
+                        layout:{
+                            padding: 0
+                        }
+                    }
+                }
+                let chartGanancias = new Chart(document.getElementById('chartCategories'), config);
+            // Chart ganancias del mes >>
+
+            // Char bill state
+                // Setup 
+                let billState = <?php echo json_encode($factState); ?>;
+
+                data = {
+                    labels: ['Pagadas', 'No pagas'],
+                    datasets: [{
+                        label: 'Estado de las facturas',
+                        data: billState,
+                        borderWidth: 0
+                    }]
+                }
+                // Config block
+                config = {
+                    type: 'polarArea',
+                    data,
+                    options: {
+                        responsive: 'true',
+                        aspectRatio: null,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        },
+                        layout:{
+                            padding: 0
+                        }
+                    }
+                }
+                // render block
+                let chartBillState = new Chart(document.getElementById('chartFact'), config);
+
+            // Char bill state
+
+            // Char ventas mes
+                // Setup 
+                let datesMonth = <?php echo json_encode($dates); ?>;
+                let salesMonth = <?php echo json_encode($total); ?>;
+
+                data = {
+                    labels: datesMonth,
+                    datasets: [{
+                        label: 'Ventas diarias',
+                        data: salesMonth,
+                        pointRadius: 10,
+                        pointHoverRadius: 15
+                    }]
+                }
+                // Config block
+                config = {
+                    type: 'line',
+                    data,
+                    options: {
+                        responsive: 'true',
+                        // aspectRatio: null,
+                        // maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false,
+                            }
+                        },
+                        layout:{
+                            padding: 0, 
+                        }
+                    }
+                }
+                // render block
+                let chartMoth = new Chart(document.getElementById('chartMonth'), config);
+
+            // Char ventas mes
+         });
+        </script>
 </body>
 </html>
