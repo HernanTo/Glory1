@@ -67,7 +67,7 @@
                             <span>
                                 <label>Estado de pago</label>
                                 <h3><?php echo $row['state_page'] == 'true' ? 'Pagada' : 'Sin pago'; ?></h3>
-                                <img src="../../assets/img/icons/" alt="">
+                                <img src="../../assets/img/icons/hands-usd.svg" alt="">
                             </span>
 
                             <span>
