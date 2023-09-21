@@ -144,7 +144,6 @@
     <script src="../../libs/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../../libs/chart.js/chart.js"></script>
-    <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
     <!-- scripts main -->
     <script>
           function formatCurrency(number) {
