@@ -65,9 +65,9 @@
                             </span>
 
                             <span>
-                                <label>Código de barras</label>
-                                <h3><?php echo $row['num_fact'] ?></h3>
-                                <img src="../../assets/img/icons/barcode-read 2.svg" alt="">
+                                <label>Estado de pago</label>
+                                <h3><?php echo $row['state_page'] == 'true' ? 'Pagada' : 'Sin pago'; ?></h3>
+                                <img src="../../assets/img/icons/" alt="">
                             </span>
 
                             <span>

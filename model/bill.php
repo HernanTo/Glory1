@@ -128,7 +128,7 @@
         public function generateBill($reference){
             require ('../../config/connection.php');
 
-            $input = "SELECT bill.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo, iva, descuento, vendedor FROM bill INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
+            $input = "SELECT bill.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo, iva, descuento, vendedor, state_page FROM bill INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
             $output = $db->query($input);
             $data = $output;
 
