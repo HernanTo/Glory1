@@ -108,10 +108,10 @@
 }
 .name__prod_ls a{
     text-decoration: none;
-    color: black;
+    color: #505765;
 }
-.name__prod_ls a:hover{
-    color: #00458e;
+.name__prod_ls a:hover, .num__refe__bill_p:hover{
+color: #00458e !important;
 }
 .name__prod_ls label{
     display: flex;
@@ -244,6 +244,9 @@
     font-size: 21px;
     padding-right: 10px;
     border-right: 2px solid;
+    text-decoration: none;
+    transition: all .6s;
+    color: #505765;
 }
 .info__sup__bill .name__clikent_bill_p{
     padding-left: 10px;

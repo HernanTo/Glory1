@@ -123,7 +123,7 @@
                                 ?>
                                 <div class="bill_p">
                                     <div class="info__sup__bill">
-                                        <span class="num__refe__bill_p"># <?php echo $row['num_fact'] ?></span>
+                                        <a class="num__refe__bill_p" href="../bill/bill.php?referencia=<?php echo $row['num_fact'] ?>"># <?php echo $row['num_fact'] ?></a>
                                         <span class="name__clikent_bill_p"><?php echo $row['nameLas'] ?></span>
                                         <span class="prices"><?php echo $row['total_prices'] ?></span>
                                         <span class="name__clikent_bill_p date__bill_p"><?php echo $row['date'] ?></span>
