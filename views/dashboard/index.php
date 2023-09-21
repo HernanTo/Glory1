@@ -3,6 +3,7 @@
     include('../../model/report.php');
     $Report = new report;
     $Report->ganancias('09', '2023');
+    $BillNoP = $Report->billNoP();
     list($dates, $total) = $Report->ventasMes('09', '2023', '20');
     $factState = $Report->fact('09', '2023');
     list($ganancias, $ganaciasCategoriasF) = $Report->ganancias('09', '2023');
@@ -105,7 +106,7 @@
                 <div class="con-items-bill-s con-items-fact" id="fact_est">
                     <div class="header-items-s">
                         <h2>Facturas</h2>
-                        <img src="../../assets/img/icons/barsvg.svg" alt="">
+                        <img src="../../assets/img/icons/chart-pie-alt.svg" alt="">
                     </div>
                     <div class="body-items-sum body-items-fact">
                         <canvas id="chartFact" class="charts_dash"></canvas> 
@@ -114,10 +115,24 @@
                 <div class="con-items-bill-s con-items-fact" id="fact_pend">
                     <div class="header-items-s">
                         <h2>Facturas pendientes</h2>
-                        <img src="../../assets/img/icons/barsvg.svg" alt="">
+                        <img src="../../assets/img/icons/hands-usd.svg" alt="">
                     </div>
-                    <div class="body-items-sum body-items-fact">
-
+                    <div class="body-items-sum body-items-fact body-items-fact__pend">
+                        <?php
+                            foreach($BillNoP as $row){
+                                ?>
+                                <div class="bill_p">
+                                    <div class="info__sup__bill">
+                                        <span class="num__refe__bill_p"># <?php echo $row['num_fact'] ?></span>
+                                        <span class="name__clikent_bill_p"><?php echo $row['nameLas'] ?></span>
+                                        <span class="prices"><?php echo $row['total_prices'] ?></span>
+                                        <span class="name__clikent_bill_p date__bill_p"><?php echo $row['date'] ?></span>
+                                    </div>
+                                    <div class="state__bill"></div>
+                                </div>
+                                <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

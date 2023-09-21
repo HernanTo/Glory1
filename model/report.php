@@ -143,5 +143,15 @@
 
             return $output;
         }
+
+        public function billNoP(){
+            require ('../../config/connection.php');
+            $input = "select num_fact, total_prices, date, CONCAT(ft_name, ' ',fi_lastname) AS nameLas from bill
+            inner join `user` u on cliente = u.id
+            where state_page = 'false'
+            order by `date` desc  limit 3";
+            $output = $db->query($input);
+            return $output;
+        }
     }
 ?>

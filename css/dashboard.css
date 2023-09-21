@@ -214,6 +214,47 @@
 #item__ventas__stock{
     max-height: 381px !important;
 }
+.body-items-fact__pend{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 75px;    
+    overflow-x: auto;
+}
+.bill_p{
+    display: grid;
+    grid-template-columns: 1fr 15px;
+    border-bottom: 1px solid #505765;
+}
+.body-items-fact__pend .state__bill{
+    background: rgba(255, 0, 0, 0.1);
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-column: 2/3;
+    border-radius: 0px 5px 5px 0px;
+}
+.info__sup__bill{
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+}
+.info__sup__bill .num__refe__bill_p{
+    font-family: 'Poppins';
+    font-weight: bold;
+    font-size: 21px;
+    padding-right: 10px;
+    border-right: 2px solid;
+}
+.info__sup__bill .name__clikent_bill_p{
+    padding-left: 10px;
+    font-family: 'Nunito Sans';
+}
+.date__bill_p{
+    font-size: 17px;
+}
+.info__sup__bill .prices{
+    border-right: 2px solid;
+}
 @media (min-width: 719px){
     #fact_est{
         height: auto;
@@ -270,10 +311,24 @@
         grid-row: 6/8;
         grid-column: 1/2;
     }
+    .body-items-fact__pend{
+        height: calc(100% - 60px);
+    }
+    .info__sup__bill{
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+    }
+    .info__sup__bill .num__refe__bill_p{
+        font-size: 17px;
+    }
+    .info__sup__bill .name__clikent_bill_p{
+        font-size: 14px;
+    }
 }
 @media(min-width: 1600px){
     .container-dash {
-        grid-template-columns: 295px repeat(2, 1fr) 295px;
+        grid-template-columns: 295px repeat(2, 1fr);
     }
     #item__ventas__mes{
         grid-column: 1/3;
