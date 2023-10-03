@@ -3,7 +3,7 @@
         public function ventasMes($mes, $año, $dia){
             require ('../../config/connection.php');
 
-            $input = "select date, total_prices  from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true'";
+            $input = "select date, total_prices  from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true' and state = 1";
             $output = $db->query($input);
 
             $dates = [];
@@ -45,14 +45,14 @@
         public function fact($mes, $año){
             require ('../../config/connection.php');
 
-            $input = "select count(num_fact) as pagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true'";
+            $input = "select count(num_fact) as pagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'true' and state = 1";
             $pagas = $db->query($input);
             $factState = [];
             foreach($pagas as $row){
                 $factState[] = $row['pagada'];
             }
 
-            $input = "select count(num_fact) as Nopagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'false'";
+            $input = "select count(num_fact) as Nopagada from bill where (month(date) = '$mes' and year(date) = '$año') and state_page = 'false' and state = 1";
             $noPagas = $db->query($input);
             foreach($noPagas as $row){
                 $factState[] = $row['Nopagada'];
@@ -76,7 +76,7 @@
             inner join bill b on id_bill = b.id 
             inner join product_has_category phc on phc.id_product = bhp.id_product
             inner join category c on id_category = c.id
-            where (month(bhp.date) = '$mes' and year(bhp.date) = '$año') and state_page = 'true'";
+            where (month(bhp.date) = '$mes' and year(bhp.date) = '$año') and state_page = 'true' and b.state = 1";
             
             $producsMonth = $db->query($input);
             $precioTotal = 0;
@@ -148,7 +148,7 @@
             require ('../../config/connection.php');
             $input = "select num_fact, total_prices, date, CONCAT(ft_name, ' ',fi_lastname) AS nameLas from bill
             inner join `user` u on cliente = u.id
-            where state_page = 'false'
+            where state_page = 'false' and state = 1
             order by `date` desc  limit 3";
             $output = $db->query($input);
             return $output;
