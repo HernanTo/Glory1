@@ -1,24 +1,4 @@
-<?php
-require('../../vendor/autoload.php');
-include ('../../model/bill.php');
-$Bill = new Bill;
-if(isset($_GET['referencia'])){
-        if($_GET['referencia'] == ''){
-            header('Location: ./');
-        }else{
-            list($data, $product, $seller) = $Bill->generateBill($_GET['referencia']);
-            if(mysqli_num_rows($data) <= 0 ){
-                    header('Location: ./');
-            }
-        }
-    }else{
-        header('Location: ./');
-}
-
-use Dompdf\Dompdf;
-
-// Obtener el contenido del template
-$html = '<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -387,31 +367,4 @@ $html = '<!DOCTYPE html>
         </main>
     </div>
 </body>
-</html>';
-
-
-// Crear una instancia de Dompdf
-$dompdf = new Dompdf(
-    [
-        'enable_remote' => true,
-         'enable_svg' => true, 
-         'isFontSubsettingEnabled' => true,
-         'defaultMediaType' =>'all',
-         'isFontSubsettingEnabled'=> true,
-    ]);
-$dompdf->setPaper('A4', 'portrait');
-
-// Cargar el contenido HTML en Dompdf
-$dompdf->loadHtml($html);
-
-// Renderizar el contenido HTML en PDF
-$dompdf->render();
-
-// Descargar el PDF directamente al cliente
-$namefile = 'Factura_' . $_GET['referencia'] . '_Lotus.pdf';
-
-ob_clean();
-header('Content-Type: application/pdf');
-header('Content-Disposition: attachment; filename='. $namefile);
-echo $dompdf->output();
-?>
+</html>
