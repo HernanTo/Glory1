@@ -22,18 +22,14 @@
                         <img src="../../assets/img/icons/clipboard-list-check.svg" alt="">
                         <p>Productos</p>
                     </a>
-                    <a href="../service/" class="items-sidebar">
-                        <img src="../../assets/img/icons/tools.svg" alt="">
-                        <p>Servicios</p>
+                    <a href="../bill/" class="items-sidebar">
+                        <img src="../../assets/img/icons/file-invoice-dollar.svg" alt="">
+                        <p>Facturas</p>
                     </a>
     
                     <div class="divisor-sidebar">
                         <h4>ADICIONALES</h4>
                     </div>
-                    <a href="../bill/" class="items-sidebar">
-                        <img src="../../assets/img/icons/file-invoice-dollar.svg" alt="">
-                        <p>Facturas</p>
-                    </a>
                     <a href="../cotizaciones/" class="items-sidebar">
                         <img src="../../assets/img/icons/person-dolly.svg" alt="">
                         <p>Cotizaciones</p>
