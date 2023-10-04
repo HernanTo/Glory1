@@ -112,31 +112,6 @@
             return [$data, $products, $seller];
         }
 
-        public function generateBillPdf($reference){
-            require ('../../../config/connection.php');
-
-            $input = "SELECT cotizaciones.id as id_bill,cedula,num_fact,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email, placa, modelo FROM cotizaciones INNER JOIN user ON cliente = user.id WHERE num_fact = '$reference'";
-            $output = $db->query($input);
-            $data = $output;
-
-            if(mysqli_num_rows($output) > 0){
-                while($row = $output->fetch_assoc()){
-                    $input = "SELECT id_cotizacion,id_product,price_u,cotizaciones_has_product.amount,num_repuesto, prices_total,prices_total,name_product, photo, stock FROM cotizaciones_has_product INNER JOIN producto ON id_product = id WHERE id_cotizacion = $row[id_bill]";
-                    $products = $db->query($input);
-                    
-                    $input = "SELECT cotizaciones.id,num_fact,cedula,total_prices,subtotal,amount,date,cliente,state, CONCAT(ft_name, ' ',fi_lastname) AS nameLas, CONCAT(ft_name, ' ', sd_name, ' ', fi_lastname, ' ', sc_lastname) as fullname,phone,address,email,photo,fi_lastname,sc_lastname,ft_name,sc_lastname  FROM cotizaciones INNER JOIN user ON vendedor = user.id WHERE num_fact = '$reference'";
-                    $seller = $db->query($input);
-                }
-
-            }else{
-                $products = null;
-                $seller = null;
-            }
-            
-            
-            return [$data, $products, $seller];
-        }
-
         public function delete($id){
             require ('../config/connection.php');
             $input = "UPDATE bill SET state='' WHERE id =$id";

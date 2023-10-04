@@ -32,7 +32,7 @@ $html = '<!DOCTYPE html>
     }
     @font-face {
     font-family: "Alata";
-    src: url("https://fonts.gstatic.com/s/alata/v9/PbytFmztEwbIoce9zqY.woff2") format("woff2");
+    src: url("https://raw.githubusercontent.com/HernanTo/lotus/bill/assets/formatos/font/alata/Alata-Regular.ttf") format("truetype");
     font-weight: bold;
     }
     @font-face {
@@ -43,7 +43,7 @@ $html = '<!DOCTYPE html>
 
     @font-face {
     font-family: "Poppins";
-    src: url("https://raw.githubusercontent.com/HernanTo/lotus/bill/assets/formatos/font/Poppins/Poppins-Bold.ttf") format("truetype");
+    src: url("https://raw.githubusercontent.com/HernanTo/lotus/bill/assets/formatos/font/Poppins/Poppins-SemiBold.ttf") format("truetype");
     font-weight: bold;
     }
 
@@ -59,7 +59,7 @@ $html = '<!DOCTYPE html>
     font-weight: bold;
     }
     @page {
-        margin-top: 214px;
+        margin-top: 230px;
         margin-bottom: 130px;
     }
     .main-content{
@@ -68,12 +68,15 @@ $html = '<!DOCTYPE html>
     .header{
         position: fixed;
         width: 700px;
-        top: -214px;
+        top: -230px;
         left: 0px;
         background: white;
         width: 100%;
         max-width: 700px;
-        height: 214px;
+        height: 220px;
+    }
+    hr{
+        margin: 0px
     }
     .header table{
         width: 100%;
@@ -130,7 +133,6 @@ $html = '<!DOCTYPE html>
         text-align: right;
     }
     .th__main_usr{
-        border-top: 2px solid black;
         border-bottom: 2px solid black;
         font-family: "Alata";
     }
@@ -165,6 +167,10 @@ $html = '<!DOCTYPE html>
     #table_rsume tr td b{
         font-family: "Alata";
     } 
+    
+    .info_bill td{
+        padding: 20px 0px 0px 0px;
+    }
 </style>
 <body>
     <div class="header">
@@ -175,26 +181,21 @@ $html = '<!DOCTYPE html>
                 </td>
                 <td class="info_lotus">
                     <b>Taller mecánico Lotus</b>  <br>
-                    <b>EMAIL:</b>  <br>
-                    <b>TÉLEFONO:</b>  <br>
-                    <b>NIT/CC</b>  <br>
+                    <b>EMAIL: </b>  <br>
+                    <b>TÉLEFONO: </b>  <br>
+                    <b>NIT/CC: </b>  <br>
                     Bogotá D.C
                 </td>
                 <td style="width: 130px; text-align: center;">
                     <img src="https://raw.githubusercontent.com/HernanTo/lotus/master/assets/img/icons/LotusBills.png" alt="logo_lotus" class="logo__lotus">
                 </td>
             </tr>
-            <tr>
-                <td><br></td>
-            </tr>
             <tr class="info_bill">
                 <td><b>NÚMERO DE FACTURA: </b>10101010</td>
                 <td colspan="2" style="text-align: right;"><b>FECHA DE FACTURA: </b> 10/03/23</td>
             </tr>
-            <tr>
-                <td><br></td>
-            </tr>
         </table>
+        <hr>
     </div>
     <div class="main-content">
         <main class="body__content">
@@ -230,7 +231,6 @@ $html = '<!DOCTYPE html>
                         <td></td>
                         <td class="colm_sc"><b>Placa:</b>NNN000</td>
                     </tr>
-                    <tr><td><br></td></tr>
                     <tr>
                         <td colspan="2"><b>Técnico/Vendedor: </b>Torres Rodríguez Hernán</td>
                     </tr>

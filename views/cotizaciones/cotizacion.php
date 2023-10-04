@@ -91,8 +91,6 @@
                     <div class="actions-bill">
                         <a href="./generate_bill_pdf.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-export 1.svg" alt=""></a>
 
-                        <a href="./generate_bill_excel.php?referencia=<?php echo $_GET['referencia'] ?>" class="export-document export__excel" target="_blank" rel="noopener noreferrer"><img src="../../assets/img/icons/file-excel.svg" alt=""></a>
-
                         <a href="" class="edit-bill"><img src="../../assets/img/icons/edit 1.svg" alt=""></a>
 
                         <button class="delete-bill"><img src="../../assets/img/icons/delete-document 1.svg" alt=""></button>

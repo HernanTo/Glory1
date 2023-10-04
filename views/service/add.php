@@ -15,11 +15,11 @@
     $numServ = $Service->numRef();
     $referencia = generateNumReferences($numServ);
 
-    function verBillNumBill($bill, $num){
+    function verBillNumBill($numServ, $num){
         $estado = false;
 
-        foreach($bill as $referencia){
-            if($referencia['num_fact'] == $num){
+        foreach($numServ as $referencia){
+            if($referencia['referencia'] == $num){
                 $estado = true;
             }
         }
