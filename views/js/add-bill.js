@@ -1,7 +1,9 @@
-const divNotProducts = $('.not-pro-ord');
+const divNotProducts = $('#not-pro-ord');
+const divNotService = $('#not__ser_ord');
 var fecha = new Date();
 var fechaFormateada = fecha.toISOString().slice(0, 10);
 document.getElementById('date_bill').value = fechaFormateada;
+var services = [];
 var configBill = {
     iva: 1,
     estadoPago: 0,
@@ -12,10 +14,10 @@ document.getElementById('iva__check').addEventListener('change', event=>{
         configBill.iva = 0;
         $('#iva_info').empty();
         document.getElementById('iva_info').appendChild(document.createTextNode('No aplica'));
-        seleccionados.length == 1 ? pricesTotal() : false;
+        pricesTotal();
     }else{
         configBill.iva = 1;
-        seleccionados.length == 1 ? pricesTotal() : false;
+        pricesTotal();
     }
 })
 document.getElementById('estado__pago_check').addEventListener('change', event=>{
@@ -88,8 +90,6 @@ $(selectProduts).change('select2:select', function (e) {
                         }, 3000)
                     }
                 }else{
-                    $('.btn-sub-bill').removeClass('btn-disabled');
-                    $( ".btn-sub-bill" ).prop( "disabled", false );
                     seleccionados.push(producto);
                     $('.con-product-ord').empty();
                     subtotal = 0;
@@ -195,8 +195,9 @@ function addProductList(product){
     // imgCross.type = "button";
     imgCross.src = "../../assets/img/icons/circle-x.svg";
     imgCross.setAttribute('data-id', product.id);
-
+    
     conActionProd.appendChild(imgCross);
+    conActionProd.setAttribute('data-id', product.id);
 
     let divDesc = document.createElement('div');
     $(divDesc).addClass('divDesc');
@@ -230,7 +231,7 @@ function addProductList(product){
 
     
     $('.con-product-ord').append(conProduct);
-    $(imgCross).on('click', function() {
+    $(conActionProd).on('click', function() {
         deleteProduct(product.id);
     });
 
@@ -249,18 +250,17 @@ function addProductList(product){
             inputamount.value = 1;
         }
         if(parseInt(inputamount.value) > product.max_amount){
-            console.log(inputamount.value)
-            console.log(product.max_amount)
+            // console.log(inputamount.value)
+            // console.log(product.max_amount)
             inputamount.value = 1;
             $(canMax).addClass('stock_sob')
             setTimeout(() => {
                 $(canMax).removeClass('stock_sob');
                 
             }, 1000);
-            pricesTotal();
-        }else{
-            pricesTotal();
         }
+
+        pricesTotal();
     })
 
     inputCheck.addEventListener('change', event=>{
@@ -277,7 +277,7 @@ function addProductList(product){
 
     inputPriceMo.addEventListener('change', event=>{
         if(inputPriceMo.value < 0){
-            console.log('a');
+            // console.log('a');
             inputPriceMo.value = 0;
         }
         pricesTotal();
@@ -298,6 +298,7 @@ function addProductList(product){
           return false;
         }
     };
+    habBtn();
 }
 
 function deleteProduct(id){
@@ -327,8 +328,10 @@ function deleteProduct(id){
         document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(0)));
         $('#iva_info').empty();
         document.getElementById('iva_info').appendChild(document.createTextNode(formatCurrency(0)));
+        habBtn();
     }else{
         pricesTotal();
+        habBtn();
     }
 }
 
@@ -358,10 +361,10 @@ function errModalStock(err){
         $('#err_bill_stock').modal('toggle');
     });
     err = JSON.parse(err);
-    console.log(err);
+    // console.log(err);
 
     err.forEach(element => {
-        console.log(element);
+        // console.log(element);
         let tr = document.createElement('tr');
         let td = document.createElement('td');
         
@@ -382,70 +385,318 @@ function errModalStock(err){
 
 function pricesTotal(){
     subtotal = 0;
-    seleccionados.forEach(element => {
-        let amount = document.getElementById(element.inptCan).value;
-        let manoObra = document.getElementById(element.inputMO).value;
-        
-        subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
-        subtotal = element.descuento == 'NA' ? subtotal : subtotal - (subtotal * element.descuento);
+    if(seleccionados.length > 0){
+        seleccionados.forEach(element => {
+            let amount = document.getElementById(element.inptCan).value;
+            let manoObra = document.getElementById(element.inputMO).value;
+            
+            subtotal = subtotal + (parseInt(element.price) * parseInt(amount)) + parseInt(manoObra);
+            subtotal = element.descuento == 'NA' ? subtotal : subtotal - (subtotal * element.descuento);
+        })
+    }
+    // Si el existe un servicio agregará el precio al total
+    if(services.length > 0){
+        services.forEach(element => {
+            subtotal += parseInt(element.precio);
+            $('#con-sub-t').empty();
+            document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+        })
 
-       $('#con-sub-t').empty();
-       document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
-    })
-
-    iva = configBill.iva == 1 ? subtotal * 0.19 : 0;
-    console.log(iva);
-    $('#iva_info').empty();
-    document.getElementById('iva_info').appendChild(document.createTextNode(formatCurrency(iva)));
+    }else{
+        $('#con-sub-t').empty();
+        document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
+    }
+    if(configBill.iva == 1){
+        iva = subtotal * 0.19;
+        $('#iva_info').empty();
+        document.getElementById('iva_info').appendChild(document.createTextNode(formatCurrency(iva)));
+    }else{
+        iva = 0;
+        $('#iva_info').empty();
+        document.getElementById('iva_info').appendChild(document.createTextNode('No Aplica'));
+    }
 
     $('#con-t').empty();
     document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));
 }
 
+$('#not-pro-ord').on('click', () => {
+    $('#products').select2('open');
+});
+
+
+function addServ(element){
+    // Agregar elemento visual
+    let conServ = document.createElement('div');
+    $(conServ).addClass('serv');
+
+    let headerServ = document.createElement('div');
+    $(headerServ).addClass('header__serv');
+    let h2 = document.createElement('h2');
+    h2.appendChild(document.createTextNode('SERVICIO #'));
+    let span = document.createElement('span');
+    span.appendChild(document.createTextNode(element.id + 1));
+    h2.appendChild(span);
+    headerServ.appendChild(h2);
+    conServ.appendChild(headerServ);
+
+    let divConDesc = document.createElement('div');
+    $(divConDesc).addClass('cont__desc');
+    let label = document.createElement('label');
+    label.appendChild(document.createTextNode('Descripción servicio'));
+    divConDesc.appendChild(label);
+    let textArea = document.createElement('textarea');
+    textArea.setAttribute('name', 'desc[]');
+    textArea.setAttribute('class', 'desc');
+    textArea.value = element.desc;
+    divConDesc.appendChild(textArea);
+    conServ.appendChild(divConDesc);
+    let divCountChart = document.createElement('div');
+    $(divCountChart).addClass('count__chart');
+    span = document.createElement('span');
+    // $(span).addClass('count__chart');
+    span.appendChild(document.createTextNode('0'));
+    divCountChart.appendChild(span);
+    divCountChart.appendChild(document.createTextNode(' Caracteres de 500'));
+    divConDesc.appendChild(divCountChart);
+
+    let formFlo = document.createElement('div');
+    $(formFlo).addClass('form-floating');
+    let input = document.createElement('input');
+    input.type = "text";
+    input.setAttribute('data-type', 'currency');
+    input.setAttribute('id', 'price');
+    input.setAttribute('name', 'priceServ[]');
+    input.required = true;
+    input.placeholder = "Precio";
+    $(input).addClass('form-control');
+    $(input).addClass('prices');
+    input.value = element.precio;
+    formFlo.appendChild(input);
+    label = document.createElement('label');
+    label.appendChild(document.createTextNode('Precio'));
+    formFlo.appendChild(label);
+    let img = document.createElement('img');
+    img.src = "../../assets/img/icons/dollar.svg";
+    $(img).addClass('ico-in');
+    formFlo.appendChild(img);
+    conServ.appendChild(formFlo);
+
+    let conTrashBtn = document.createElement('div');
+    $(conTrashBtn).addClass('con__trash_btn');
+    inputTrash = document.createElement('input');
+    inputTrash.type = "button";
+    inputTrash.value = "Eliminar";
+    conTrashBtn.appendChild(inputTrash);
+    conServ.appendChild(conTrashBtn);
+
+    document.getElementById('con-sev').appendChild(conServ);
+
+    inputTrash.addEventListener('click', event=>{
+        document.getElementById('con-sev').removeChild(conServ);
+
+        servicesTemp = [];
+        services.forEach(service => {
+            if(service.id != element.id ){ 
+                servicesTemp.push(service);
+            }
+        });
+
+        services = servicesTemp;
+        habBtn();
+    })
+
+    textArea.addEventListener('change', event => {
+        element.desc = textArea.value;
+    })
+    input.addEventListener('change', event => {
+        element.precio = input.value;
+        pricesTotal();
+    })
+    habBtn();
+}
+// Botones que añaden servicios
+let cotadorServ = 0;
+document.getElementById('add-serv').addEventListener('click', event =>{
+    if(services.length < 0){
+        services.push({
+            id: cotadorServ,
+            desc: '',
+            precio: 0,
+        });
+        addServ(services[0]);
+        cotadorServ++;
+    }else{
+        services.push({
+            id: services.length,
+            desc: '',
+            precio: 0,
+        });
+        addServ(services[(services.length - 1)]);
+        cotadorServ++;
+    }
+    pricesTotal();
+})
+
+document.getElementById('btn-inser-serv').addEventListener('click', event=>{
+    let valInsert = document.getElementById('can_serv_insert').value 
+    if(valInsert > 1){
+        for (let i = 0; i < valInsert; i++) {
+            services.push({
+                id: cotadorServ,
+                desc: '',
+                precio: 0,
+            });
+            addServ(services[(services.length - 1)]);
+            cotadorServ++;
+        }
+    }
+})
+// Botones que añaden servicios
+
+// Habilitar btn
+function habBtn(){
+    let estado = false;
+    if(document.getElementById('references').value != ''){
+        if(document.getElementById('customers').value != ''){
+            if(document.getElementById('seller').value != ''){
+                if(seleccionados.length >= 1 || services.length >= 1){
+
+                    estado = true;
+                }else{
+
+                    estado = false;
+                }
+            }else{
+                estado = false;
+            }
+        }else{
+            estado = false;
+        }
+    }else{
+        estado = false;
+    }
+    if(estado){
+        $('.btn-sub-bill').removeClass('btn-disabled');
+        $( ".btn-sub-bill" ).prop( "disabled", false );
+    }else{
+        $('.btn-sub-bill').addClass('btn-disabled');
+        $( ".btn-sub-bill" ).prop( "disabled", true );
+    }
+}
+// Habilitar btn
+// Change input Form
+let inpts = ['date_bill', 'references', 'customers', 'seller'];
+
+inpts.forEach(element => {
+    $(`#${element}`).on('change', () => {
+        let estado = false;
+        if(document.getElementById('references').value != ''){
+            if(document.getElementById('customers').value != ''){
+                if(document.getElementById('seller').value != ''){
+                    if(seleccionados.length >= 1 || services.length >= 1){
+                        estado = true;
+                    }else{
+                        estado = false;
+                    }
+                }else{
+                    estado = false;
+                }
+            }else{
+                estado = false;
+            }
+        }else{
+            estado = false;
+        }
+        if(estado){
+            $('.btn-sub-bill').removeClass('btn-disabled');
+            $( ".btn-sub-bill" ).prop( "disabled", false );
+        }else{
+            $('.btn-sub-bill').addClass('btn-disabled');
+            $( ".btn-sub-bill" ).prop( "disabled", true );
+        }
+    
+    });
+});
+// Change input Form
+
+// Enviar formulario
 $('.btn-sub-bill').on('click', function(){
     if(document.getElementById('references').value != ''){
         if(document.getElementById('customers').value != ''){
             if(document.getElementById('seller').value != ''){
-                seleccionados.forEach(element =>{
-                    let inputProduct = document.createElement('input');
-                    inputProduct.type = "number";
-                    inputProduct.setAttribute('name', 'product_id[]');
-                    $(inputProduct).addClass('inp-inf');
-                    inputProduct.value = element.id;
-                    inputProduct.setAttribute('class', 'hide_in_form');
-                    
-                    let inputAmount = document.createElement('input');
-                    inputAmount.type = "number";
-                    inputAmount.setAttribute('name', 'product_amount[]');
-                    $(inputAmount).addClass('inp-inf');
-                    inputAmount.value = document.getElementById(element.inptCan).value;
-                    inputAmount.setAttribute('class', 'hide_in_form');
-            
-                    let inputPrice = document.createElement('input');
-                    inputPrice.type = "number";
-                    inputPrice.setAttribute('name', 'product_price[]');
-                    $(inputPrice).addClass('inp-inf');
-                    inputPrice.value = element.price;
-                    inputPrice.setAttribute('class', 'hide_in_form');
-                    
-                    let CheckManoObra = document.createElement('input');
-                    CheckManoObra.type = 'check';
-                    CheckManoObra.value = document.getElementById(element.checkMOCan).checked;
-                    CheckManoObra.setAttribute('name', 'check_mano_obra[]');
-                    CheckManoObra.setAttribute('class', 'hide_in_form');
-            
-                    let priceManoObra = document.createElement('input');
-                    priceManoObra.type = 'text';
-                    priceManoObra.value = document.getElementById(element.inputMO).value;
-                    priceManoObra.setAttribute('name', 'price_mano_obra[]');
-                    priceManoObra.setAttribute('class', 'hide_in_form');
+                if(seleccionados.length >= 1){
+                    seleccionados.forEach(element =>{
+                        let inputProduct = document.createElement('input');
+                        inputProduct.type = "number";
+                        inputProduct.setAttribute('name', 'product_id[]');
+                        $(inputProduct).addClass('inp-inf');
+                        inputProduct.value = element.id;
+                        inputProduct.setAttribute('class', 'hide_in_form');
+                        
+                        let inputAmount = document.createElement('input');
+                        inputAmount.type = "number";
+                        inputAmount.setAttribute('name', 'product_amount[]');
+                        $(inputAmount).addClass('inp-inf');
+                        inputAmount.value = document.getElementById(element.inptCan).value;
+                        inputAmount.setAttribute('class', 'hide_in_form');
+                
+                        let inputPrice = document.createElement('input');
+                        inputPrice.type = "number";
+                        inputPrice.setAttribute('name', 'product_price[]');
+                        $(inputPrice).addClass('inp-inf');
+                        inputPrice.value = element.price;
+                        inputPrice.setAttribute('class', 'hide_in_form');
+                        
+                        let CheckManoObra = document.createElement('input');
+                        CheckManoObra.type = 'check';
+                        CheckManoObra.value = document.getElementById(element.checkMOCan).checked;
+                        CheckManoObra.setAttribute('name', 'check_mano_obra[]');
+                        CheckManoObra.setAttribute('class', 'hide_in_form');
+                
+                        let priceManoObra = document.createElement('input');
+                        priceManoObra.type = 'text';
+                        priceManoObra.value = document.getElementById(element.inputMO).value;
+                        priceManoObra.setAttribute('name', 'price_mano_obra[]');
+                        priceManoObra.setAttribute('class', 'hide_in_form');
+    
+                        let descuento = document.createElement('input')
+                        descuento.type = 'text';
+                        descuento.value = element.descuento;
+                        descuento.setAttribute('name', 'descuento[]');
+                        descuento.setAttribute('class', 'hide_in_form');
+                        
+                        let iva = document.createElement('input')
+                        iva.type = 'text';
+                        iva.value = document.getElementById('iva__check').checked;
+                        iva.setAttribute('name', 'iva_check');
+                        iva.setAttribute('class', 'hide_in_form');
+    
+                        let estado_pago = document.createElement('input')
+                        estado_pago.type = 'text';
+                        estado_pago.value = document.getElementById('estado__pago_check').checked;
+                        estado_pago.setAttribute('name', 'estado_pago_check');
+                        estado_pago.setAttribute('class', 'hide_in_form');
 
-                    let descuento = document.createElement('input')
-                    descuento.type = 'text';
-                    descuento.value = element.descuento;
-                    descuento.setAttribute('name', 'descuento[]');
-                    descuento.setAttribute('class', 'hide_in_form');
-                    
+                        let typeBill = document.createElement('input')
+                        typeBill.type = 'text';
+                        typeBill.value = 1;
+                        typeBill.setAttribute('name', 'type_bill');
+                        typeBill.setAttribute('class', 'hide_in_form');
+    
+                        $('#form-bill').append(inputProduct);
+                        $('#form-bill').append(inputAmount);
+                        $('#form-bill').append(inputPrice);
+                        $('#form-bill').append(CheckManoObra);
+                        $('#form-bill').append(priceManoObra);
+                        $('#form-bill').append(descuento);
+                        $('#form-bill').append(iva);
+                        $('#form-bill').append(estado_pago);
+                        $('#form-bill').append(typeBill);
+                
+                        document.getElementById('form-bill').submit();
+                    })
+                }else if(services.length >= 1){
                     let iva = document.createElement('input')
                     iva.type = 'text';
                     iva.value = document.getElementById('iva__check').checked;
@@ -458,19 +709,20 @@ $('.btn-sub-bill').on('click', function(){
                     estado_pago.setAttribute('name', 'estado_pago_check');
                     estado_pago.setAttribute('class', 'hide_in_form');
 
-                    $('#form-bill').append(inputProduct);
-                    $('#form-bill').append(inputAmount);
-                    $('#form-bill').append(inputPrice);
-                    $('#form-bill').append(CheckManoObra);
-                    $('#form-bill').append(priceManoObra);
-                    $('#form-bill').append(descuento);
+                    let typeBill = document.createElement('input')
+                    typeBill.type = 'text';
+                    typeBill.value = 0;
+                    typeBill.setAttribute('name', 'type_bill');
+                    typeBill.setAttribute('class', 'hide_in_form');
+
                     $('#form-bill').append(iva);
                     $('#form-bill').append(estado_pago);
-            
+                    $('#form-bill').append(typeBill);
                     document.getElementById('form-bill').submit();
-                })
+                }
             }
 
         }
     }
 })
+// Enviar formulario

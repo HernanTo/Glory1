@@ -1,7 +1,9 @@
 <?php
     include('../auth/security/securityGeneral.php');
     include ('../../model/bill.php');
+    include ('../../model/service.php');
     $Bill = new Bill;
+    $Service = new Service;
 
     list($data, $product, $seller) = $Bill->generateBill($_GET['referencia']);
     $descuento = 0;
@@ -30,6 +32,7 @@
 
             if(mysqli_num_rows($data) > 0){
                 foreach($data as $row){
+                    $services = $Service->index($row['id_bill']);
                     
         ?>
 
@@ -136,30 +139,60 @@
                             <img src="../../assets/img/icons/box-open 1.svg" alt="">
                         </div>
                         <div class="body-items-sum body-order-sum">
+                            <h2 class="hed__prod_or">Productos</h2>
                             <?php
-                                foreach($product as $dat){
-                                    $descuento = 0;
-                                    $descuento = $descuento + $dat['descuento'];
-                                    if($dat['mano_obra'] == '0'){
-                                        $manoObra = 'No aplica';
-                                    }else{
-                                        $manoObra = $dat['prices_mano_obra'];
+                                if(mysqli_num_rows($product) >= 1){
+                                    foreach($product as $dat){
+                                        $descuento = 0;
+                                        $descuento = $descuento + $dat['descuento'];
+                                        if($dat['mano_obra'] == '0'){
+                                            $manoObra = 'No aplica';
+                                        }else{
+                                            $manoObra = $dat['prices_mano_obra'];
+                                        }
+    
+                                        ?>
+                                        <div class="product-su">
+                                            <img src="../../assets/img/products/<?php echo $dat['photo'] ?>" alt="product">
+                                            <h2><?php echo $dat['name_product'] ?></h2>
+                                            <h4 class="prices"><?php echo $dat['price_u'] ?></h4>
+    
+                                            <p class="cantidad-prod-s">Cantidad: <i><?php echo $dat['amount'] ?></i></p>
+                                            <p class="mano-obra-su">Mano de obra: <i class="<?php echo $manoObra != 'No aplica' ? 'prices' : '' ?>"><?php echo $manoObra ?></i></p>
+    
+                                            <h1 class="prices prices-pro"><?php echo $dat['prices_total'] ?></h1>
+                                        </div>
+                                        <?php
                                     }
-
+                                }else{
                                     ?>
-                                    <div class="product-su">
-                                        <img src="../../assets/img/products/<?php echo $dat['photo'] ?>" alt="product">
-                                        <h2><?php echo $dat['name_product'] ?></h2>
-                                        <h4 class="prices"><?php echo $dat['price_u'] ?></h4>
-
-                                        <p class="cantidad-prod-s">Cantidad: <i><?php echo $dat['amount'] ?></i></p>
-                                        <p class="mano-obra-su">Mano de obra: <i class="<?php echo $manoObra != 'No aplica' ? 'prices' : '' ?>"><?php echo $manoObra ?></i></p>
-
-                                        <h1 class="prices prices-pro"><?php echo $dat['prices_total'] ?></h1>
-                                    </div>
+                                        <div class="product_no">
+                                            <h2 class="h2_not_product">Esta factura no cuenta con productos adjuntos</h2>
+                                        </div>
                                     <?php
                                 }
                             ?>
+                            <div class="con__sum__services">
+                                <h2>Servicios</h2>
+                                <?php
+                                    if(mysqli_num_rows($services) >= 1){
+                                        foreach($services as $service){
+                                            ?>
+                                            <div class="serv">
+                                                <h3><?php echo $service['detail'] ?></h3>
+                                                <h5 class="prices prices-pro"><?php echo $service['price'] ?></h5>
+                                            </div>
+                                            <?php
+                                        }
+                                    }else{
+                                        ?>
+                                        <div class="serv serv_no">
+                                            <h2>Esta factura no cuenta con servicios adjuntos</h2>
+                                        </div>
+                                        <?php
+                                    }
+                                ?>
+                            </div>
                             
                             <div class="con-sum-prices">
                                 <?php 

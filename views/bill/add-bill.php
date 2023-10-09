@@ -116,7 +116,7 @@
 
                     </div>
                     <div class="con-select-s">
-                    <label for="">Vendedor:</label>
+                    <label for="">Técnico / Vendedor:</label>
                         <select name="seller" id="seller">
                             <option value=""></option>
                         <?php
@@ -127,8 +127,6 @@
                                 }
                             ?>
                         </select>
-
-                        </form>
                         <div class="input-add-user-bill" id="btn-add-seller"><img src="../../assets/img/icons/plus.svg" alt=""> Añadir</div>
                     </div>
                     <div class="con-select-s">
@@ -157,13 +155,36 @@
                         <img src="../../assets/img/icons/shopping-bag-add.svg" alt="">
                     </div>
                     <div class="con-product-ord">
-                        <div class="not-pro-ord">
-                            <img src="../../assets/img/icons/plus.svg" alt="">
+                        <div class="not-pro-ord" id="not-pro-ord">
+                            <img src="../../assets/img/icons/plusb.svg" alt="">
                             <p>Agregue productos</p>
                         </div>
                     </div>
 
                 </section>
+                <br>
+                <section class="sect-form-p sect-form-up">
+                    <div class="divider-form">
+                        <h3>Servicios</h3>
+                        <img src="../../assets/img/icons/tools.svg" alt="">
+                    </div>
+                    <div class="con-serv-ord">
+                        <div class="inser-serv">
+                            <label>Ingresar</label>
+                            <input type="number" id="can_serv_insert">
+                            <label>Servicios</label>
+
+                            <input type="button" value="Insertar" id="btn-inser-serv">
+                        </div>
+                        <div class="con-sev" id="con-sev">
+                            <div class="not-pro-ord not__ser_ord" id="add-serv">
+                                <img src="../../assets/img/icons/plusB.svg" alt="">
+                                <p>Agregue servicios</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </form>
                 <br>
                 <section class="sect-form-p sect-form-up">
                     <div class="divider-form">
@@ -185,10 +206,11 @@
                         </div>
                     </div>
                 </section>
+                <br><br>
                 <section class="sect-form-p sect-form-up">
                     <div class="divider-form">
-                        <h3>Información</h3>
-                        <img src="../../assets/img/icons/usd-circle.svg" alt="">
+                        <h3>Resumen</h3>
+                        <img src="../../assets/img/icons/ticket.svg" alt="">
                     </div>
                     <div class="resumen-orden">
                         <div class="info-fact">
@@ -241,7 +263,7 @@
             });
 
             $('#seller').select2({
-                placeholder: "Selecciona el vendedor",
+                placeholder: "Selecciona al técnico / vendedor",
                 allowClear: true
             });
             $('#products').select2({

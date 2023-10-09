@@ -1,39 +1,57 @@
 <?php
     class Bill{
-        public function store($date_bill, $reference, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva, $estado_pago){
+        public function store($date_bill, $reference, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva, $estado_pago, 
+        $service, $priceService, $typeBill){
+            // type bill = si la factura cuenta con productos o no
+            // 1 = si
+            // 0 = no
+            
             require ('../config/connection.php');
 
             $amountT = 0;
             $subT = 0;
             $total = 0;
             $desc_total = 0;
-            for ($i=0; $i < sizeof($product_id) ; $i++) {
-                $amountT = $amountT + $product_amount[$i];
-
-                if($check[$i] == 'true'){
-                    if($descuento[$i] != 'NA'){
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
-                        $desc_total = $desc_total + ($subT * $descuento[$i]);
-                        $subT =  $subT - ($subT * $descuento[$i]);
+            if($typeBill == 1){
+                for ($i=0; $i < sizeof($product_id) ; $i++) {
+                    $amountT = $amountT + $product_amount[$i];
+    
+                    if($check[$i] == 'true'){
+                        if($descuento[$i] != 'NA'){
+                            $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                            $desc_total = $desc_total + ($subT * $descuento[$i]);
+                            $subT =  $subT - ($subT * $descuento[$i]);
+                        }else{
+                            $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                            $descuento[$i] = 0;
+                            $desc_total = $desc_total + 0;
+                        }
+                        
                     }else{
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
-                        $descuento[$i] = 0;
-                        $desc_total = $desc_total + 0;
+                        if($descuento[$i] != 'NA'){
+                            $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                            $desc_total = $desc_total + ($subT * $descuento[$i]);
+                            $subT =  $subT - ($subT * $descuento[$i]);
+                        }else{
+                            $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                            $descuento[$i] = 0;
+                            $desc_total = $desc_total + 0;
+                        }
                     }
-                    
-                }else{
-                    if($descuento[$i] != 'NA'){
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
-                        $desc_total = $desc_total + ($subT * $descuento[$i]);
-                        $subT =  $subT - ($subT * $descuento[$i]);
-                    }else{
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
-                        $descuento[$i] = 0;
-                        $desc_total = $desc_total + 0;
-                    }
+    
                 }
-
             }
+            
+            if(sizeof($service) > 0){
+                for ($i=0; $i < sizeof($service) ; $i++) { 
+                    $unforPriceServ = str_replace('$', '', $priceService[$i]);
+                    $unforPriceServ = str_replace(',', '', $unforPriceServ);
+                    $amountT = $amountT + 1;
+                    $subT = $subT + $unforPriceServ;
+                    
+                }
+            }
+            
             $total = $iva == 'true' ? $subT + ($subT * 0.19) : $subT;
 
             $estado = true;
@@ -41,74 +59,116 @@
 
             // $product_amount[0] = 11;
             // $product_amount[1] = 223;
-            
-            for ($i=0; $i < sizeof($product_id) ; $i++) { 
-                $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
-                $output = $db->query($inputProduct);
 
-                foreach($output as $product)
-                if($product_amount[$i] > $product['amount']){
-                        $estado = false;
-                        $errorTemp = [
-                            'barcode' => $product['Barcode'], 
-                            'nameprod' => $product['name_product'], 
-                            'stockactual' => $product['amount'], 
-                            'stockseleccionado' => $product_amount[$i], 
-                        ];
-
-                        $err[] = $errorTemp;
-                    }
-            }
-
-            if($estado){
-                $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state, state_page, iva, descuento) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1, '$estado_pago', '$iva', '$desc_total')";
-            
-                mysqli_query($db, $input);
-                $bill = mysqli_insert_id($db);
-                            
+            if($typeBill == 1){
                 for ($i=0; $i < sizeof($product_id) ; $i++) { 
+                    $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
+                    $output = $db->query($inputProduct);
     
-                    $priceTp = $product_price[$i] * $product_amount[$i];
-                    $manoObra = $check[$i] == 'true' ? 1 : 0;
-                    if($manoObra == 1){
-                        $priceTp = $priceTp + $pricemo[$i];
+                    foreach($output as $product)
+                    if($product_amount[$i] > $product['amount']){
+                            $estado = false;
+                            $errorTemp = [
+                                'barcode' => $product['Barcode'], 
+                                'nameprod' => $product['name_product'], 
+                                'stockactual' => $product['amount'], 
+                                'stockseleccionado' => $product_amount[$i], 
+                            ];
+    
+                            $err[] = $errorTemp;
+                        }
+                }
+    
+                if($estado){
+                    $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state, state_page, iva, descuento) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1, '$estado_pago', '$iva', '$desc_total')";
+                
+                    mysqli_query($db, $input);
+                    $bill = mysqli_insert_id($db);
+
+                    if(sizeof($service) > 0){
+                        for ($i=0; $i < sizeof($service) ; $i++) { 
+                            $unforPriceServ = str_replace('$', '', $priceService[$i]);
+                            $unforPriceServ = str_replace(',', '', $unforPriceServ);
+                            $input = "INSERT INTO service(date, detail, price, service, state) VALUES ('$date_bill','$service[$i]','$unforPriceServ','$seller','1')";
+                            mysqli_query($db, $input);
+
+                            $serviceId = mysqli_insert_id($db);
+                            $input = "INSERT INTO service_has_bill(id_bill, id_service) VALUES ('$bill','$serviceId')";
+                            mysqli_query($db, $input);
+
+                        }
                     }
-                    
-                    $input = "INSERT INTO bill_has_product(id_bill, id_product, price_u, amount, prices_total, date, prices_mano_obra, mano_obra, descuento) VALUES ('$bill','$product_id[$i]','$product_price[$i]','$product_amount[$i]','$priceTp','$date_bill', '$pricemo[$i]', '$manoObra', '$descuento[$i]')";
+                                
+                    for ($i=0; $i < sizeof($product_id) ; $i++) { 
+        
+                        $priceTp = $product_price[$i] * $product_amount[$i];
+                        $manoObra = $check[$i] == 'true' ? 1 : 0;
+                        if($manoObra == 1){
+                            $priceTp = $priceTp + $pricemo[$i];
+                        }
+                        
+                        $input = "INSERT INTO bill_has_product(id_bill, id_product, price_u, amount, prices_total, date, prices_mano_obra, mano_obra, descuento) VALUES ('$bill','$product_id[$i]','$product_price[$i]','$product_amount[$i]','$priceTp','$date_bill', '$pricemo[$i]', '$manoObra', '$descuento[$i]')";
+        
+                        mysqli_query($db, $input);
     
-                    mysqli_query($db, $input);
-
-                $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
-                $output = $db->query($inputProduct);
-
-                foreach($output as $prod){
-                    $stockRest = $prod['amount'] - $product_amount[$i];
-                    $input = "UPDATE producto SET amount = $stockRest WHERE id = " . $prod['id'];
-                    
-                    mysqli_query($db, $input);
+                    $inputProduct = 'SELECT id, amount,Barcode,name_product FROM producto WHERE id = '.$product_id[$i];
+                    $output = $db->query($inputProduct);
+    
+                    foreach($output as $prod){
+                        $stockRest = $prod['amount'] - $product_amount[$i];
+                        $input = "UPDATE producto SET amount = $stockRest WHERE id = " . $prod['id'];
+                        mysqli_query($db, $input);
+                    }
+    
+                    }
+                    include('../model/log.php');
+                    date_default_timezone_set('America/Bogota');
+                    $date =  date("Y-m-d H:i:s");
+                    $Log = new Log;
+        
+                    $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
+        
+                    header('Location: ../views/bill/bill.php?referencia=' . $reference);
+                }else{
+                    $_SESSION['err_bill'] = $err;
+    
+                    include('../model/log.php');
+                    date_default_timezone_set('America/Bogota');
+                    $date =  date("Y-m-d H:i:s");
+                    $Log = new Log;
+        
+                    $Log->store($_SESSION['user_id'], '4', 'No se pudo crear la factura debido a la falta de stock', $date, 3);
+        
+                    header('Location: ../views/bill/add-bill.php');
                 }
-
-                }
-                include('../model/log.php');
-                date_default_timezone_set('America/Bogota');
-                $date =  date("Y-m-d H:i:s");
-                $Log = new Log;
-    
-                $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
-    
-                header('Location: ../views/bill/bill.php?referencia=' . $reference);
             }else{
-                $_SESSION['err_bill'] = $err;
+                if(sizeof($service) > 0){
+                    $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state, state_page, iva, descuento) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1, '$estado_pago', '$iva', '$desc_total')";
+                
+                    mysqli_query($db, $input);
+                    $bill = mysqli_insert_id($db);
 
-                include('../model/log.php');
-                date_default_timezone_set('America/Bogota');
-                $date =  date("Y-m-d H:i:s");
-                $Log = new Log;
-    
-                $Log->store($_SESSION['user_id'], '4', 'No se pudo crear la factura debido a la falta de stock', $date, 3);
-    
-                header('Location: ../views/bill/add-bill.php');
+                    for ($i=0; $i < sizeof($service) ; $i++) { 
+                        $unforPriceServ = str_replace('$', '', $priceService[$i]);
+                        $unforPriceServ = str_replace(',', '', $unforPriceServ);
+                        $input = "INSERT INTO service(date, detail, price, service, state) VALUES ('$date_bill','$service[$i]','$unforPriceServ','$seller','1')";
+                        mysqli_query($db, $input);
+
+                        $serviceId = mysqli_insert_id($db);
+                        $input = "INSERT INTO service_has_bill(id_bill, id_service) VALUES ('$bill','$serviceId')";
+                        mysqli_query($db, $input);
+                    }
+
+                    include('../model/log.php');
+                    date_default_timezone_set('America/Bogota');
+                    $date =  date("Y-m-d H:i:s");
+                    $Log = new Log;
+        
+                    $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
+                    header('Location: ../views/bill/bill.php?referencia=' . $reference);
+                }
             }
+            
         }
 
         public function index(){

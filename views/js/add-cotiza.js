@@ -12,10 +12,10 @@ document.getElementById('iva__check').addEventListener('change', event=>{
         configBill.iva = 0;
         $('#iva_info').empty();
         document.getElementById('iva_info').appendChild(document.createTextNode('No aplica'));
-        seleccionados.length == 1 ? pricesTotal() : false;
+        pricesTotal();
     }else{
         configBill.iva = 1;
-        seleccionados.length == 1 ? pricesTotal() : false;
+        pricesTotal();
     }
 })
 // document.getElementById('estado__pago_check').addEventListener('change', event=>{
@@ -392,11 +392,15 @@ function pricesTotal(){
        $('#con-sub-t').empty();
        document.getElementById('con-sub-t').appendChild(document.createTextNode(formatCurrency(subtotal)));
     })
-
-    iva = configBill.iva == 1 ? subtotal * 0.19 : 0;
-    console.log(iva);
-    $('#iva_info').empty();
-    document.getElementById('iva_info').appendChild(document.createTextNode(formatCurrency(iva)));
+    if(configBill.iva == 1){
+        iva = subtotal * 0.19;
+        $('#iva_info').empty();
+        document.getElementById('iva_info').appendChild(document.createTextNode(formatCurrency(iva)));
+    }else{
+        iva = 0;
+        $('#iva_info').empty();
+        document.getElementById('iva_info').appendChild(document.createTextNode('No Aplica'));
+    }
 
     $('#con-t').empty();
     document.getElementById('con-t').appendChild(document.createTextNode(formatCurrency(subtotal + iva)));

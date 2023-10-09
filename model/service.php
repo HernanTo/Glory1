@@ -17,10 +17,13 @@ class Service{
 
     }
 
-    public function index(){
+    public function index($id_bill){
         require ('../../config/connection.php');
-        $input = "SELECT service.id, detail, price, CONCAT(ft_name, ' ', fi_lastname) as cliente, referencia FROM  service
-        INNER JOIN `user` on user.id = customer ";
+        $input = "select detail, price from service
+        inner join service_has_bill shb 
+        on shb.id_service  = service.id
+        where shb.id_bill = '$id_bill'";
+        
         $output = $db->query($input);
 
         return $output;

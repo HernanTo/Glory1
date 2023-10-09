@@ -161,7 +161,7 @@
                     </div>
                     <div class="con-product-ord">
                         <div class="not-pro-ord">
-                            <img src="../../assets/img/icons/plus.svg" alt="">
+                            <img src="../../assets/img/icons/plusb.svg" alt="">
                             <p>Agregue productos</p>
                         </div>
                     </div>

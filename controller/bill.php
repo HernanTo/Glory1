@@ -11,18 +11,32 @@
         public function store(){
 
             $Bill = new Bill;
+            $type_Bill = $_POST['type_bill'];
+            if($type_Bill == 0){
+                $product_amount = 0;
+                $product_id = 0;
+                $product_price = 0;
+                $price_mano_obra = 0;
+                $check_mano_obra = 0;
+                $descuento = 0;
+
+            }else{
+                $product_amount = $_POST['product_amount'];
+                $product_id = $_POST['product_id'];
+                $product_price = $_POST['product_price'];
+                $check_mano_obra = $_POST['check_mano_obra'];
+                $price_mano_obra = $_POST['price_mano_obra'];
+                $descuento = $_POST['descuento'];
+
+            }
             $date_bill = $_POST['date_bill'];
             $reference = $_POST['reference'];
-            $product_amount = $_POST['product_amount'];
-            $product_id = $_POST['product_id'];
             $customer = $_POST['customer'];
             $seller = $_POST['seller'];
-            $product_price = $_POST['product_price'];
-            $check_mano_obra = $_POST['check_mano_obra'];
-            $price_mano_obra = $_POST['price_mano_obra'];
-            $descuento = $_POST['descuento'];
             $iva = $_POST['iva_check'];
             $estado_pago = $_POST['estado_pago_check'];
+            $service = $_POST['desc'];
+            $Priceservice = $_POST['priceServ'];
 
             $Bill->store(
                 $date_bill,
@@ -36,7 +50,10 @@
                 $price_mano_obra, 
                 $descuento,
                 $iva,
-                $estado_pago
+                $estado_pago, 
+                $service,
+                $Priceservice, 
+                $type_Bill
             );
         }
 

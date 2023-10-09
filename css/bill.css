@@ -177,6 +177,8 @@
     grid-template-columns: 80px 1fr 100px;
     grid-template-rows: 21px repeat(2, 18px) 21px;
     column-gap: 10px;
+    align-items: center;
+    padding-left: 15px;
 }
 .product-su img{
     grid-row: 1/5;
@@ -215,14 +217,16 @@
     font-family: 'Poppins';
     font-weight: bold;
     text-align: right;
+    margin: 0px;
+    grid-row: 2/4;
 }
 .con-sum-prices{
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     grid-column: 20px;
-    border-top: 2px dashed #505765;
     padding-top: 20px;
+    border-top: 2px dashed #505050;
 }
 .con-sum-prices p{
     font-family: 'Nunito Sans';
@@ -237,6 +241,40 @@
 }
 .con-sum-prices h2{
     font-weight: bold;
+}
+.con__sum__services h2, .hed__prod_or, .h2_not_product{
+    font-family: 'Poppins';
+    font-size: 18px;
+    color: #505765;
+    font-weight: bold;
+    margin: 0px;
+}
+.serv{
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: center;
+    grid-template-rows: 40px;
+    padding-left: 15px;
+    border-radius: 5px;
+}
+.serv:hover{
+    background: rgba(80, 80, 80, 0.041);
+}
+.serv h3{
+    font-size: 17px;
+    color: #505050;
+    font-family: 'Poppins';
+    font-weight: 600;
+    margin: 0px;
+}
+.serv h5{
+    grid-row: 1/2 !important;
+    grid-column: 2/3 !important;
+}
+.serv_no, .product_no{
+    grid-template-columns: 1fr;
+    justify-content: center;
+    text-align: center;
 }
 @media(min-width: 719px){
     .con-bill-summary{
