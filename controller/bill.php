@@ -35,8 +35,8 @@
             $seller = $_POST['seller'];
             $iva = $_POST['iva_check'];
             $estado_pago = $_POST['estado_pago_check'];
-            $service = $_POST['desc'];
-            $Priceservice = $_POST['priceServ'];
+            $service = isset( $_POST['desc']) ?  $_POST['desc'] : [];
+            $Priceservice = isset($_POST['priceServ']) ? $_POST['priceServ'] : [];
 
             $Bill->store(
                 $date_bill,

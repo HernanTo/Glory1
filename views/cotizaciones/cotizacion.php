@@ -150,7 +150,7 @@
                                         <h4 class="prices"><?php echo $dat['price_u'] ?></h4>
 
                                         <p class="cantidad-prod-s">Cantidad: <i><?php echo $dat['amount'] ?></i></p>
-                                        <p class="mano-obra-su">Mano de obra: <i class="<?php echo $manoObra != 'No aplica' ? 'prices' : '' ?>"><?php echo $manoObra ?></i></p>
+                                        <p class="mano-obra-su">Stock: <?php echo $dat['stock'] == 1 ? 'Si' : 'No disponible'   ?></></p>
 
                                         <h1 class="prices prices-pro"><?php echo $dat['prices_total'] ?></h1>
                                     </div>

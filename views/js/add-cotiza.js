@@ -4,7 +4,6 @@ var fechaFormateada = fecha.toISOString().slice(0, 10);
 document.getElementById('date_bill').value = fechaFormateada;
 var configBill = {
     iva: 1,
-    estadoPago: 0,
 }
 
 document.getElementById('iva__check').addEventListener('change', event=>{
@@ -18,18 +17,6 @@ document.getElementById('iva__check').addEventListener('change', event=>{
         pricesTotal();
     }
 })
-// document.getElementById('estado__pago_check').addEventListener('change', event=>{
-//     if(!event.target.checked){
-//         $('#estado__pago').empty();
-//         document.getElementById('estado__pago').appendChild(document.createTextNode('Pendiente de pago'));
-        
-//     }else{
-//         $('#estado__pago').empty();
-//         document.getElementById('estado__pago').appendChild(document.createTextNode('Paga'));
-
-//     }
-// })
-
 
 let btnAddSeller = document.querySelector('#btn-add-seller');
 let btnAddCustomer = document.querySelector('#btn-add-customer');
@@ -248,19 +235,20 @@ function addProductList(product){
         }else if(inputamount.value < 0){
             inputamount.value = 1;
         }
-        if(parseInt(inputamount.value) > product.max_amount){
-            console.log(inputamount.value)
-            console.log(product.max_amount)
-            inputamount.value = 1;
-            $(canMax).addClass('stock_sob')
-            setTimeout(() => {
-                $(canMax).removeClass('stock_sob');
+        // if(parseInt(inputamount.value) > product.max_amount){
+        //     console.log(inputamount.value)
+        //     console.log(product.max_amount)
+        //     inputamount.value = 1;
+        //     $(canMax).addClass('stock_sob')
+        //     setTimeout(() => {
+        //         $(canMax).removeClass('stock_sob');
                 
-            }, 1000);
-            pricesTotal();
-        }else{
-            pricesTotal();
-        }
+        //     }, 1000);
+        //     pricesTotal();
+        // }else{
+        //     pricesTotal();
+        // }
+        pricesTotal();
     })
 
     inputCheck.addEventListener('change', event=>{
