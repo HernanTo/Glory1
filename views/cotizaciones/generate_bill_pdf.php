@@ -1,14 +1,14 @@
 <?php
 require('../../vendor/autoload.php');
-include ('../../model/bill.php');
+include ('../../model/cotizaciones.php');
 include ('../../model/service.php');
-$Bill = new Bill;
+$Cotizacion = new Cotizaciones;
 $Service = new Service;
 if(isset($_GET['referencia'])){
         if($_GET['referencia'] == ''){
             header('Location: ./');
         }else{
-            list($data, $products, $seller) = $Bill->generateBill($_GET['referencia']);
+            list($data, $products, $seller) = $Cotizacion->generateBill($_GET['referencia']);
             if(mysqli_num_rows($data) <= 0 ){
                     header('Location: ./');
             }
@@ -276,6 +276,7 @@ foreach($data as $row){
                                 <tr>
                                     <th>PARTES</th>
                                     <th>CANTIDAD</th>
+                                    <th>STOCK</th>
                                     <th>PRECIO/U</th>
                                     <th>DESCUENTO %</th>
                                     <th>TOTAL</th>
@@ -284,6 +285,12 @@ foreach($data as $row){
                             <tbody>";
                                 $countProduct = 0;
                                 foreach($products as $product){
+                                    if($datosProducto['stock'] == 0){
+                                        $stock = 'No';
+                                    }else{
+                                        $stock = 'Si';
+                                    }
+
                                     if($product['descuento'] > 0){
                                         $estadoDescuentos = true;
                                     }
@@ -291,6 +298,7 @@ foreach($data as $row){
                                     $html .="<tr class='".$odd."'>
                                           <td>". $product['name_product'] ."</td>
                                           <td>". $product['amount'] ."</td>
+                                          <td>". $stock ."</td>
                                           <td>". $product['price_u'] ."</td>
                                           <td>". (floatval($product['descuento']) * 100) . '%' ."</td>
                                           <td>". $product['price_u'] * $product['amount'] ."</td>
@@ -301,7 +309,7 @@ foreach($data as $row){
                                 }
                                 $html.="
                                     <tr class='subtr'>
-                                        <td colspan='4' class='subtd'><b>SUBTOTAL</b></td>
+                                        <td colspan='5' class='subtd'><b>SUBTOTAL</b></td>
                                         <td>$subTProd</td>
                                     </tr>
                                 </tbody>
