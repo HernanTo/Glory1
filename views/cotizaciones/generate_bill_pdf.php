@@ -72,7 +72,7 @@ foreach($data as $row){
         }
         @page {
             margin-top: 230px;
-            margin-bottom: 130px;
+            margin-bottom: 50px;
         }
         .main-content{
             max-width: 700px;
@@ -207,7 +207,7 @@ foreach($data as $row){
             <table>
                 <tr>
                     <td style='width: 300px;'>
-                        <div class='head_con'><h2>Factura</h2></div>
+                        <div class='head_con'><h2>COTIZACIÓN</h2></div>
                     </td>
                     <td class='info_lotus'>
                         <b>Taller mecánico Lotus</b>  <br>
@@ -221,7 +221,7 @@ foreach($data as $row){
                     </td>
                 </tr>
                 <tr class='info_bill'>
-                    <td><b>NÚMERO DE FACTURA: </b>". $row['num_fact'] ."</td>
+                    <td><b>NÚMERO DE COTIZACIÓN: </b>". $row['num_fact'] ."</td>
                     <td colspan='2' style='text-align: right;'><b>FECHA DE FACTURA: </b> ". $row['date'] ."</td>
                 </tr>
             </table>
@@ -448,7 +448,7 @@ $dompdf = new Dompdf(
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->loadHtml($html);
 $dompdf->render();
-$namefile = 'Factura_' . $_GET['referencia'] . '_Lotus.pdf';
+$namefile = 'Cotizacion_' . $_GET['referencia'] . '_Lotus.pdf';
 
 ob_clean();
 header('Content-Type: application/pdf');

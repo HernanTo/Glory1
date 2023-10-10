@@ -72,7 +72,7 @@ foreach($data as $row){
         }
         @page {
             margin-top: 230px;
-            margin-bottom: 130px;
+            margin-bottom: 50px
         }
         .main-content{
             max-width: 700px;
@@ -207,7 +207,7 @@ foreach($data as $row){
             <table>
                 <tr>
                     <td style='width: 300px;'>
-                        <div class='head_con'><h2>Factura</h2></div>
+                        <div class='head_con'><h2>FACTURA</h2></div>
                     </td>
                     <td class='info_lotus'>
                         <b>Taller mecánico Lotus</b>  <br>
