@@ -1192,3 +1192,7 @@ body{
 .con-inpt-client-visible{
     display: grid;
 }
+img {
+    pointer-events: none !important;
+    user-select: none;
+  }

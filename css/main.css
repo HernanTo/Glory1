@@ -52,5 +52,5 @@
     height: 30px;
 }
 img {
-    pointer-events: none;
+    pointer-events: none !important;
   }

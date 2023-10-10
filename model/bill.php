@@ -15,6 +15,9 @@
             if($typeBill == 1){
                 for ($i=0; $i < sizeof($product_id) ; $i++) {
                     $amountT = $amountT + $product_amount[$i];
+                    $pricemo[$i] = str_replace('$', '', $pricemo[$i]);
+                    $pricemo[$i] = str_replace(',', '', $pricemo[$i]);
+                    $pricemo[$i] = str_replace('.', '', $pricemo[$i]);
     
                     if($check[$i] == 'true'){
                         if($descuento[$i] != 'NA'){
