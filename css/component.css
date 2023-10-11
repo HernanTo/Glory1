@@ -1193,6 +1193,6 @@ body{
     display: grid;
 }
 img {
-    pointer-events: none !important;
+    /* pointer-events: none !important; */
     user-select: none;
   }

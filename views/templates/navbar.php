@@ -21,8 +21,8 @@
 
 <div class="navbar">
             <section class="div-navbar-l">
-                <div class="btn-menu">
-                    <img src="../../assets/img/icons/menuham.svg" alt="Menu" id="btn-menu">
+                <div class="btn-menu" id="btn-menu">
+                    <img src="../../assets/img/icons/menuham.svg" alt="Menu">
                 </div>
                 <a href="../dashboard/" class="icon-hre">
                     <img src="../../assets/img/icons/lotus.svg" alt="Logo">

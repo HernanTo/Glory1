@@ -51,6 +51,6 @@
 .header-page-g h2 img {
     height: 30px;
 }
-img {
+/* img {
     pointer-events: none !important;
-  }
+  } */
