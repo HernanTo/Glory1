@@ -1,7 +1,4 @@
 const divNotProducts = $('.not-pro-ord');
-var fecha = new Date();
-var fechaFormateada = fecha.toISOString().slice(0, 10);
-document.getElementById('date_bill').value = fechaFormateada;
 var configBill = {
     iva: 1,
 }

@@ -1,12 +1,19 @@
 <?php 
     include('../auth/security/securityGeneral.php');
     include('../../model/report.php');
+
     $Report = new report;
-    $Report->ganancias('09', '2023');
+
+    date_default_timezone_set('America/Bogota');
+    $year =  date("Y");
+    $moth =  date("m");
+    $day =  date("d");
+    
+    $Report->ganancias($moth, $year);
     $BillNoP = $Report->billNoP();
-    list($dates, $total) = $Report->ventasMes('09', '2023', '20');
-    $factState = $Report->fact('09', '2023');
-    list($ganancias, $ganaciasCategoriasF) = $Report->ganancias('09', '2023');
+    list($dates, $total) = $Report->ventasMes($moth, $year, $day);
+    $factState = $Report->fact($moth, $year);
+    list($ganancias, $ganaciasCategoriasF) = $Report->ganancias($moth, $year);
     $lowStock = $Report->lowStock();
 ?>
 <!DOCTYPE html>
