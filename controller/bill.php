@@ -30,7 +30,6 @@
 
             }
             $date_bill = $_POST['date_bill'];
-            $reference = $_POST['reference'];
             $customer = $_POST['customer'];
             $seller = $_POST['seller'];
             $iva = $_POST['iva_check'];
@@ -40,7 +39,6 @@
 
             $Bill->store(
                 $date_bill,
-                $reference,
                 $product_amount,
                 $product_id,
                 $customer,

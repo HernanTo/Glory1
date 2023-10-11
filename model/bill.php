@@ -1,6 +1,6 @@
 <?php
     class Bill{
-        public function store($date_bill, $reference, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva, $estado_pago, 
+        public function store($date_bill, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva, $estado_pago, 
         $service, $priceService, $typeBill){
             // type bill = si la factura cuenta con productos o no
             // 1 = si
@@ -81,8 +81,20 @@
                             $err[] = $errorTemp;
                         }
                 }
-    
+                
                 if($estado){
+                    $input = "SELECT *FROM bill_info WHERE id = 1";
+                    $output = $db->query($input);
+                    $can = 0;
+
+                    foreach($output as $row){
+                        $can = intval($row['can']) + 1;
+                        $input = "update bill_info set bill_info.can = $can  where id = 1";
+                        mysqli_query($db, $input);
+                        
+                    }
+                    $reference = sprintf("%05s", $can);
+
                     $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state, state_page, iva, descuento) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1, '$estado_pago', '$iva', '$desc_total')";
                 
                     mysqli_query($db, $input);
@@ -146,6 +158,18 @@
                 }
             }else{
                 if(sizeof($service) > 0){
+                    $input = "SELECT *FROM bill_info WHERE id = 1";
+                    $output = $db->query($input);
+                    $can = 0;
+
+                    foreach($output as $row){
+                        $can = intval($row['can']) + 1;
+                        $input = "update bill_info set bill_info.can = $can  where id = 1";
+                        mysqli_query($db, $input);
+                        
+                    }
+                    $reference = sprintf("%05s", $can);
+
                     $input = "INSERT INTO bill(num_fact, total_prices, subtotal, amount, date, vendedor, cliente, state, state_page, iva, descuento) VALUES ('$reference','$total','$subT','$amountT','$date_bill','$seller','$customer', 1, '$estado_pago', '$iva', '$desc_total')";
                 
                     mysqli_query($db, $input);
@@ -168,6 +192,7 @@
                     $Log = new Log;
         
                     $Log->store($_SESSION['user_id'], '2', 'Se creó una nueva factura', $date, 3);
+                    
                     header('Location: ../views/bill/bill.php?referencia=' . $reference);
                 }
             }

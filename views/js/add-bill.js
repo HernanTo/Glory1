@@ -557,7 +557,6 @@ document.getElementById('btn-inser-serv').addEventListener('click', event=>{
 // Habilitar btn
 function habBtn(){
     let estado = false;
-    if(document.getElementById('references').value != ''){
         if(document.getElementById('customers').value != ''){
             if(document.getElementById('seller').value != ''){
                 if(seleccionados.length >= 1 || services.length >= 1){
@@ -573,9 +572,6 @@ function habBtn(){
         }else{
             estado = false;
         }
-    }else{
-        estado = false;
-    }
     if(estado){
         $('.btn-sub-bill').removeClass('btn-disabled');
         $( ".btn-sub-bill" ).prop( "disabled", false );
@@ -591,7 +587,6 @@ let inpts = ['date_bill', 'references', 'customers', 'seller'];
 inpts.forEach(element => {
     $(`#${element}`).on('change', () => {
         let estado = false;
-        if(document.getElementById('references').value != ''){
             if(document.getElementById('customers').value != ''){
                 if(document.getElementById('seller').value != ''){
                     if(seleccionados.length >= 1 || services.length >= 1){
@@ -605,9 +600,7 @@ inpts.forEach(element => {
             }else{
                 estado = false;
             }
-        }else{
-            estado = false;
-        }
+
         if(estado){
             $('.btn-sub-bill').removeClass('btn-disabled');
             $( ".btn-sub-bill" ).prop( "disabled", false );
@@ -622,7 +615,6 @@ inpts.forEach(element => {
 
 // Enviar formulario
 $('.btn-sub-bill').on('click', function(){
-    if(document.getElementById('references').value != ''){
         if(document.getElementById('customers').value != ''){
             if(document.getElementById('seller').value != ''){
                 if(seleccionados.length >= 1){
@@ -723,6 +715,5 @@ $('.btn-sub-bill').on('click', function(){
             }
 
         }
-    }
 })
 // Enviar formulario

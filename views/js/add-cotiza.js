@@ -1,4 +1,7 @@
 const divNotProducts = $('.not-pro-ord');
+var fecha = new Date();
+var fechaFormateada = fecha.toISOString().slice(0, 10);
+document.getElementById('date_bill').value = fechaFormateada;
 var configBill = {
     iva: 1,
 }
@@ -392,7 +395,6 @@ function pricesTotal(){
 }
 
 $('.btn-sub-bill').on('click', function(){
-    if(document.getElementById('references').value != ''){
         if(document.getElementById('customers').value != ''){
             if(document.getElementById('seller').value != ''){
                 seleccionados.forEach(element =>{
@@ -461,5 +463,4 @@ $('.btn-sub-bill').on('click', function(){
             }
 
         }
-    }
 })

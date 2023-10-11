@@ -1,7 +1,18 @@
 <?php
     class Cotizaciones{
-        public function store($date_bill, $reference, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva){
+        public function store($date_bill, $product_amount, $product_id, $customer, $seller, $product_price, $check, $pricemo, $descuento, $iva){
             require ('../config/connection.php');
+            $input = "SELECT *FROM cotizainfo WHERE id = 1";
+            $output = $db->query($input);
+            $can = 0;
+
+            foreach($output as $row){
+                $can = intval($row['can']) + 1;
+                $input = "update cotizainfo set cotizainfo.can = $can  where id = 1";
+                mysqli_query($db, $input);
+                
+            }
+            $reference = sprintf("%04s", $can);
 
             $amountT = 0;
             $subT = 0;
@@ -24,11 +35,11 @@
                     
                 }else{
                     if($descuento[$i] != 'NA'){
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                        $subT = $subT + (($product_price[$i]) * $product_amount[$i]);
                         $desc_total = $desc_total + ($subT * $descuento[$i]);
                         $subT =  $subT - ($subT * $descuento[$i]);
                     }else{
-                        $subT = $subT + ($product_price[$i] * $product_amount[$i]) + $pricemo[$i];
+                        $subT = $subT + ($product_price[$i] * $product_amount[$i]);
                         $descuento[$i] = 0;
                         $desc_total = $desc_total + 0;
                     }

@@ -12,7 +12,6 @@
 
             $Cotizaciones = new Cotizaciones;
             $date_bill = $_POST['date_bill'];
-            $reference = $_POST['reference'];
             $product_amount = $_POST['product_amount'];
             $product_id = $_POST['product_id'];
             $customer = $_POST['customer'];
@@ -26,7 +25,6 @@
 
             $Cotizaciones->store(
                 $date_bill,
-                $reference,
                 $product_amount,
                 $product_id,
                 $customer,

@@ -16,33 +16,6 @@
     $products = $Product->indexBill();
 
     $numsBill = $Bill->numBills();
-    $referencia = generateNumReferences($numsBill);
-
-    function verBillNumBill($bill, $num){
-        $estado = false;
-
-        foreach($bill as $referencia){
-            if($referencia['num_fact'] == $num){
-                $estado = true;
-            }
-        }
-
-        return $estado;
-    }
-
-    function generateNumReferences($numsBill){
-        if(mysqli_num_rows($numsBill) > 0){
-            $num = rand(00000000, 99999999);
-            while(verBillNumBill($numsBill, $num)){
-                $num = rand(00000000, 99999999);
-            }
-            
-        }else{
-            $num = rand(00000000, 99999999);
-        }
-
-        return $num;
-    }
 
 ?>
 <!DOCTYPE html>
@@ -94,11 +67,6 @@
                     <div class="form-floating">
                         <input type="date" class="form-control date-input" id="date_bill" placeholder="Fecha" name="date_bill" required>
                         <label for="floatingInputValue">Fecha</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="number" class="form-control" id="references" placeholder="Referencia" name="reference" value="<?php echo $referencia ?>" required>
-                        <label for="floatingInputValue">Referencia</label>
-                        <img src="../../assets/img/icons/notebook.svg" alt="" class="ico-in">
                     </div>
                     <div class="con-select-s">
                         <label for="">Cliente:</label>

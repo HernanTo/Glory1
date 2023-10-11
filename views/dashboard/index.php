@@ -8,7 +8,7 @@
     $year =  date("Y");
     $moth =  date("m");
     $day =  date("d");
-    
+
     $Report->ganancias($moth, $year);
     $BillNoP = $Report->billNoP();
     list($dates, $total) = $Report->ventasMes($moth, $year, $day);
@@ -60,7 +60,7 @@
                 <div class="card_dash" id="card_gan">
                     <span class="h__card_dash">
                         <h2 class="prices"><?php echo $ganancias ?></h2>
-                        <div class="progress__dash progress_dash__up"><img src="../../assets/img/icons/arrow-trend-up.svg" alt="up">2.2%</div>
+                        <div class="progress__dash progress_dash__up"><img src="../../assets/img/icons/arrow-trend-up.svg" alt="up">0%</div>
                         <label>Ganancias del mes</label>
                     </span>
                     <span class="b__card_dash">
