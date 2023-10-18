@@ -112,9 +112,6 @@ foreach($data as $row){
             border-bottom-right-radius: 20px;
             margin-top: -17px;
         }
-
-
-
         .header table .info_bill b{
             font-family: 'Alata';
         }
