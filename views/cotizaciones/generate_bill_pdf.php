@@ -71,7 +71,7 @@ foreach($data as $row){
         font-weight: bold;
         }
         @page {
-            margin-top: 230px;
+            margin-top: 210px;
             margin-bottom: 50px;
         }
         .main-content{
@@ -80,12 +80,12 @@ foreach($data as $row){
         .header{
             position: fixed;
             width: 700px;
-            top: -230px;
+            top: -210px;
             left: 0px;
             background: white;
             width: 100%;
             max-width: 700px;
-            height: 230px;
+            height: 180px;
         }
         hr{
             margin: 0px
@@ -94,29 +94,28 @@ foreach($data as $row){
             width: 100%;
             font-family: 'Poppins';
             border-collapse: collapse;
-            height: 100%;
         }
         .head_con h2{
             margin: 0px;
             padding: 0px;
-            font-size: 35px;
+            font-size: 30px;
             text-align: center;
         }
         .head_con{
-            background: #00458E;
+            background: #505765;
             color: white;
             width: 100%;
-            padding: 30px 0px 32px 0px;
+            padding: 30px 0px 40px 0px;
             margin: 0px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            margin-top: -17px;
+            margin-top: -25px;
         }
         .header table .info_bill b{
             font-family: 'Alata';
         }
         .logo__lotus{
-            width: 100px;
+            width: 100%;
         }
         .info_lotus{
             text-align: right;
@@ -178,7 +177,7 @@ foreach($data as $row){
             width: 100%;
             min-height: 64px;
             border-top: 2px solid;
-            page-break-inside: avoid
+            page-break-inside: avoid;
         }
         #table_rsume tr td{
             text-align: right;
@@ -189,7 +188,7 @@ foreach($data as $row){
         } 
         
         .info_bill td{
-            padding: 20px 0px 0px 0px;
+            padding: 20px 0px 20px 0px;
         }
         .subtr{
             background: #ffffff !important;
@@ -207,7 +206,7 @@ foreach($data as $row){
         <div class='header'>
             <table class='table_infoo'>
                 <tr>
-                    <td style='width: 300px;'>
+                    <td style='width: 220px;'>
                         <div class='head_con'><h2>COTIZACIÓN</h2></div>
                     </td>
                     <td class='info_lotus'>
@@ -217,13 +216,15 @@ foreach($data as $row){
                         <b>NIT/CC: </b>  80864878<br>
                         CL 64 103A-33, Bogotá
                     </td>
-                    <td style='width: 130px; text-align: center;'>
-                        <img src='https://raw.githubusercontent.com/HernanTo/lotus/master/assets/img/icons/LotusBills.jpg' alt='logo_lotus' class='logo__lotus'>
+                    <td style='width: 220px; text-align: center;'>
+                        <img src='https://raw.githubusercontent.com/HernanTo/Glory-Store/master/assets/img/icons/Logo_glory.png' alt='logo_lotus' class='logo__lotus'>
                     </td>
                 </tr>
+            </table>
+            <table class='table_infoo'>
                 <tr class='info_bill'>
                     <td><b>NÚMERO DE COTIZACIÓN: </b>". $row['num_fact'] ."</td>
-                    <td colspan='2' style='text-align: right;'><b>FECHA DE FACTURA: </b> ". $row['date'] ."</td>
+                    <td style='text-align: right;'><b>FECHA DE FACTURA: </b> ". $row['date'] ."</td>
                 </tr>
             </table>
             <hr>
@@ -233,7 +234,7 @@ foreach($data as $row){
                 <table class='table_info_usr'>
                     <thead>
                         <tr class='th__main_usr'>
-                            <th height='40' style='text-align: left;'>DATOS CLIENTE</th>
+                            <th height='40' style='text-align: left; ; width: 50%;'>DATOS CLIENTE</th>
                             <th class='colm_sc' height='40'>INFORMACIÓN VEHÍCULO</th>
                         </tr>
                     </thead>
@@ -282,7 +283,7 @@ foreach($data as $row){
                             <tbody>";
                                 $countProduct = 0;
                                 foreach($products as $product){
-                                    if($datosProducto['stock'] == 0){
+                                    if($product['stock'] == 0){
                                         $stock = 'No';
                                     }else{
                                         $stock = 'Si';

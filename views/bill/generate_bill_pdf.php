@@ -19,6 +19,8 @@ if(isset($_GET['referencia'])){
 
 use Dompdf\Dompdf;
 
+setlocale(LC_MONETARY, 'es_CO');
+
 // Obtener el contenido del template
 foreach($seller as $row){
     $nameLastSeller = $row['nameLas'];
@@ -71,8 +73,8 @@ foreach($data as $row){
         font-weight: bold;
         }
         @page {
-            margin-top: 230px;
-            margin-bottom: 50px
+            margin-top: 210px;
+            margin-bottom: 50px;
         }
         .main-content{
             max-width: 700px;
@@ -80,12 +82,12 @@ foreach($data as $row){
         .header{
             position: fixed;
             width: 700px;
-            top: -230px;
+            top: -210px;
             left: 0px;
             background: white;
             width: 100%;
             max-width: 700px;
-            height: 230px;
+            height: 180px;
         }
         hr{
             margin: 0px
@@ -94,30 +96,29 @@ foreach($data as $row){
             width: 100%;
             font-family: 'Poppins';
             border-collapse: collapse;
-            height: 100%;
         }
         .head_con h2{
             margin: 0px;
             padding: 0px;
-            font-size: 40px;
+            font-size: 30px;
             text-align: center;
         }
         .head_con{
-            background: #00458E;
+            background: #505765;
             color: white;
             width: 100%;
-            padding: 30px 0px;
+            padding: 30px 0px 40px 0px;
             margin: 0px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            margin-top: -2px;
+            margin-top: -25px;
         }
 
         .header table .info_bill b{
             font-family: 'Alata';
         }
         .logo__lotus{
-            width: 100px;
+            width: 100%;
         }
         .info_lotus{
             text-align: right;
@@ -179,7 +180,7 @@ foreach($data as $row){
             width: 100%;
             min-height: 64px;
             border-top: 2px solid;
-            page-break-inside: avoid
+            page-break-inside: avoid;
         }
         #table_rsume tr td{
             text-align: right;
@@ -190,7 +191,7 @@ foreach($data as $row){
         } 
         
         .info_bill td{
-            padding: 20px 0px 0px 0px;
+            padding: 20px 0px 20px 0px;
         }
         .subtr{
             background: #ffffff !important;
@@ -206,9 +207,9 @@ foreach($data as $row){
     </style>
     <body>
         <div class='header'>
-            <table>
+            <table class='table_infoo'>
                 <tr>
-                    <td style='width: 300px;'>
+                    <td style='width: 220px;'>
                         <div class='head_con'><h2>FACTURA</h2></div>
                     </td>
                     <td class='info_lotus'>
@@ -218,13 +219,15 @@ foreach($data as $row){
                         <b>NIT/CC: </b>  80864878<br>
                         CL 64 103A-33, Bogotá
                     </td>
-                    <td style='width: 130px; text-align: center;'>
-                        <img src='https://raw.githubusercontent.com/HernanTo/lotus/master/assets/img/icons/LotusBills.jpg' alt='logo_lotus' class='logo__lotus'>
+                    <td style='width: 220px; text-align: center;'>
+                        <img src='https://raw.githubusercontent.com/HernanTo/Glory-Store/master/assets/img/icons/Logo_glory.png' alt='logo_lotus' class='logo__lotus'>
                     </td>
                 </tr>
+            </table>
+            <table class='table_infoo'>
                 <tr class='info_bill'>
-                    <td><b>NÚMERO DE FACTURA: </b>". $row['num_fact'] ."</td>
-                    <td colspan='2' style='text-align: right;'><b>FECHA DE FACTURA: </b> ". $row['date'] ."</td>
+                    <td><b>NÚMERO DE COTIZACIÓN: </b>". $row['num_fact'] ."</td>
+                    <td style='text-align: right;'><b>FECHA DE FACTURA: </b> ". $row['date'] ."</td>
                 </tr>
             </table>
             <hr>
@@ -234,7 +237,7 @@ foreach($data as $row){
                 <table class='table_info_usr'>
                     <thead>
                         <tr class='th__main_usr'>
-                            <th height='40' style='text-align: left;'>DATOS CLIENTE</th>
+                            <th height='40' style='text-align: left; width: 50%;'>DATOS CLIENTE</th>
                             <th class='colm_sc' height='40'>INFORMACIÓN VEHÍCULO</th>
                         </tr>
                     </thead>
@@ -289,9 +292,9 @@ foreach($data as $row){
                                     $html .="<tr class='".$odd."'>
                                           <td>". $product['name_product'] ."</td>
                                           <td>". $product['amount'] ."</td>
-                                          <td>". $product['price_u'] ."</td>
+                                          <td>$". number_format($product['price_u'], 0, '.', '.') ."</td>
                                           <td>". (floatval($product['descuento']) * 100) . '%' ."</td>
-                                          <td>". $product['price_u'] * $product['amount'] ."</td>
+                                          <td>$". number_format(($product['price_u'] * $product['amount']), 0, '.', '.') ."</td>
                                       </tr>
                                       ";
                                       $countProduct = $countProduct == 1 ? 0 : 1;
@@ -300,7 +303,7 @@ foreach($data as $row){
                                 $html.="
                                     <tr class='subtr'>
                                         <td colspan='4' class='subtd'><b>SUBTOTAL</b></td>
-                                        <td>$subTProd</td>
+                                        <td>".number_format($subTProd, 0, '.', '.')."</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -330,8 +333,8 @@ foreach($data as $row){
                             $odd = $countService == 1 ? 'odd' : 'a';
                             $html .= "<tr class='". $odd."'>
                                     <td>". $service['detail'] ."</td>
-                                    <td>". $service['price'] ."</td>
-                                    <td>". $service['price'] ."</td>
+                                    <td>$". number_format($service['price'], 0, '.', '.') ."</td>
+                                    <td>$". number_format($service['price'], 0, '.', '.') ."</td>
                                 </tr>";
                             $countService = $countService == 1 ? 0 : 1;
                             $subTServ += intval($service['price']);
@@ -343,8 +346,8 @@ foreach($data as $row){
                             if($product['mano_obra'] == 1){
                                 $html .= "<tr class='". $odd."'>
                                     <td>". 'Mano de obra | Parte: ' .$product['name_product'] ."</td>
-                                    <td>". $product['prices_mano_obra'] ."</td>
-                                    <td>". $product['prices_mano_obra'] ."</td>
+                                    <td>$". number_format($product['prices_mano_obra'], 0, '.', '.') ."</td>
+                                    <td>$". number_format($product['prices_mano_obra'], 0, '.', '.') ."</td>
                                 </tr>";
                                 $subTServ += intval($product['prices_mano_obra']);
                                 $countService = $countService == 1 ? 0 : 1;
@@ -354,7 +357,7 @@ foreach($data as $row){
                     $html .= "
                                 <tr class='subtr'>
                                     <td colspan='2' class='subtd'><b>SUBTOTAL</b></td>
-                                    <td>$subTServ</td>
+                                    <td>$".number_format($subTServ, 0, '.', '.')."</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -380,8 +383,8 @@ foreach($data as $row){
                                         $html .= "<tr class='".$odd."'>
                                             <td>". $product['name_product'] ."</td>
                                             <td>". (floatval($product['descuento']) * 100) . '%' ."</td>
-                                            <td>". $descuento ."</td>
-                                            <td>". (floatval($product['prices_total']) - $descuento) ."</td>
+                                            <td> $". number_format($descuento, 0, '.', '.') ."</td>
+                                            <td> $". number_format((floatval($product['prices_total']) - $descuento), 0, '.', '.') ."</td>
                                         </tr>";
                                         $countDesc = $countDesc == 1 ? 0 : 1;
                                         $subtDescu += $descuento;
@@ -391,7 +394,7 @@ foreach($data as $row){
                     $html .= "
                                 <tr class='subtr'>
                                     <td colspan='3' class='subtd'><b>SUBTOTAL</b></td>
-                                    <td>- $subtDescu</td>
+                                    <td>- $". number_format($subtDescu, 0, '.', '.'). "</td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -403,24 +406,23 @@ foreach($data as $row){
                         <tr>
                         </tr>";
                         if($subtDescu > 0){
-                            $descu = '- ' . $subtDescu;
                             $html .= "<tr>
-                                <td><b>DESCUENTO: </b> ". $descu ."</td>
+                                <td><b>DESCUENTO: </b> - $". number_format($subtDescu, 0, '.', '.') ."</td>
                             </tr>";
                         }
                         $html .=" <tr>
-                            <td><b>SUBTOTAL: </b> ". ($subTProd + $subTServ) - $subtDescu ."</td>
+                            <td><b>SUBTOTAL: </b> $". number_format((($subTProd + $subTServ) - $subtDescu), 0, '.', '.') ."</td>
                         </tr>
                         ";
                         if($row['iva'] == 'true'){
                             $iva = $row['subtotal'] * 0.19;
                             $html .= "<tr>
-                                <td><b>IVA: </b> ". $iva ."</td>
+                                <td><b>IVA: </b> $". number_format($iva, 0, '.', '.') ."</td>
                             </tr>";
                         }
                         $html .= "
                         <tr>
-                            <td><b>TOTAL: </b> ". $row['total_prices'] ."</td>
+                            <td><b>TOTAL: </b> $". number_format($row['total_prices'], 0, '.', '.') ."</td>
                         </tr>
                     </table>
                 </div>
