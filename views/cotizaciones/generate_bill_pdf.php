@@ -85,7 +85,7 @@ foreach($data as $row){
             background: white;
             width: 100%;
             max-width: 700px;
-            height: 220px;
+            height: 230px;
         }
         hr{
             margin: 0px
@@ -99,19 +99,21 @@ foreach($data as $row){
         .head_con h2{
             margin: 0px;
             padding: 0px;
-            font-size: 40px;
+            font-size: 35px;
             text-align: center;
         }
         .head_con{
             background: #00458E;
             color: white;
             width: 100%;
-            padding: 30px 0px;
+            padding: 30px 0px 32px 0px;
             margin: 0px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            margin-top: -2px;
+            margin-top: -17px;
         }
+
+
 
         .header table .info_bill b{
             font-family: 'Alata';
@@ -142,7 +144,8 @@ foreach($data as $row){
             font-family: 'Poppins';
         }
         .colm_sc{
-            text-align: right;
+            text-align: left;
+            padding-left: 100px !important;
         }
         .th__main_usr{
             border-bottom: 2px solid black;
@@ -201,23 +204,26 @@ foreach($data as $row){
             text-align: right  !important;
             font-family: 'Alata' !important;
         }
+        .name_tall{
+            font-size: 17px;
+        }
     </style>
     <body>
         <div class='header'>
-            <table>
+            <table class='table_infoo'>
                 <tr>
                     <td style='width: 300px;'>
                         <div class='head_con'><h2>COTIZACIÓN</h2></div>
                     </td>
                     <td class='info_lotus'>
-                        <b>Taller mecánico Lotus</b>  <br>
-                        <b>EMAIL: </b>  <br>
-                        <b>TÉLEFONO: </b>  <br>
-                        <b>NIT/CC: </b>  <br>
-                        Bogotá D.C
+                        <b class='name_tall'>Glory Store</b>  <br>
+                        <b>EMAIL: </b>   soporte@tallerglory.store<br>
+                        <b>TÉLEFONO: </b>  3102452756<br>
+                        <b>NIT/CC: </b>  80864878<br>
+                        CL 64 103A-33, Bogotá
                     </td>
                     <td style='width: 130px; text-align: center;'>
-                        <img src='https://raw.githubusercontent.com/HernanTo/lotus/master/assets/img/icons/LotusBills.png' alt='logo_lotus' class='logo__lotus'>
+                        <img src='https://raw.githubusercontent.com/HernanTo/lotus/master/assets/img/icons/LotusBills.jpg' alt='logo_lotus' class='logo__lotus'>
                     </td>
                 </tr>
                 <tr class='info_bill'>
