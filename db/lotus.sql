@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2023 a las 09:11:42
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 18-10-2023 a las 14:12:44
+-- Versión del servidor: 10.6.15-MariaDB-cll-lve
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `lotus`
+-- Base de datos: `u129291816_lotus`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +42,13 @@ CREATE TABLE `bill` (
   `descuento` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `bill`
+--
+
+INSERT INTO `bill` (`id`, `num_fact`, `total_prices`, `subtotal`, `amount`, `date`, `vendedor`, `cliente`, `state`, `state_page`, `iva`, `descuento`) VALUES
+(68, '00003', 300000, 300000, 6, '2023-10-18', 176, 186, 1, 'false', 'false', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +67,14 @@ CREATE TABLE `bill_has_product` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `bill_has_product`
+--
+
+INSERT INTO `bill_has_product` (`id_bill`, `id_product`, `price_u`, `amount`, `prices_total`, `mano_obra`, `descuento`, `prices_mano_obra`, `date`) VALUES
+(68, 68, 55000, 1, 55000, 0, '0', 0, '2023-10-18'),
+(68, 69, 65000, 1, 65000, 0, '0', 0, '2023-10-18');
+
 -- --------------------------------------------------------
 
 --
@@ -76,7 +91,7 @@ CREATE TABLE `bill_info` (
 --
 
 INSERT INTO `bill_info` (`id`, `can`) VALUES
-(1, 2);
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -120,6 +135,13 @@ CREATE TABLE `cotizaciones` (
   `iva` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `cotizaciones`
+--
+
+INSERT INTO `cotizaciones` (`id`, `num_fact`, `total_prices`, `subtotal`, `amount`, `date`, `vendedor`, `cliente`, `state`, `descuento`, `iva`) VALUES
+(13, '0014', 1130000, 1130000, 3, '2023-10-12', 176, 184, 1, 0, 'false');
+
 -- --------------------------------------------------------
 
 --
@@ -139,6 +161,15 @@ CREATE TABLE `cotizaciones_has_product` (
   `mano_obra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `cotizaciones_has_product`
+--
+
+INSERT INTO `cotizaciones_has_product` (`id_cotizacion`, `id_product`, `price_u`, `amount`, `stock`, `prices_total`, `descuento`, `date`, `prices_mano_obra`, `mano_obra`) VALUES
+(13, 65, 810000, 1, 1, 810000, '0', '2023-10-12', 0, 0),
+(13, 66, 175000, 1, 1, 175000, '0', '2023-10-12', 0, 0),
+(13, 67, 145000, 1, 1, 145000, '0', '2023-10-12', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -155,7 +186,7 @@ CREATE TABLE `cotizainfo` (
 --
 
 INSERT INTO `cotizainfo` (`id`, `can`) VALUES
-(1, 13);
+(1, 14);
 
 -- --------------------------------------------------------
 
@@ -177,14 +208,18 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `user`, `type`, `descr`, `date`, `model`) VALUES
-(323, 1, 2, 'Se creó un nuevo usuario', '2023-10-11 01:54:39', 2),
-(324, 1, 2, 'Se creó un nuevo producto', '2023-10-11 01:56:23', 1),
-(325, 1, 2, 'Se creó una nueva factura', '2023-10-11 01:56:37', 3),
-(326, 1, 1, 'Se editarón datos del producto 1', '2023-10-11 01:58:28', 1),
-(327, 1, 2, 'Se creó una nueva cotización', '2023-10-11 02:00:40', 6),
-(328, 1, 2, 'Se creó una nueva cotización', '2023-10-11 02:00:54', 6),
-(329, 1, 2, 'Se creó una nueva cotización', '2023-10-11 02:04:23', 6),
-(330, 1, 2, 'Se creó una nueva cotización', '2023-10-11 02:07:22', 6);
+(331, 176, 2, 'Se creó un nuevo usuario', '2023-10-12 10:43:29', 2),
+(332, 176, 2, 'Se creó un nuevo producto', '2023-10-12 10:57:14', 1),
+(333, 176, 2, 'Se creó un nuevo producto', '2023-10-12 10:59:11', 1),
+(334, 176, 2, 'Se creó un nuevo producto', '2023-10-12 11:06:00', 1),
+(335, 176, 2, 'Se creó una nueva cotización', '2023-10-12 11:06:50', 6),
+(337, 176, 1, 'Se editarón datos del usuario 1098488918', '2023-10-17 10:16:27', 2),
+(338, 176, 2, 'Se creó un nuevo usuario', '2023-10-18 07:10:42', 2),
+(339, 176, 2, 'Se creó un nuevo producto', '2023-10-18 07:15:53', 1),
+(340, 176, 2, 'Se creó un nuevo producto', '2023-10-18 07:20:44', 1),
+(341, 176, 1, 'Se editarón datos del producto 1', '2023-10-18 07:21:09', 1),
+(342, 176, 2, 'Se creó una nueva factura', '2023-10-18 07:27:22', 3),
+(343, 176, 1, 'Se editarón datos del usuario 8320102309', '2023-10-18 07:28:36', 2);
 
 -- --------------------------------------------------------
 
@@ -206,6 +241,17 @@ CREATE TABLE `producto` (
   `product_cost` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id`, `Barcode`, `num_repuesto`, `name_product`, `prices`, `amount`, `min_stock`, `state`, `photo`, `num_photo`, `product_cost`) VALUES
+(65, 7106191, '7106191ADU0100', 'Parachoques trasero GLORY 560', 810000, 1, 1, 1, '5360product.jpg', 5360, 0),
+(66, 3773050, '3773050', 'Antiniebla trasera GLORY 560', 175000, 1, 1, 1, '7339product.jpg', 7339, 0),
+(67, 5500062, '5500062', 'Luna Rueda trasera GLORY 560', 145000, 1, 1, 1, '3520product.jpg', 3520, 0),
+(68, 1, '000001', 'Tapa tarro Agua AVEO Original', 55000, 0, 1, 1, '3111product.jpg', 3111, 55000),
+(69, 2, '000002', 'Sensor Temperatura Motor GLORY 580', 65000, 0, 1, 1, '8607product.jpg', 8607, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -216,6 +262,17 @@ CREATE TABLE `product_has_category` (
   `id_product` int(11) NOT NULL,
   `id_category` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `product_has_category`
+--
+
+INSERT INTO `product_has_category` (`id_product`, `id_category`) VALUES
+(65, 7),
+(66, 7),
+(67, 7),
+(69, 4),
+(68, 4);
 
 -- --------------------------------------------------------
 
@@ -253,6 +310,16 @@ CREATE TABLE `service` (
   `state` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `service`
+--
+
+INSERT INTO `service` (`id`, `date`, `detail`, `price`, `service`, `state`) VALUES
+(71, '2023-10-18', 'Escaner de camioneta Glory 580 ESS426', 60000, 176, 1),
+(72, '2023-10-18', 'Cambio Sensor Temperatura GLORY 580 ESS426', 50000, 176, 1),
+(73, '2023-10-18', 'Cambio y reposición caucho termostato GLORY 580 ESS426', 25000, 176, 1),
+(74, '2023-10-18', 'Revisión estado Rodamientos delanteros GLORY 580 ESS426', 45000, 176, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -263,6 +330,16 @@ CREATE TABLE `service_has_bill` (
   `id_bill` int(11) DEFAULT NULL,
   `id_service` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `service_has_bill`
+--
+
+INSERT INTO `service_has_bill` (`id_bill`, `id_service`) VALUES
+(68, 71),
+(68, 72),
+(68, 73),
+(68, 74);
 
 -- --------------------------------------------------------
 
@@ -294,7 +371,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `cedula`, `ft_name`, `sd_name`, `fi_lastname`, `sc_lastname`, `nickname`, `password`, `phone`, `address`, `placa`, `modelo`, `email`, `photo`, `passchange`) VALUES
 (1, 1022330332, 'Hernan', '', 'Torres', 'Rodríguez', 'hernanto', '$2y$10$LvIrzQjLWfOmaweN86FIae.JldEALRtKiK1hOYzmiwFL5VCmMOWBW', 3132093326, 'Kra 90B', '', '', 'hernanto.ott@outlook.com', '1022330332.jpg', 1),
-(176, 80864878, 'Sebastián', 'Camilo ', 'Fajardo ', 'Torres', 'sebasfajar', '$2y$10$QeD/eIwgF7frOQMgS05d7ujQoJl9oh128BB0giFlqNtG6R9KW6huy', 3102452756, 'km4 variante cajica-zipaquira Reserva del lago TO7 APTO502', '0', '0', 'sebastianfajardof@gmail.com', 'default.png', 0);
+(176, 80864878, 'Sebastián', 'Camilo ', 'Fajardo ', 'Torres', 'sebasfajar', '$2y$10$QeD/eIwgF7frOQMgS05d7ujQoJl9oh128BB0giFlqNtG6R9KW6huy', 3102452756, 'km4 variante cajica-zipaquira Reserva del lago TO7 APTO502', '0', '0', 'sebastianfajardof@gmail.com', 'default.png', 0),
+(184, 1098488918, 'Dylan', 'Santiago', 'Florez', 'Infante', 'dylanflore', '$2y$10$H/e7I15xGSsTb68o/JkGqOqPsNIleGz8bbsYC/REOJkTGIMnqsBw6', 3182214719, 'Marsella Real Torre 1 aplto 306 bucaramanga', 'GZP805', 'GLORY 560', 'Dylan@notiene.com', 'default.png', 0),
+(186, 8320102309, 'Expreso ', '', 'Tocancipá S.A.S.', '', 'expretocan', '$2y$10$rgB./d3Bmc.NJzoO88sThuqFJM5Q2gE36lRnvqDleDdhIR9HPbNXq', 6018574128, 'CALLE 7A N ° 4 B 13, TOCANCIPA', 'ESS426', 'GLORY 580', 'gerencia@expresotocancipa.com', 'default.png', 0);
 
 -- --------------------------------------------------------
 
@@ -314,7 +393,9 @@ CREATE TABLE `user_has_role` (
 
 INSERT INTO `user_has_role` (`user_id`, `role_id`, `state`) VALUES
 (1, 1, 1),
-(176, 1, 1);
+(176, 1, 1),
+(184, 5, 1),
+(186, 5, 1);
 
 --
 -- Índices para tablas volcadas
@@ -429,7 +510,7 @@ ALTER TABLE `user_has_role`
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `bill_info`
@@ -447,7 +528,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT de la tabla `cotizaciones`
 --
 ALTER TABLE `cotizaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizainfo`
@@ -459,13 +540,13 @@ ALTER TABLE `cotizainfo`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=331;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=344;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `role`
@@ -477,13 +558,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT de la tabla `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- Restricciones para tablas volcadas

@@ -172,16 +172,14 @@ foreach($data as $row){
             background: rgba(201, 201, 201, 0.5);
         }
         .con_resumen{
-            height: 160px;
-            min-height: 155px;
+            min-height: 64px;
             max-height: 160px;
         }
         #table_rsume{
             width: 100%;
-            height: 100%;
+            min-height: 64px;
             border-top: 2px solid;
             page-break-inside: avoid
-
         }
         #table_rsume tr td{
             text-align: right;
@@ -244,26 +242,22 @@ foreach($data as $row){
                         <tr>
                             <td>
                                 <b>Nombre:</b> ". $row['nameLas'] ."
+                                <td class='colm_sc'><b>Modelo:</b>". $row['modelo'] ."</td>
                             </td>
-                            <td class='colm_sc'>
-                                <b>Marca:</b> 
-                            </td>
+
                         </tr>
                         <tr>
                             <td><b>Dirección: </b>Bogotá</td>
-                            <td class='colm_sc'><b>Modelo:</b>". $row['modelo'] ."</td>
+                            <td class='colm_sc'><b>Placa:</b>". $row['placa']. "</td>
                         </tr>
                         <tr>
-                            <td><b>NIT/CC:</b>73734384</td>
-                            <td class='colm_sc'><b>Año Módelo: </b></td>
+                            <td colspan='2'><b>NIT/CC:</b>73734384</td>
                         </tr>
                         <tr>
-                            <td><b>Teléfono: </b>326734674</td>
-                            <td class='colm_sc'><b>Color:</b></td>
+                            <td colspan='2'><b>Teléfono: </b>326734674</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class='colm_sc'><b>Placa:</b>". $row['placa']. "</td>
                         </tr>
                         <tr>
                             <td colspan='2'><b>Técnico/Vendedor: </b>$nameLastSeller</td>
@@ -278,7 +272,7 @@ foreach($data as $row){
                         <table class='table__b'>
                             <thead>
                                 <tr>
-                                    <th>PARTES</th>
+                                    <th>REPUESTO</th>
                                     <th>CANTIDAD</th>
                                     <th>PRECIO/U</th>
                                     <th>DESCUENTO %</th>
@@ -403,25 +397,28 @@ foreach($data as $row){
                         </table>
                     </div>";
                 }
-                $iva = $row['iva'] = 'true' ? $row['subtotal'] * 0.19 : 'No Aplica';
-                $descu = $subtDescu <= 0 ? 'No Aplica' : '- ' . $subtDescu;
 
                 $html .= "<div class='con_table con_resumen'>
                     <table id='table_rsume'>
                         <tr>
+                        </tr>";
+                        if($subtDescu > 0){
+                            $descu = '- ' . $subtDescu;
+                            $html .= "<tr>
+                                <td><b>DESCUENTO: </b> ". $descu ."</td>
+                            </tr>";
+                        }
+                        $html .=" <tr>
+                            <td><b>SUBTOTAL: </b> ". ($subTProd + $subTServ) - $subtDescu ."</td>
                         </tr>
-                        <tr>
-                            <td><b>SUBTOTAL SIN DESCUENTO:</b> ". ($subTProd + $subTServ) ."</td>
-                        </tr>
-                        <tr>
-                            <td><b>DESCUENTO: </b> ". $descu ."</td>
-                        </tr>
-                        <tr>
-                            <td><b>SUBTOTAL CON DESCUENTO: </b> ". ($subTProd + $subTServ) - $subtDescu ."</td>
-                        </tr>
-                        <tr>
-                            <td><b>IVA: </b> ". $iva ."</td>
-                        </tr>
+                        ";
+                        if($row['iva'] == 'true'){
+                            $iva = $row['subtotal'] * 0.19;
+                            $html .= "<tr>
+                                <td><b>IVA: </b> ". $iva ."</td>
+                            </tr>";
+                        }
+                        $html .= "
                         <tr>
                             <td><b>TOTAL: </b> ". $row['total_prices'] ."</td>
                         </tr>
