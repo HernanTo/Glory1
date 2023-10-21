@@ -6,11 +6,13 @@ body{
 }
 .header-directory{
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 190px 1fr;
     justify-content: center;
+    padding: 20px;
     row-gap: 10px;
     padding-top: 10px;
     background: #303841;
+    align-items: center;
 }
 .header-directory .con-logo-d{
     display: flex;

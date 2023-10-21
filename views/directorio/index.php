@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <div class="header-directory">
-            <div class="con-logo-d"><img src="../../assets/img/icons/Logo_glory.svg" alt="Glory Store"></div>
+            <div class="con-logo-d"><img src="../../assets/img/icons/logo_glory.svg" alt="Glory Store"></div>
             <div class="title-header"><h2>Listado de productos</h2></div>
         </div>
         <div class="con-products">
