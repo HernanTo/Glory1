@@ -23,11 +23,10 @@
         <div class="con-products">
             <?php
                 foreach($products as $product){
-                    $url = "../../assets/img/products/" . $product['photo'];
                     ?>
                         <div class="product">
                             <div class="img-product">
-                                <img src="<?php $url ?>" alt="">
+                                <img src="../../assets/img/products/<?php echo $product['photo'] ?>" alt="">
                             </div>
                             <div class="info_produc">
                                 <h2><?php echo $product['name_product'] ?></h2>
