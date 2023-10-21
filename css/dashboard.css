@@ -1,0 +1,357 @@
+.container-general{
+    display: grid;
+    grid-template-columns: 100%;
+    /* justify-content: center !important; */
+}
+.container-dash{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 85px 266.55px 275.8px;
+    row-gap: 25px;
+}
+
+.con-items-bill-s{
+    width: 100%;
+    background: rgba(9, 13, 62, 0.15);
+    border-radius: 12px;
+}
+.header-items-s{
+    border-bottom: 1px solid #505765;
+    display: flex;
+    padding: 16px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-items-s h2{
+    margin: 0px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    color: #505765;
+    font-size: 20px;
+}
+.header-items-s img{
+    width: 25px;
+}
+.body-items-sum{
+    padding: 15px 20px;
+    height: calc(100% - 53px);
+}
+.body-items-sum p{
+    margin: 0px;
+}
+.header-page-g{
+    display: grid;
+    grid-template-columns: 145px 150px;
+    grid-template-rows: 35px 35px;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 15px;
+    column-gap: 20px;
+}
+.con__add_item__dash{
+    border-radius: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s;
+}
+.con__add_item__dash:hover{
+    transform: scale(1.05);
+}
+.con__add_item__dash a{
+    text-decoration: none;
+    font-family: 'Nunito Sans';
+    font-weight: bold;
+    color: white;
+}
+.con__add_product{
+    background-color: #514E6D;
+}
+.con__add_bill{
+    background: #00458e;
+}
+.prod__low_st{
+    height: 100%;
+    overflow: auto;
+}
+.con__table{
+    /* background-color: red; */
+    text-align: center;
+    padding-bottom: 20px;
+    height: 100%;
+}
+.con__table__prod_low_st table{
+    min-width: 500px;
+    width: 100%;
+}
+.con__table__prod_low_st table tr th{
+    font-family: 'Nunito Sans';
+    color: #505765;
+    height: 50px;
+}
+.img__prod_lows{
+    max-height: 60px;
+    max-width: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+.name__prod_ls{
+    padding: 15px 20px;
+    font-family: 'Poppins';
+    display: grid;
+    font-weight: 700;
+    row-gap: 2px;
+    text-align: left;
+    font-size: 15px;
+}
+.name__prod_ls a{
+    text-decoration: none;
+    color: #505765;
+}
+.name__prod_ls a:hover, .num__refe__bill_p:hover{
+color: #00458e !important;
+}
+.name__prod_ls label{
+    display: flex;
+    column-gap: 10px;
+    font-weight: normal;
+    color: #505765;
+}
+.prices{
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+.row_prod_ls{
+    border-bottom: 2px dashed #505765;
+}
+.stock__prod_ls{
+    color: #9F0808;
+    font-family: 'Poppins';
+    font-style: bold;
+    font-size: 1.5rem;
+}
+.card_dash{
+    background: rgba(9, 13, 62, 0.15);
+    border-radius: 12px;
+    display: grid;
+    padding: 20px;
+    row-gap: 10px;
+}
+.card_dash .h__card_dash{
+    display: grid;
+    grid-template-columns: 1fr 80px;
+}
+.card_dash .h__card_dash h2{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 1.8rem;
+    display: flex;
+}
+.card_dash .h__card_dash h2 span{
+    font-size: 1.3rem;
+    color: #505765;
+}
+.card_dash .h__card_dash label{
+    color: #505765;
+    font-family: 'Nunito Sans';
+    font-size: 1.1rem;
+}
+.card_dash .b__card_dash{
+    width: 100% !important;
+    height: 100% !important; 
+}
+.charts_dash{
+    max-height: 100% !important;
+    max-width: 100% !important;
+}
+
+.body-items-fact{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#fact_est{
+    height: 225px;
+}
+.progress__dash img{
+    height: 20px;
+}
+.progress__dash{
+    display: flex;
+    column-gap: 10px;
+    border-radius: 10px;
+    align-items: center;
+    width: 80px;
+    justify-content: center;
+    font-family: 'Nunito Sans';
+    font-weight: bold;
+    height: 30px;
+}
+.progress_dash__down{
+    color: #f1416c;
+    background-color: #5c0707;
+}
+.progress_dash__up{
+    color: #50cd89;
+    background-color: #1c3238;
+}
+.src__card{
+    background: #505765;
+    color: white;
+    text-decoration: none;
+    font-family: 'Poppins';
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition: all 0.6s;
+}
+.src__card:hover{
+    transform: scale(1.05);
+}
+#item__ventas__stock{
+    max-height: 381px !important;
+}
+.body-items-fact__pend{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 75px;    
+    overflow-x: auto;
+}
+.bill_p{
+    display: grid;
+    grid-template-columns: 1fr 15px;
+    border-bottom: 1px solid #505765;
+}
+.body-items-fact__pend .state__bill{
+    background: rgba(255, 0, 0, 0.1);
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-column: 2/3;
+    border-radius: 0px 5px 5px 0px;
+}
+.info__sup__bill{
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+}
+.info__sup__bill .num__refe__bill_p{
+    font-family: 'Poppins';
+    font-weight: bold;
+    font-size: 21px;
+    padding-right: 10px;
+    border-right: 2px solid;
+    text-decoration: none;
+    transition: all .6s;
+    color: #505765;
+}
+.info__sup__bill .name__clikent_bill_p{
+    padding-left: 10px;
+    font-family: 'Nunito Sans';
+}
+.date__bill_p{
+    font-size: 17px;
+}
+.info__sup__bill .prices{
+    border-right: 2px solid;
+}
+@media (min-width: 719px){
+    #fact_est{
+        height: auto;
+    }
+    .container-dash {
+        grid-template-columns:1fr 1fr;
+        column-gap: 20px;
+    }
+    .header-page-g{
+        grid-column: 1/-1;
+    }
+    #item__ventas__stock{
+        grid-column: 1/3;
+    }
+    #item__ventas__mes{
+        grid-column: 1/3;
+    }
+    #fact_est{
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+}
+
+@media (min-width: 1280px){
+    .container-dash {
+        width: 100%;
+        padding: 0px 70px !important;
+        justify-content: center;
+        grid-template-columns: minmax(285px, 290px) repeat(2, 1fr);
+        /* grid-template-columns: ; */
+        grid-template-rows: auto repeat(6, 110.5px) ;
+        column-gap: 20px;   
+    }
+    #item__ventas__mes{
+        grid-column: 2/3;
+        grid-row: 2/4;
+    }
+    #card_gan{
+        grid-row: 2/4;
+    }
+    #item__ventas__mes{
+        grid-column: 2/4;
+        grid-row: 2/5;  
+    }
+    #fact_est{
+        grid-column: 1/2;
+        grid-row: 4/6;
+    }
+    #item__ventas__stock{
+        grid-column: 2/4;
+        grid-row: 5/8;
+    }
+    #fact_pend{
+        grid-row: 6/8;
+        grid-column: 1/2;
+    }
+    .body-items-fact__pend{
+        height: calc(100% - 60px);
+    }
+    .info__sup__bill{
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+    }
+    .info__sup__bill .num__refe__bill_p{
+        font-size: 17px;
+    }
+    .info__sup__bill .name__clikent_bill_p{
+        font-size: 14px;
+    }
+}
+@media(min-width: 1600px){
+    .container-dash {
+        grid-template-columns: 295px repeat(2, 1fr);
+    }
+    #item__ventas__mes{
+        grid-column: 1/3;
+        grid-row: 2/5;  
+    }
+    #item__ventas__stock{
+        grid-column: 3/4;
+        grid-row: 2/5;
+    }
+    #card_gan{
+        grid-row: 5/7;
+        grid-column: 1/2;
+    }
+    #fact_est{
+        grid-column: 2/3;
+        grid-row: 5/7;
+    }
+    #fact_pend{
+        grid-row: 5/7;
+        grid-column: 3/4;
+    }
+
+}

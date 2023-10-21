@@ -1,0 +1,419 @@
+.con-acount-general{
+    width: 100%;
+}
+.header-page-g .info-page{
+    display: grid;
+    grid-template-columns: 50%;
+    align-items: flex-start;
+}
+.header-page-g .info-page h2{
+    text-align: left;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+.info-general-u{
+    background: rgba(9, 13, 62, 0.15);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 25px 25px 0px 25px;
+    margin-top: 20px;
+    row-gap: 15px;
+    margin-bottom: 40px;
+}
+.con-picture-profi{
+    width: 100px;
+    height: 100px;
+}
+.con-picture-profi img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.con-info-u-b h2{
+    font-weight: 600;
+    font-size: 1.3rem;
+    font-family: 'Poppins';
+    margin-bottom: 15px;
+}
+.con-info-u-b p {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 10px;
+    font-family: 'Nunito Sans';
+    color: #514E6D;
+    font-style: italic;
+}
+.con-info-u-b p img{
+    width: 20px;
+}
+.acti-acco{
+    display: flex;
+    column-gap: 20px;
+}
+.acti-acco a{
+    background: #00458e;
+    padding: 5px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Poppins';
+}
+.logouit-accout{
+    background: #514E6D !important;
+}
+.con-src-accounts{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    margin-top: 10px;
+}
+.con-src-accounts a{
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+
+    color: #514E6D;
+    font-family: 'Poppins';
+    border-bottom: 3px solid transparent;
+    font-weight: 560;
+    transition: all 0.3s;
+    border-radius: 10px 10px 0px 0px;
+}
+.acco-active{
+    border-bottom: 3px solid #00458e !important;
+    color: #00458e !important;
+}
+.con-src-accounts a:hover{
+    border-bottom: 3px solid #00458e !important;
+    
+}
+.alert-heading {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    font-family: 'Poppins';
+}
+.alert-heading img{
+    width: 30px;
+}
+.text-alert-war{
+    margin: 0px;
+    font-family: 'Nunito Sans';
+}
+.main-sec-acco{
+    background: rgba(9, 13, 62, 0.15);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 100%;
+}
+.header-sec-ac{
+    display: grid;
+    grid-template-columns: 30px 90px 1fr minmax(100px, 130px);
+    align-items: center;
+    column-gap: 15px;
+    padding: 15px 25px;
+    border-bottom: 1px solid #514E6D;
+}
+.header-sec-ac img{
+    width: 100%;
+}
+.header-sec-ac h2{
+    margin: 0px;
+    font-family: 'Poppins';
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2px;
+}
+.header-sec-ac a{
+    background: #514E6D;
+    text-decoration: none;
+    padding: 5px 10px;
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    font-family: 'Nunito Sans';
+}
+.content-sec-ac{
+    padding: 25px;
+}
+.con-detail-us{
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 0px;
+}
+.con-detail-us label{
+    color: #514E6D;
+    font-size: 15px;
+    font-family: 'Nunito Sans';
+    padding: 0px;
+    margin: 0px;
+}
+.con-detail-us span{
+    font-size: 17px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    color: black;
+    margin-top: -2px;
+    margin-bottom: 10px;
+}
+.alert-warning{
+    margin: 0px !important;
+    border-radius: 15px;
+    padding: 25px;
+}
+.header-ac{
+    grid-template-columns: 30px 1fr;
+}
+.con-img-prof-e{
+    position: relative;
+    width: 125px;
+    height: 125px;
+}
+.trash-pic {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: #00458e;
+    cursor: pointer;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+.trash-pic img{
+    width: 13px;
+}
+.edit-profile-img{
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.edit-picture-profi{
+    background: white;
+    border-radius: 50%;
+    margin: 0px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 112px;
+    right: -8px;
+}
+.edit-picture-profi img{
+    width: 100%;
+}
+.con-detail-us-f section label{
+    font-family: 'Poppins';
+    font-weight: 550;
+    margin-bottom: 15px;
+}
+.con-detail-us-f section{
+    display: grid;
+    grid-template-columns: 100%;
+    margin-top: 20px;
+}
+.con-detail-us-f section input, #form-change-password .con-sub-edi-p input, .con-sub-edi-p input{
+    height: 45px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background: #5057653a;
+    font-family: 'Nunito Sans';
+}
+.con-detail-us-f .con-sub-edi-p, #form-change-password .con-sub-edi-p, .con-sub-edi-p{
+    display: grid;
+    grid-template-columns: 190px;
+    justify-content: center;
+}
+.con-detail-us-f .con-sub-edi-p input, #form-change-password .con-sub-edi-p input, .con-sub-edi-p input{
+    padding: 0px;
+    background: #00458ec2;
+    font-weight: 600;
+    color: white;
+    font-family: 'Poppins';
+}
+.modal_erro_img{
+    display: grid;
+    justify-items: center;
+
+}
+.modal_erro_img img{ 
+    width: 85px;
+}
+.modal_erro_img h4{
+    font-weight: 650;
+    font-family: 'Poppins';
+    color: #f44336;
+    margin: 0px;
+    margin-top: 10px;
+}
+.modal_erro_img p{
+    margin: 0px;
+    margin-top: 10px;
+    font-family: 'Nunito Sans';
+    font-weight: 550;
+}
+.foo-modal-err{
+    display: flex;
+    justify-content: center !important;
+}
+.close-modal-err{
+    background: #009ef7;
+    color: black;
+    font-family: 'Poppins';
+}
+.change-pass-src{
+    background: #00458ec2;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'Poppins';
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 12px;
+}
+.btn-elim-user{
+    background-color: #f4433656 !important;
+    color: #000 !important;
+    font-family: 'Poppins';
+    font-weight: 650;
+    cursor: pointer;
+}
+#form-change-password{
+   display: grid;
+   row-gap: 20px;
+}
+#form-change-password section .form-control{
+    height: 45px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background-color: #5057653a;
+    font-family: 'Nunito Sans';
+}
+#form-change-password section label{
+    font-family: 'Poppins';
+    font-weight: 550;
+    margin-bottom: 15px;
+}
+@media (min-width: 719px){
+    .con-acount-general{
+        padding-left: 70px !important;
+        padding-right: 70px !important;
+    }
+    .info-general-u{
+        grid-template-columns: 100px 1fr;
+        column-gap: 30px;
+    }
+    .con-info-u-b{
+        display: grid;
+        grid-template-columns: auto auto auto;   
+        grid-template-rows: 45px 30px;
+        align-items: center;
+    }
+    .con-info-u-b h2{
+        grid-column: 1/4;
+        margin: 0px;
+        font-size: 1.5rem;
+    }
+    .con-info-u-b p{
+        margin: 0px;
+    }
+    .acti-acco{
+        grid-column: 1/4;
+    }
+    .con-detail-us{
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        row-gap: 10px;
+    }
+    .content-sec-ac{
+        display: grid;
+        row-gap: 20px;
+    }
+    .con-detail-us span{
+        margin: 0px;
+    }
+    .con-src-accounts{
+        grid-column: 1/3;
+        display: flex;
+    }
+    .con-detail-us-f .edit-two-c-ac{
+        display: grid;
+        grid-template-columns: 210px 1fr;
+    }
+    .con-detail-us-f .edit-thre-c-ac{
+        display: grid;
+        grid-template-columns: 210px 1fr 1fr;
+    }
+    #sd_name, #sc_lastname{
+        margin-left: 20px !important;
+    }
+    #form-change-password{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 20px;
+    }
+    .all-col-edit-ps{
+        grid-column: 1/3;
+    }
+    .con-btn-pass{
+        grid-column: 1/3;
+    }
+}
+
+
+@media (min-width: 1300px){
+    .con-acount-general{
+        padding: 0px 70px;
+    }
+    .info-general-u{
+        grid-template-columns: 160px 1fr 130px;
+        column-gap: 30px;
+    }
+    .con-picture-profi{
+        width: 160px;
+        height: 160px;
+    }
+    .con-info-u-b{
+        display: grid;
+        grid-column: 2/3 ;
+        grid-template-columns: 100% !important;   
+        grid-template-rows: 45px 30px 30px 30px;
+    }
+    .con-info-u-b p{
+        grid-column: 1/3;
+    }
+    .acti-acco{
+        display: grid;
+        grid-column: 3/4;
+        height: 100%;
+        grid-template-rows: 30px 30px;
+        row-gap: 10px;
+        text-align: center;
+    }
+    #form-change-password{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 20px;
+    }
+    .all-col-edit-ps{
+        grid-column: 1/2;
+    }
+    .con-btn-pass{
+        grid-column: 1/4;
+    }
+}
+

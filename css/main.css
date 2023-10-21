@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+.con-main-gest{
+    min-height: 100vh;
+    background: #000329;
+    min-width: 280px;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+    align-items: center;
+}
+:root{
+    --color-text-light: #fff;
+    --color-backg-light: #D9D9D9;
+    --color-main-light: rgba(0, 3, 41, 1);
+}
+.con-main-general{
+    min-width: 280px;
+}
+.img-lotus-toas{
+    width: 25px;
+}
+.toast-lotus .toast-header{
+    background-color:rgba(0, 3, 41, 0.7) !important;
+    border-bottom: 2px solid rgba(201, 201, 201, 0.5) !important;
+    height: 100%;
+}
+.toast-lotus .toast-header .me-auto{
+    font-family: 'Poppins' !important;
+    font-weight: bold;
+    color: white;
+}
+.toast-lotus .toast-header small{
+    color: white !important;
+    font-family: 'Nunito Sans';
+}
+.toast-lotus .toast-body{
+    background: rgba(0, 3, 41, 0.7) !important;
+    color: white;
+    font-family: 'Nunito Sans';
+    border-radius: 0px 0px 10px 10px;
+    height: 100%;
+}
+.header-page-g h2{
+    font-family: 'Poppins';
+    font-weight: 650;
+    text-align: center;
+    margin-top: 20px;
+}
+.header-page-g h2 img {
+    height: 30px;
+}
+/* img {
+    pointer-events: none !important;
+  } */
