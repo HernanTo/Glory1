@@ -39,8 +39,9 @@
             $img_action = $_POST['changepicturestate'];
             $id = $_POST['id'];
             $product_cost = $_POST['product_cost'];
+            $desc = $_POST['desc'];
             $Product = new Product;
-            $Product->update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $img_action, $id, $product_cost);
+            $Product->update($name_product, $barcode, $photo_product, $stock, $category, $price_product, $num_repuesto, $min_stock, $img_action, $id, $product_cost, $desc);
 
             header('Location: ../views/product/');
         }

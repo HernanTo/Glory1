@@ -93,7 +93,6 @@
                                     <p style="grid-column: 1/3; margin: 0px">Estado</p>
                                     <h5><?php  echo $row['state'] == 1 ? 'Activo' : 'Inactivo' ?></h5>
                                 </span>
-                                
 
                             </div>
                         </div>
@@ -154,6 +153,17 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="container-table-product" id="con-desc">
+                    <h2>Descripción del producto</h2>
+                    <hr>
+                    <?php  
+                        if(strlen($row['desc']) <= 0){
+                            echo "<< Sin descripción >>";
+                        }else{
+                            echo $row['desc'];
+                        }
+                    ?>
                 </div>
             </div>
         </div>

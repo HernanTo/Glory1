@@ -1,13 +1,14 @@
-    $("input[data-type='currency']").on({
-      keyup: function() {
-        formatCurrency($(this));
-      },
-      blur: function() { 
-        formatCurrency($(this), "blur");
-      }
-    });
-
-
+    
+$( document ).ready(function() {
+  $("input[data-type='currency']").on({
+    keyup: function() {
+      formatCurrency($(this));
+    },
+    blur: function() { 
+      formatCurrency($(this), "blur");
+    }
+  });
+});
     function formatNumber(n) {
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }

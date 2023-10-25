@@ -37,7 +37,8 @@
     <link rel="stylesheet" href="../../css/component.css">
     <!-- ** Main Css -->
     <!-- Css page -->
-    <link rel="stylesheet" href="../../css/editProduct.css">    
+    <link rel="stylesheet" href="../../css/editProduct.css">   
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> 
     <!-- Css page -->
 
 </head>
@@ -154,9 +155,24 @@
                                 <img src="../../assets/img/icons/box-open-full.svg" alt="" class="ico-in">
                             </div>
                         </section>
+                        <section class="sect-form-p sect-form-down">
+                            <div class="divider-form">
+                                <h3>Editar información del producto 
+                                    </h3>
+                                    <img src="../../assets/img/icons/rectangle-list.svg" alt="">
+                            </div>
+                            <div class="body-sec">
+                                <input type="text" id="desc" style="display: none;" name="desc">
+                                <div id="editor">
+                                            <?php echo $row['desc'] ?>
+                                </div>
+                                <br><br><br>
+                            </div>
+                        </section>
+
 
                         <section class="foo-add-u">
-                            <button type="submit">Editar</button>
+                            <button type="submit" onclick="jsSave()">Editar</button>
                             <a href="./product.php?id=<?php echo $row['id'] ?>">Volver</a>
                         </section>
                     </form>
@@ -191,6 +207,7 @@
     <script src="../../libs/selects/select2.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/editproduct.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -201,6 +218,18 @@
                 allowClear: true
             });
         });
+    </script>
+
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        function jsSave(){
+            let contenido = quill.container.firstChild.innerHTML;
+            console.log(contenido);
+            document.getElementById('desc').value = contenido;
+        }
     </script>
     <!-- scripts main -->
 </body>
